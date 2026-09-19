@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pasaporte de Innovación • Grado 11-4 | Desafío de Software</title>
+  <meta name="description" content="Juego interactivo y pasaporte de acreditación de software para explorar los 7 proyectos creados por la cohorte 11-4.">
+
+  <!-- Tipografías Google Fonts: Plus Jakarta Sans y JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Estilos del Juego -->
+  <link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+
+  <!-- Capas de Fondo Dinámico con Blur y Transparencia -->
+  <div class="ambient-backdrop">
+    <div id="game-bg-slide-1" class="ambient-backdrop-img active" style="background-image: url('assets/images/tecnologia.jpeg');"></div>
+    <div id="game-bg-slide-2" class="ambient-backdrop-img"></div>
+  </div>
+  <div class="ambient-overlay"></div>
+  <div class="ambient-tech-grid"></div>
+
+  <!-- Contenedor Principal del Juego -->
+  <div class="game-wrapper">
+
+    <!-- Header del Juego -->
+    <header class="game-header">
+      <div class="header-brand">
+        <div class="logo-wrapper">
+          <img src="assets/images/logo.jpeg" alt="Logo Media Técnica 11-4">
+        </div>
+        <div class="brand-meta">
+          <h1>PASAPORTE 11-4 <span class="badge-mission">Misión Interactiva</span></h1>
+          <p>Acredita tu recorrido superando los 7 desafíos de software</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <button id="toggle-sound-btn" class="btn-header" title="Activar / Silenciar Efectos">
+          <i class="fa-solid fa-volume-high"></i>
+          <span id="sound-label">Audio ON</span>
+        </button>
+
+        <button id="open-passport-btn" class="btn-header btn-passport" title="Abrir mi Pasaporte">
+          <i class="fa-solid fa-passport"></i>
+          <span>Pasaporte:</span>
+          <span id="passport-stamp-count" class="passport-stamp-badge">0 / 7</span>
+        </button>
+
+        <a href="proyects.html" class="btn-header" title="Volver a la Muestra Técnica">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Catálogo Técnico</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Escenario Principal del Juego -->
+    <main class="game-stage-grid">
+
+      <!-- Panel Izquierdo: Video Demostrativo y Misión -->
+      <section class="mission-video-card" aria-label="Demostración y Misión">
+        <div class="mission-header-bar">
+          <span id="mission-dest-pill" class="mission-dest-pill">DESTINO 01 • VITLINE</span>
+          <span id="dest-status-badge" class="dest-status-badge">
+            <i class="fa-regular fa-circle-dot"></i> <span>Pendiente de Sello</span>
+          </span>
+        </div>
+
+        <div class="video-container">
+          <video id="game-video" playsinline controls preload="auto"></video>
+        </div>
+
+        <div class="mission-briefing">
+          <h3 id="briefing-title"><i class="fa-solid fa-plane-departure"></i> VitLine Airlines</h3>
+          <p id="briefing-desc">Observa el video de la plataforma de reserva de vuelos y luego resuelve el desafío de despacho para estampar tu sello oficial.</p>
+          <div class="mission-req-box">
+            <i class="fa-solid fa-gamepad"></i>
+            <span id="briefing-req">Desafío: Despacha un vuelo seleccionando ruta y clase comercial.</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Panel Derecho: Minijuego Interactivo Temático -->
+      <section class="game-play-card" aria-label="Área de Minijuego">
+        <div class="game-title-bar">
+          <div>
+            <h2 id="minigame-title"><i class="fa-solid fa-radar"></i> Torre de Despacho Aéreo</h2>
+            <span id="minigame-subtitle" style="font-size: 0.78rem; color: var(--text-muted);">Simulador de Vuelo VitLine</span>
+          </div>
+          <span id="minigame-badge" class="game-instructions-badge">1 Reto Rápido</span>
+        </div>
+
+        <!-- Área Dinámica donde se inyecta el minijuego -->
+        <div id="interactive-arena" class="interactive-arena">
+          <!-- Contenido dinámico del minijuego -->
+        </div>
+
+        <!-- Barra inferior de validación y sello -->
+        <div class="game-footer-actions">
+          <div id="stamp-award-alert" class="stamp-award-alert">
+            <i class="fa-solid fa-certificate"></i>
+            <span>¡Desafío superado con éxito! Sello desbloqueado.</span>
+          </div>
+
+          <button id="claim-stamp-btn" class="btn-stamp-action" disabled>
+            <i class="fa-solid fa-stamp"></i>
+            <span id="claim-stamp-text">Estampar Sello</span>
+          </button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Dock Inferior: Selector de los 7 Destinos -->
+    <nav class="destinations-dock" aria-label="Navegador de Destinos">
+      <div class="dest-dock-header">
+        <span><i class="fa-solid fa-route"></i> Ruta de Destinos Tecnológicos (11-4)</span>
+        <span>Haz clic en un destino para explorar su minijuego</span>
+      </div>
+
+      <div id="dock-items-row" class="dock-items-row">
+        <!-- Generado dinámicamente -->
+      </div>
+    </nav>
+
+  </div>
+
+  <!-- MODAL 1: PASAPORTE / BOARDING PASS DIGITAL -->
+  <div id="passport-modal" class="modal-backdrop">
+    <div class="passport-card-modal">
+      <div class="passport-modal-header">
+        <div class="passport-badge-title">
+          <div class="logo-wrapper" style="width: 44px; height: 44px;">
+            <img src="assets/images/logo.jpeg" alt="Logo 11-4">
+          </div>
+          <div>
+            <h2>PASAPORTE DE INNOVACIÓN</h2>
+            <p>Acreditación Oficial de Evaluador de Software • Grado 11-4</p>
+          </div>
+        </div>
+
+        <button id="close-passport-btn" class="close-modal-btn" title="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="passport-passenger-bar">
+        <div class="passenger-input-wrap">
+          <span style="font-size: 0.8rem; color: var(--text-muted);"><i class="fa-solid fa-user-check"></i> Pasajero / Evaluador:</span>
+          <input type="text" id="passenger-name-input" class="passenger-name-input" value="Evaluador Oficial 11-4" maxlength="28" title="Escribe tu nombre">
+        </div>
+        <div style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--blue-accent);">
+          Progreso: <strong id="passport-progress-pct">0%</strong>
+        </div>
+      </div>
+
+      <!-- Grilla de los 7 Sellos Oficiales -->
+      <div id="stamps-slots-grid" class="stamps-slots-grid">
+        <!-- Renderizado dinámicamente -->
+      </div>
+
+      <!-- Banner que aparece al completar los 7 sellos -->
+      <div id="vip-reward-banner" class="vip-reward-banner">
+        <h3><i class="fa-solid fa-trophy"></i> ¡FELICITACIONES! HAS COMPLETADO LA MISIÓN 11-4</h3>
+        <p style="font-size: 0.84rem; color: #fef08a;">Has verificado y aprobado los 7 proyectos de software de la media técnica.</p>
+        <button id="open-vip-btn" class="btn-open-vip"><i class="fa-solid fa-door-open"></i> Entrar a la Sala VIP (Detrás del Código)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: SALA VIP / DETRÁS DEL CÓDIGO (FOTOS Y RECONOCIMIENTO) -->
+  <div id="vip-modal" class="modal-backdrop">
+    <div class="passport-card-modal" style="max-width: 920px;">
+      <div class="passport-modal-header">
+        <div class="passport-badge-title">
+          <i class="fa-solid fa-graduation-cap" style="font-size: 1.8rem; color: var(--gold-accent);"></i>
+          <div>
+            <h2 style="color: var(--gold-accent);">SALA VIP • DETRÁS DEL CÓDIGO 11-4</h2>
+            <p>Laboratorio de Software • Institución Educativa</p>
+          </div>
+        </div>
+
+        <button id="close-vip-btn" class="close-modal-btn" title="Cerrar"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.5;">
+        Gracias por tomarte el tiempo de jugar, interactuar y evaluar cada una de las 7 aplicaciones creadas por los estudiantes del grado <strong>11-4</strong>. Detrás de cada línea de código en PHP, MySQL, CSS y JavaScript hay horas de trabajo en equipo, resolución de problemas y pasión por la tecnología.
+      </p>
+
+      <!-- Galería de Fotos del Laboratorio -->
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-top: 0.5rem;">
+        <div style="height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+          <img src="assets/images/tecnologia.jpeg" style="width: 100%; height: 100%; object-fit: cover;" alt="Clase de software">
+        </div>
+        <div style="height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+          <img src="assets/images/aprender.jpeg" style="width: 100%; height: 100%; object-fit: cover;" alt="Estudiantes programando">
+        </div>
+        <div style="height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+          <img src="assets/images/juntos.jpeg" style="width: 100%; height: 100%; object-fit: cover;" alt="Trabajo en equipo">
+        </div>
+        <div style="height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+          <img src="assets/images/oportunidades.jpeg" style="width: 100%; height: 100%; object-fit: cover;" alt="Innovación">
+        </div>
+        <div style="height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+          <img src="assets/images/quehacemos.jpeg" style="width: 100%; height: 100%; object-fit: cover;" alt="Desarrollo">
+        </div>
+        <div style="height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
+          <img src="assets/images/catalina.jpeg" style="width: 100%; height: 100%; object-fit: cover;" alt="Laboratorio">
+        </div>
+      </div>
+
+      <div style="text-align: center; margin-top: 1rem;">
+        <button onclick="window.print()" class="btn-stamp-action" style="background: linear-gradient(135deg, var(--gold-accent), #f59e0b); color: #030712;">
+          <i class="fa-solid fa-print"></i> Imprimir o Guardar mi Certificado 11-4
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Motor Lógico del Juego -->
+  <script src="js/game.js"></script>
+</body>
+</html>

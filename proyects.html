@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Muestra de Proyectos • Grado 11-4 | Media Técnica en Software</title>
+  <meta name="description" content="Presentación interactiva de los proyectos de desarrollo de software creados por los estudiantes del grado 11-4.">
+
+  <!-- Tipografías Google Fonts: Plus Jakarta Sans y JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FontAwesome 6 CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Estilos de la Presentación -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Capas de Fondo Dinámico con Blur y Transparencia -->
+  <div class="ambient-backdrop">
+    <div id="bg-slide-1" class="ambient-backdrop-img active" style="background-image: url('assets/images/tecnologia.jpeg');"></div>
+    <div id="bg-slide-2" class="ambient-backdrop-img"></div>
+  </div>
+  <div class="ambient-overlay"></div>
+  <div class="ambient-tech-grid"></div>
+
+  <!-- Contenedor Principal de la Aplicación -->
+  <div class="app-wrapper">
+
+    <!-- Header Institucional -->
+    <header class="site-header">
+      <div class="header-brand">
+        <div class="shield-wrapper">
+          <img src="assets/images/logo.jpeg" alt="Logo Media Técnica 11-4">
+        </div>
+        <div class="brand-meta">
+          <h1>MUESTRA DE PROYECTOS <span class="badge-cohort">11-4</span></h1>
+          <p>Media Técnica en Desarrollo de Software • Portafolio de Aplicaciones</p>
+        </div>
+      </div>
+
+      <div class="header-controls">
+        <a href="juego.html" class="game-link-badge" title="Iniciar Pasaporte de Minijuegos">
+          <i class="fa-solid fa-gamepad"></i>
+          <span>Pasaporte & Juegos</span>
+        </a>
+
+        <div class="presentation-counter">
+          <span>Proyecto</span>
+          <strong id="current-index">1</strong>
+          <span>de</span>
+          <span id="total-count">7</span>
+        </div>
+
+        <button id="prev-project-btn" class="btn-icon" title="Proyecto Anterior (←)" aria-label="Anterior">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button id="next-project-btn" class="btn-icon" title="Siguiente Proyecto (→)" aria-label="Siguiente">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <button id="app-fullscreen-btn" class="btn-icon" title="Pantalla Completa" aria-label="Pantalla Completa">
+          <i class="fa-solid fa-expand"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Escenario Principal: Teatro de Video y Ficha Técnica -->
+    <main class="presentation-stage">
+
+      <!-- Teatro de Video -->
+      <section class="video-theater" aria-label="Reproductor de Video del Proyecto">
+        <div class="video-header-bar">
+          <div class="video-title-wrap">
+            <div class="live-indicator">
+              <span class="pulse-dot"></span>
+              <span>Demostración en Video</span>
+            </div>
+          </div>
+          <span class="video-resolution">MP4 • 1080P HD</span>
+        </div>
+
+        <div class="video-frame-container">
+          <!-- Video Activo -->
+          <video id="project-video" class="video-element" playsinline preload="auto"></video>
+
+          <!-- Interfaz Placeholder para Proyectos en Espera de Video -->
+          <div id="video-placeholder" class="video-placeholder-ui">
+            <div class="placeholder-icon-wrap">
+              <i class="fa-solid fa-film"></i>
+            </div>
+            <h3 id="placeholder-title">Proyecto en Desarrollo</h3>
+            <p id="placeholder-text">La demostración audiovisual se encuentra en fase de compilación y pruebas por el equipo de 11-4.</p>
+            <div class="status-badge-pending">
+              <i class="fa-solid fa-clock"></i>
+              <span>Grabación y Carga en Proceso</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controles Personalizados de Video -->
+        <div id="video-controls-bar" class="video-custom-controls">
+          <button id="play-pause-btn" class="ctrl-btn" title="Reproducir / Pausar" aria-label="Play">
+            <i class="fa-solid fa-play"></i>
+          </button>
+
+          <div id="progress-container" class="progress-container" title="Línea de tiempo">
+            <div id="progress-bar" class="progress-bar-fill"></div>
+          </div>
+
+          <span id="time-display" class="time-stamp">00:00 / 00:00</span>
+
+          <button id="mute-btn" class="ctrl-btn" title="Silenciar / Activar Sonido" aria-label="Sonido">
+            <i class="fa-solid fa-volume-high"></i>
+          </button>
+
+          <button id="video-fullscreen-btn" class="ctrl-btn" title="Pantalla Completa de Video" aria-label="Pantalla Completa">
+            <i class="fa-solid fa-expand"></i>
+          </button>
+        </div>
+      </section>
+
+      <!-- Ficha Técnica Sintética (Cómo se hizo) -->
+      <aside class="tech-sheet-card" aria-label="Ficha Técnica del Proyecto">
+        <div>
+          <div class="sheet-header">
+            <div class="sheet-badge-group">
+              <span id="project-id-badge" class="project-id-badge">PROYECTO 01</span>
+              <span id="project-category-badge" class="project-category-badge">Sistema Web Full-Stack</span>
+            </div>
+            <h2 id="project-title" class="project-title">VitLine</h2>
+            <p id="project-tagline" class="project-tagline">Plataforma de Reserva de Vuelos y Gestión Aeronáutica</p>
+          </div>
+
+          <!-- Resumen de Elaboración Sintético y Serio -->
+          <div class="development-summary">
+            <div class="summary-block">
+              <div class="summary-icon">
+                <i class="fa-solid fa-bullseye"></i>
+              </div>
+              <div class="summary-content">
+                <h4>Propósito y Enfoque</h4>
+                <p id="summary-purpose">Cargando información del proyecto...</p>
+              </div>
+            </div>
+
+            <div class="summary-block">
+              <div class="summary-icon">
+                <i class="fa-solid fa-sitemap"></i>
+              </div>
+              <div class="summary-content">
+                <h4>Arquitectura</h4>
+                <p id="summary-architecture">Cargando arquitectura...</p>
+              </div>
+            </div>
+
+            <div class="summary-block">
+              <div class="summary-icon">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <div class="summary-content">
+                <h4>Seguridad y Base de Datos</h4>
+                <p id="summary-security">Cargando detalles de seguridad...</p>
+              </div>
+            </div>
+
+            <div class="summary-block">
+              <div class="summary-icon">
+                <i class="fa-solid fa-layer-group"></i>
+              </div>
+              <div class="summary-content">
+                <h4>Módulos Operativos</h4>
+                <p id="summary-features">Cargando módulos funcionales...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stack Tecnológico -->
+        <div class="stack-section">
+          <div class="stack-title">Tecnologías y Estándares</div>
+          <div id="stack-tags" class="stack-tags"></div>
+        </div>
+      </aside>
+
+    </main>
+|2
+    <!-- Barra Dock Inferior (Selector de los 7 Proyectos) -->
+    <nav class="dock-navigation-section" aria-label="Selector de Proyectos">
+      <div class="dock-header">
+        <div class="dock-header-title">
+          <i class="fa-solid fa-table-cells-large"></i>
+          <span>Catálogo de Proyectos Desarrollados</span>
+        </div>
+        <div class="dock-keyboard-hint">
+          <i class="fa-regular fa-keyboard"></i>
+          <span>Usa <span class="kbd-badge">←</span> <span class="kbd-badge">→</span> o <span class="kbd-badge">Espacio</span></span>
+        </div>
+      </div>
+
+      <div id="dock-projects-grid" class="dock-projects-grid">
+        <!-- Renderizado dinámico desde script.js -->
+      </div>
+    </nav>
+
+    <!-- Footer Discreto -->
+    <footer class="site-footer">
+      <div class="footer-credits">
+        <i class="fa-solid fa-graduation-cap"></i>
+        <span>Media Técnica en Desarrollo de Software • Cohorte Grado 11-4</span>
+      </div>
+      <div>
+        <span>Plataforma de Presentación Interactiva</span>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Script Controlador -->
+  <script src="js/script.js"></script>
+</body>
+</html>
