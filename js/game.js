@@ -253,16 +253,16 @@ document.addEventListener('DOMContentLoaded', () => {
       category: 'Cuidado Estético & Spa',
       videoSrc: 'glowsmecpage.mp4',
       bgImage: 'assets/images/oportunidades.jpeg',
-      icon: 'fa-scissors',
+      icon: 'fa-spray-can-sparkles',
       briefing: {
         title: 'GlowSmec Salón & Spa',
-        desc: 'Plataforma de belleza profesional. Supera los 5 estilos de corte con silueta realista de rostro y cabello. Mantén el pulso fino: ¡salirte del trazo penaliza alargando el recorrido!',
-        req: 'Completa los 5 cortes con pulso firme. Salirte del trazo hará más largo el corte.'
+        desc: 'Simulador de atención rápida al estilo Cooking Diner. Atiende a los 10 clientes que van llegando a la peluquería entregándoles los cosméticos que solicitan antes de que se agoten sus 15 segundos.',
+        req: 'Atiende a los 10 clientes del salón entregando sus cosméticos a tiempo (15 segundos por cliente).'
       },
       game: {
-        title: '5 Desafíos de Corte de Precisión',
-        subtitle: 'Corte Realista & Penalización Dinámica',
-        badge: '5 Estilos con Rostro'
+        title: 'Atención en Salón de Belleza',
+        subtitle: 'Estilo Cooking Diner • 10 Clientes • 15s por Pedido',
+        badge: '10 Clientes (15s)'
       }
     },
     {
@@ -673,7 +673,7 @@ document.addEventListener('DOMContentLoaded', () => {
         buildDaluluMaze();
         break;
       case 'glowsmec':
-        buildGlowsmecPrecision();
+        buildGlowsmecSalon();
         break;
       case 'greentask':
         buildGreenTaskSnake();
@@ -1207,471 +1207,273 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================================================================
   // 3. GLOWSMEC: 5 NIVELES DE PRECISIÓN DE CORTE (ESTILO SQUID GAME DALGONA)
   // =========================================================================
-  function buildGlowsmecPrecision() {
-    const HAIRCUT_LEVELS = [
-      { name: 'Nivel 1: Flequillo Recto & Bob', curveType: 'straight_arc' },
-      { name: 'Nivel 2: Fade Degradado Lateral', curveType: 'fade_down' },
-      { name: 'Nivel 3: Perfilado de Barba & Patilla', curveType: 'beard_angle' },
-      { name: 'Nivel 4: Diseño Freestyle Barber', curveType: 'wave_zigzag' },
-      { name: 'Nivel 5: Pompadour Estilizado GlowSmec', curveType: 'pompadour_crest' }
+  // =========================================================================
+  // 3. GLOWSMEC: ATENCIÓN A CLIENTES • ESTILO COCINA / SALON DASH (10 CLIENTES • 15s)
+  // =========================================================================
+  function buildGlowsmecSalon() {
+    const TOTAL_CLIENTS_GOAL = 10;
+    const PATIENCE_TIME = 15.0; // 15 segundos exactos por cliente
+
+    const COSMETICS = [
+      { id: 'shampoo', name: 'Champú Keratina', icon: '🧴', color: '#06b6d4' },
+      { id: 'mascarilla', name: 'Mascarilla Spa', icon: '🌿', color: '#10b981' },
+      { id: 'tinte', name: 'Tinte Glow Rosa', icon: '🎨', color: '#ec4899' },
+      { id: 'cera', name: 'Cera Modeladora', icon: '💈', color: '#3b82f6' },
+      { id: 'tijeras', name: 'Tijeras Barber', icon: '✂️', color: '#64748b' },
+      { id: 'secador', name: 'Secador Iónico', icon: '💨', color: '#8b5cf6' },
+      { id: 'serum', name: 'Sérum Brillo', icon: '✨', color: '#f59e0b' },
+      { id: 'spray', name: 'Laca Fijadora', icon: '🌟', color: '#f43f5e' }
     ];
 
-    let currentLevel = 0;
+    const CUSTOMER_POOL = [
+      { id: 1, name: 'Sofía', avatar: '👩‍🦰', order: ['shampoo', 'secador'], msg: '¡Lavado y secado rápido!' },
+      { id: 2, name: 'Alejandro', avatar: '👨‍💼', order: ['cera', 'tijeras'], msg: '¡Corte y cera para la reunión!' },
+      { id: 3, name: 'Valentina', avatar: '👱‍♀️', order: ['tinte', 'serum'], msg: '¡Tinte fucsia y gotas de brillo!' },
+      { id: 4, name: 'Mateo', avatar: '👨‍🦱', order: ['shampoo', 'mascarilla'], msg: '¡Spa nutritivo capilar!' },
+      { id: 5, name: 'Camila', avatar: '👩‍🦳', order: ['spray', 'secador'], msg: '¡Peinado elegante y laca!' },
+      { id: 6, name: 'Lucas', avatar: '🧑', order: ['tijeras', 'cera'], msg: '¡Perfilado con tijeras y cera!' },
+      { id: 7, name: 'Isabella', avatar: '👩‍🦱', order: ['tinte', 'spray'], msg: '¡Tinte de noche y fijación!' },
+      { id: 8, name: 'Daniel', avatar: '🧔', order: ['shampoo', 'serum'], msg: '¡Lavado relajante con sérum!' },
+      { id: 9, name: 'Mariana', avatar: '👩', order: ['mascarilla', 'secador'], msg: '¡Mascarilla de keratina y calor!' },
+      { id: 10, name: 'Andrés', avatar: '🧑‍🦱', order: ['cera', 'spray'], msg: '¡Look de gala con cera y fijador!' }
+    ];
+
+    let servedCount = 0;
+    let tipsTotal = 0;
+    let customerQueueIdx = 0;
+    let gameWon = false;
+    let tickInterval = null;
+    let spawnTimeouts = [];
+
+    // Dos puestos simultáneos en el mostrador como en el juego de cocina de referencia
+    let spots = [
+      { active: false, customer: null, timeLeft: PATIENCE_TIME, delivered: [] },
+      { active: false, customer: null, timeLeft: PATIENCE_TIME, delivered: [] }
+    ];
 
     interactiveArena.innerHTML = `
-      <div class="glowsmec-precision-ui">
-        <div class="glowsmec-levels-strip" id="glow-levels-strip">
-          ${HAIRCUT_LEVELS.map((lvl, i) => `
-            <div class="glowsmec-level-pill ${i === 0 ? 'active' : ''}" id="pill-lvl-${i}">
-              Lvl ${i + 1}
-            </div>
+      <div class="glowsmec-salon-ui">
+        <div class="salon-hud-bar">
+          <span><i class="fa-solid fa-users"></i> Clientes Atendidos: <strong id="salon-served-txt" style="color:#ffffff;">0 / 10</strong></span>
+          <span style="color:#fbbf24;"><i class="fa-solid fa-coins"></i> Propinas: <strong id="salon-tips-txt">$0</strong></span>
+          <span><i class="fa-solid fa-stopwatch"></i> Paciencia: <strong id="salon-global-timer">15.0s</strong></span>
+        </div>
+
+        <div class="cooking-salon-scene">
+          <div class="customers-counter-row" id="customers-counter-row">
+            <!-- Puestos inyectados dinámicamente -->
+          </div>
+          <div class="salon-counter-surface"></div>
+        </div>
+
+        <div id="salon-feedback-hint" style="width:100%; text-align:center; font-size:0.72rem; color:var(--text-muted); min-height:18px;">
+          Toca el cosmético que pide el cliente para servírselo antes de que se agote su barra vertical (15s)
+        </div>
+
+        <div class="cosmetics-shelf-grid" id="cosmetics-shelf">
+          ${COSMETICS.map(cos => `
+            <button class="cosmetic-card-btn" data-id="${cos.id}">
+              <span class="cosmetic-icon">${cos.icon}</span>
+              <span class="cosmetic-name">${cos.name}</span>
+            </button>
           `).join('')}
         </div>
-
-        <div class="precision-hud-bar">
-          <span id="glow-lvl-title" style="font-weight:700; color:#f472b6;">
-            ${HAIRCUT_LEVELS[0].name}
-          </span>
-          <span id="glow-penalty-badge" class="glow-penalty-badge">
-            <i class="fa-solid fa-triangle-exclamation"></i> +Trazo Penalizado
-          </span>
-          <div style="display:flex; align-items:center; gap:0.35rem;">
-            <span>Pulso:</span>
-            <div class="tension-meter-track">
-              <div id="glow-tension" class="tension-meter-fill"></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="haircut-canvas-stage" id="haircut-canvas-stage">
-          <canvas id="glowsmec-canvas"></canvas>
-        </div>
-
-        <p class="precision-instructions-hint" id="glow-hint-txt">
-          ✂️ Nivel 1/5: Desliza las tijeras sobre la línea punteada. ¡Si te sales del trazo, el recorrido se alargará más!
-        </p>
       </div>
     `;
 
-    const canvas = document.getElementById('glowsmec-canvas');
-    const stage = document.getElementById('haircut-canvas-stage');
-    const ctx = canvas.getContext('2d');
-    const tensionBar = document.getElementById('glow-tension');
-    const lvlTitle = document.getElementById('glow-lvl-title');
-    const hintTxt = document.getElementById('glow-hint-txt');
-    const penaltyBadge = document.getElementById('glow-penalty-badge');
+    const servedTxt = document.getElementById('salon-served-txt');
+    const tipsTxt = document.getElementById('salon-tips-txt');
+    const feedbackHint = document.getElementById('salon-feedback-hint');
+    const counterRow = document.getElementById('customers-counter-row');
 
-    function resize() {
-      canvas.width = stage.clientWidth || 320;
-      canvas.height = stage.clientHeight || 220;
-    }
-    resize();
+    function renderSpots() {
+      counterRow.innerHTML = '';
+      spots.forEach((spot, idx) => {
+        const spotEl = document.createElement('div');
+        if (!spot.active || !spot.customer) {
+          spotEl.className = 'customer-counter-spot empty';
+          spotEl.innerHTML = `<span style="font-size:0.75rem; color:var(--text-muted);">Puesto ${idx + 1}<br>Esperando cliente...</span>`;
+        } else {
+          spotEl.className = 'customer-counter-spot';
+          const cust = spot.customer;
+          const pct = Math.max(0, (spot.timeLeft / PATIENCE_TIME) * 100);
+          const isWarning = spot.timeLeft <= 7 && spot.timeLeft > 4;
+          const isUrgent = spot.timeLeft <= 4;
 
-    let points = [];
-    let isCutting = false;
-    let cutCount = 0;
-    let tension = 0;
-    let levelDone = false;
-    let offTrackTicks = 0;
-    let penaltyTimer = null;
+          spotEl.innerHTML = `
+            <div class="customer-avatar-box">
+              <span class="customer-avatar-icon">${cust.avatar}</span>
+              <span class="customer-name-tag">${cust.name}</span>
+              <span style="font-size:0.6rem; color:#94a3b8; font-family:'JetBrains Mono', monospace;">${spot.timeLeft.toFixed(1)}s</span>
+            </div>
 
-    function generateCurve(type) {
-      points = [];
-      const numPoints = 24;
-      for (let i = 0; i < numPoints; i++) {
-        const t = i / (numPoints - 1);
-        let px = canvas.width * 0.18 + t * (canvas.width * 0.64);
-        let py = canvas.height * 0.52;
+            <div class="customer-order-card">
+              <div class="order-items-col">
+                ${cust.order.map(itemId => {
+                  const item = COSMETICS.find(c => c.id === itemId);
+                  const isDone = spot.delivered.includes(itemId);
+                  return `
+                    <div class="order-dish-badge ${isDone ? 'collected' : ''}">
+                      <span class="order-dish-icon">${item ? item.icon : '✨'}</span>
+                      <span>${item ? item.name.split(' ')[0] : ''}</span>
+                      ${isDone ? '<i class="fa-solid fa-check" style="margin-left:auto; color:#10b981;"></i>' : ''}
+                    </div>
+                  `;
+                }).join('')}
+              </div>
 
-        if (type === 'straight_arc') {
-          py = canvas.height * 0.44 + Math.sin(t * Math.PI) * 22;
-        } else if (type === 'fade_down') {
-          py = canvas.height * 0.36 + t * (canvas.height * 0.38);
-        } else if (type === 'beard_angle') {
-          py = t < 0.5 ? canvas.height * 0.38 + t * 45 : canvas.height * 0.6 - (t - 0.5) * 40;
-        } else if (type === 'wave_zigzag') {
-          py = canvas.height * 0.5 + Math.sin(t * Math.PI * 3) * 28;
-        } else if (type === 'pompadour_crest') {
-          py = canvas.height * 0.62 - Math.sin(t * Math.PI) * 52;
+              <!-- Barra Vertical de Paciencia estilo Cooking Game -->
+              <div class="order-timer-vertical" title="Paciencia restante: ${spot.timeLeft.toFixed(1)}s">
+                <div class="vertical-timer-fill ${isUrgent ? 'urgent' : (isWarning ? 'warning' : '')}" style="height:${pct}%;"></div>
+              </div>
+            </div>
+          `;
         }
-
-        points.push({ x: px, y: py, cut: false });
-      }
-      cutCount = 0;
-      tension = 0;
-      levelDone = false;
-      offTrackTicks = 0;
-    }
-
-    generateCurve(HAIRCUT_LEVELS[0].curveType);
-
-    // Dibuja una cabeza humana y corte de cabello estilizado realista
-    function drawRealisticHeadAndHair(levelIndex) {
-      const cx = canvas.width * 0.5;
-      const cy = canvas.height * 0.62;
-
-      // 1. Capa de peluquería & hombros
-      const capeGrad = ctx.createLinearGradient(cx - 80, cy, cx + 80, cy + 80);
-      capeGrad.addColorStop(0, '#0f172a');
-      capeGrad.addColorStop(0.5, '#1e293b');
-      capeGrad.addColorStop(1, '#0f172a');
-      ctx.fillStyle = capeGrad;
-      ctx.beginPath();
-      ctx.moveTo(cx - 75, canvas.height);
-      ctx.quadraticCurveTo(cx - 60, cy + 35, cx - 24, cy + 30);
-      ctx.lineTo(cx + 24, cy + 30);
-      ctx.quadraticCurveTo(cx + 60, cy + 35, cx + 75, canvas.height);
-      ctx.closePath();
-      ctx.fill();
-
-      // Cuello estilizado
-      const skinGrad = ctx.createLinearGradient(cx - 30, cy - 20, cx + 30, cy + 30);
-      skinGrad.addColorStop(0, '#334155');
-      skinGrad.addColorStop(0.6, '#1e293b');
-      skinGrad.addColorStop(1, '#0f172a');
-      ctx.fillStyle = skinGrad;
-      ctx.beginPath();
-      ctx.moveTo(cx - 18, cy);
-      ctx.lineTo(cx - 20, cy + 32);
-      ctx.lineTo(cx + 18, cy + 32);
-      ctx.lineTo(cx + 16, cy);
-      ctx.closePath();
-      ctx.fill();
-
-      // 2. Perfil anatómico realista de la cabeza y rostro
-      ctx.save();
-      ctx.fillStyle = '#1e293b';
-      ctx.strokeStyle = '#475569';
-      ctx.lineWidth = 1.5;
-      ctx.beginPath();
-      // Empezar en la nuca
-      ctx.moveTo(cx - 22, cy);
-      // Occipucio y curvatura craneal posterior
-      ctx.quadraticCurveTo(cx - 38, cy - 35, cx - 15, cy - 65);
-      // Coronilla y frente
-      ctx.quadraticCurveTo(cx, cy - 72, cx + 18, cy - 55);
-      // Frente hacia el puente de la nariz
-      ctx.quadraticCurveTo(cx + 28, cy - 40, cx + 32, cy - 26);
-      // Punta de la nariz
-      ctx.lineTo(cx + 38, cy - 20);
-      // Debajo de la nariz y filtrum
-      ctx.lineTo(cx + 30, cy - 16);
-      // Labio superior e inferior
-      ctx.quadraticCurveTo(cx + 34, cy - 12, cx + 30, cy - 8);
-      // Mentón prominente
-      ctx.quadraticCurveTo(cx + 35, cy, cx + 24, cy + 8);
-      // Línea de la mandíbula hacia la oreja
-      ctx.quadraticCurveTo(cx + 8, cy + 12, cx - 4, cy + 4);
-      // Cuello anterior
-      ctx.lineTo(cx + 16, cy + 30);
-      ctx.lineTo(cx - 18, cy + 30);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-
-      // Oreja detallada
-      ctx.fillStyle = '#334155';
-      ctx.strokeStyle = '#64748b';
-      ctx.lineWidth = 1.2;
-      ctx.beginPath();
-      ctx.ellipse(cx - 2, cy - 12, 6, 11, 0.15, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.stroke();
-
-      // Interior de la oreja
-      ctx.beginPath();
-      ctx.arc(cx - 2, cy - 12, 3.5, 0, Math.PI);
-      ctx.stroke();
-
-      // Ojo cerrado y ceja en reposo de salón
-      ctx.strokeStyle = '#64748b';
-      ctx.lineWidth = 1.8;
-      ctx.beginPath();
-      ctx.arc(cx + 20, cy - 25, 4, 0.2, Math.PI - 0.2);
-      ctx.stroke();
-
-      ctx.strokeStyle = '#94a3b8';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(cx + 14, cy - 32);
-      ctx.quadraticCurveTo(cx + 22, cy - 35, cx + 28, cy - 30);
-      ctx.stroke();
-
-      // 3. Cabello realista volumétrico con textura y capas
-      const hairGrad = ctx.createLinearGradient(cx - 40, cy - 80, cx + 30, cy);
-      hairGrad.addColorStop(0, '#f472b6');
-      hairGrad.addColorStop(0.35, '#db2777');
-      hairGrad.addColorStop(0.7, '#831843');
-      hairGrad.addColorStop(1, '#1e1b4b');
-
-      ctx.fillStyle = hairGrad;
-      ctx.beginPath();
-
-      if (levelIndex === 0) {
-        // Flequillo recto y corte Bob simétrico
-        ctx.moveTo(cx - 24, cy - 10);
-        ctx.quadraticCurveTo(cx - 42, cy - 45, cx - 20, cy - 72);
-        ctx.quadraticCurveTo(cx + 5, cy - 82, cx + 30, cy - 65);
-        ctx.quadraticCurveTo(cx + 36, cy - 40, cx + 30, cy - 32);
-        ctx.quadraticCurveTo(cx + 15, cy - 38, cx + 6, cy - 32);
-        ctx.quadraticCurveTo(cx - 10, cy - 25, cx - 24, cy - 10);
-      } else if (levelIndex === 1) {
-        // Fade Degradado Lateral alto
-        ctx.moveTo(cx - 20, cy - 18);
-        ctx.quadraticCurveTo(cx - 36, cy - 50, cx - 14, cy - 76);
-        ctx.quadraticCurveTo(cx + 12, cy - 84, cx + 32, cy - 62);
-        ctx.quadraticCurveTo(cx + 20, cy - 42, cx + 8, cy - 36);
-        ctx.quadraticCurveTo(cx - 6, cy - 26, cx - 20, cy - 18);
-      } else if (levelIndex === 2) {
-        // Barba perfilada y patilla
-        ctx.moveTo(cx - 18, cy - 15);
-        ctx.quadraticCurveTo(cx - 32, cy - 45, cx - 10, cy - 70);
-        ctx.quadraticCurveTo(cx + 15, cy - 78, cx + 28, cy - 55);
-        ctx.quadraticCurveTo(cx + 10, cy - 35, cx - 2, cy - 20);
-        ctx.lineTo(cx - 4, cy + 2);
-        ctx.quadraticCurveTo(cx + 18, cy + 8, cx + 32, cy - 4);
-        ctx.quadraticCurveTo(cx + 20, cy + 18, cx - 8, cy + 14);
-      } else if (levelIndex === 3) {
-        // Diseño freestyle con relieve
-        ctx.moveTo(cx - 22, cy - 12);
-        ctx.quadraticCurveTo(cx - 42, cy - 55, cx - 16, cy - 80);
-        ctx.quadraticCurveTo(cx + 18, cy - 85, cx + 34, cy - 60);
-        ctx.quadraticCurveTo(cx + 16, cy - 40, cx + 2, cy - 30);
-        ctx.quadraticCurveTo(cx - 12, cy - 20, cx - 22, cy - 12);
-      } else {
-        // Pompadour estilizado con cresta alta
-        ctx.moveTo(cx - 24, cy - 12);
-        ctx.quadraticCurveTo(cx - 40, cy - 50, cx - 18, cy - 84);
-        ctx.quadraticCurveTo(cx + 12, cy - 95, cx + 38, cy - 72);
-        ctx.quadraticCurveTo(cx + 26, cy - 45, cx + 12, cy - 36);
-        ctx.quadraticCurveTo(cx - 8, cy - 24, cx - 24, cy - 12);
-      }
-      ctx.closePath();
-      ctx.fill();
-
-      // Hebras de luz y brillo capilar
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
-      ctx.lineWidth = 1.2;
-      ctx.beginPath();
-      ctx.moveTo(cx - 12, cy - 68);
-      ctx.quadraticCurveTo(cx + 4, cy - 76, cx + 20, cy - 60);
-      ctx.moveTo(cx - 18, cy - 55);
-      ctx.quadraticCurveTo(cx - 2, cy - 62, cx + 14, cy - 48);
-      ctx.stroke();
-
-      ctx.restore();
-    }
-
-    // Dibuja tijeras de precisión realistas con acero y tornillo
-    function drawRealisticScissors(x, y) {
-      ctx.save();
-      ctx.translate(x, y);
-
-      // Cuchilla 1
-      ctx.fillStyle = '#e2e8f0';
-      ctx.strokeStyle = '#94a3b8';
-      ctx.lineWidth = 1;
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(20, -10);
-      ctx.lineTo(22, -12);
-      ctx.lineTo(6, -3);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-
-      // Cuchilla 2
-      ctx.fillStyle = '#cbd5e1';
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.lineTo(20, 8);
-      ctx.lineTo(22, 10);
-      ctx.lineTo(6, 2);
-      ctx.closePath();
-      ctx.fill();
-      ctx.stroke();
-
-      // Mango izquierdo
-      ctx.strokeStyle = '#ec4899';
-      ctx.lineWidth = 2.8;
-      ctx.beginPath();
-      ctx.arc(-11, -7, 6, 0, Math.PI * 2);
-      ctx.stroke();
-
-      // Mango derecho
-      ctx.beginPath();
-      ctx.arc(-11, 7, 6, 0, Math.PI * 2);
-      ctx.stroke();
-
-      // Tornillo pivote dorado
-      ctx.fillStyle = '#fbbf24';
-      ctx.beginPath();
-      ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.restore();
-    }
-
-    function drawScene(currentPos) {
-      ctx.fillStyle = '#030712';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // 1. Dibujar cabeza y cabello detallado realista
-      drawRealisticHeadAndHair(currentLevel);
-
-      // 2. Línea guía luminosa de corte
-      ctx.strokeStyle = 'rgba(236, 72, 153, 0.4)';
-      ctx.lineWidth = 14;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      points.forEach((p, idx) => {
-        if (idx === 0) ctx.moveTo(p.x, p.y);
-        else ctx.lineTo(p.x, p.y);
+        counterRow.appendChild(spotEl);
       });
-      ctx.stroke();
-
-      // 3. Trazado punteado guía
-      ctx.strokeStyle = '#10b981';
-      ctx.lineWidth = 3;
-      ctx.setLineDash([4, 4]);
-      ctx.beginPath();
-      points.forEach((p, idx) => {
-        if (idx === 0) ctx.moveTo(p.x, p.y);
-        else ctx.lineTo(p.x, p.y);
-      });
-      ctx.stroke();
-      ctx.setLineDash([]);
-
-      // 4. Puntos cortados con éxito
-      points.forEach((p) => {
-        if (p.cut) {
-          ctx.fillStyle = '#38bdf8';
-          ctx.shadowColor = '#38bdf8';
-          ctx.shadowBlur = 6;
-          ctx.beginPath();
-          ctx.arc(p.x, p.y, 4.5, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.shadowBlur = 0;
-        }
-      });
-
-      // 5. Cursor de tijeras realistas
-      if (currentPos) {
-        drawRealisticScissors(currentPos.x, currentPos.y);
-      }
     }
 
-    drawScene(null);
+    function spawnCustomer(spotIdx) {
+      if (gameWon || servedCount >= TOTAL_CLIENTS_GOAL) return;
+      const custData = CUSTOMER_POOL[customerQueueIdx % CUSTOMER_POOL.length];
+      customerQueueIdx++;
 
-    function nextLevel() {
-      currentLevel++;
-      sound.playSuccess();
-
-      for (let i = 0; i < HAIRCUT_LEVELS.length; i++) {
-        const pill = document.getElementById(`pill-lvl-${i}`);
-        if (pill) {
-          pill.className = 'glowsmec-level-pill ' + (i < currentLevel ? 'completed' : (i === currentLevel ? 'active' : ''));
-        }
-      }
-
-      if (currentLevel >= HAIRCUT_LEVELS.length) {
-        completeCurrentChallenge('¡Has dominado los 5 estilos de corte con siluetas y pulso estético en GlowSmec!');
-      } else {
-        lvlTitle.textContent = HAIRCUT_LEVELS[currentLevel].name;
-        hintTxt.textContent = `✂️ Nivel ${currentLevel + 1}/5: Sigue el contorno del corte. ¡Evita salirte para no alargar el trazo!`;
-        generateCurve(HAIRCUT_LEVELS[currentLevel].curveType);
-        tensionBar.style.width = '0%';
-        drawScene(null);
-      }
+      spots[spotIdx] = {
+        active: true,
+        customer: custData,
+        timeLeft: PATIENCE_TIME,
+        delivered: []
+      };
+      renderSpots();
     }
 
-    function handlePointer(x, y) {
-      if (levelDone) return;
-      let minDistance = 999;
-      let closestIdx = -1;
+    // Iniciar con el primer cliente en Spot 0, y el segundo en Spot 1 tras 1.8 segundos
+    spawnCustomer(0);
+    const initialT2 = setTimeout(() => spawnCustomer(1), 1800);
+    spawnTimeouts.push(initialT2);
 
-      points.forEach((p, idx) => {
-        const d = Math.hypot(p.x - x, p.y - y);
-        if (d < minDistance) {
-          minDistance = d;
-          closestIdx = idx;
-        }
-      });
+    // Reloj principal de paciencia (100ms)
+    tickInterval = setInterval(() => {
+      if (gameWon) return;
 
-      if (minDistance < 22) {
-        // Sobre el trazo correcto
-        tension = Math.max(0, tension - 2.5);
-        offTrackTicks = 0;
-        if (!points[closestIdx].cut) {
-          points[closestIdx].cut = true;
-          cutCount++;
-          sound.playSnip();
-        }
-      } else {
-        // ¡SE SALIÓ DEL TRAZO! Penalización: aumenta tensión y ALARGA el trazo
-        tension = Math.min(100, tension + 4);
-        offTrackTicks++;
+      let needsRender = false;
+      spots.forEach((spot, idx) => {
+        if (spot.active && spot.customer) {
+          spot.timeLeft -= 0.1;
+          needsRender = true;
 
-        // Entre más falle o se desvíe, más largo se vuelve el trazo
-        if (offTrackTicks % 6 === 0 && points.length < 42) {
-          const lastPoint = points[points.length - 1];
-          const prevPoint = points[points.length - 2] || lastPoint;
-          const dx = lastPoint.x - prevPoint.x;
-          const dy = lastPoint.y - prevPoint.y;
+          // Se agotaron los 15 segundos
+          if (spot.timeLeft <= 0) {
+            spot.active = false;
+            sound.playHurt();
+            if (feedbackHint) {
+              feedbackHint.textContent = `😤 ¡${spot.customer.name} se fue enojada porque se agotaron sus 15s!`;
+              feedbackHint.style.color = '#ef4444';
+              setTimeout(() => {
+                if (feedbackHint) {
+                  feedbackHint.textContent = 'Toca el cosmético que pide el cliente para servírselo antes de que se agote su barra vertical (15s)';
+                  feedbackHint.style.color = 'var(--text-muted)';
+                }
+              }, 1800);
+            }
 
-          // Añadir nuevo punto de penalización al final del trazo
-          const nx = Math.max(canvas.width * 0.12, Math.min(canvas.width * 0.88, lastPoint.x + dx * 0.75 + (Math.random() - 0.5) * 12));
-          const ny = Math.max(canvas.height * 0.3, Math.min(canvas.height * 0.72, lastPoint.y + dy * 0.75 + (Math.sin(points.length) * 10)));
-          points.push({ x: nx, y: ny, cut: false });
-
-          sound.playHurt();
-          if (penaltyBadge) {
-            penaltyBadge.textContent = `⚠️ ¡Desvío! Trazo +${points.length - 24}`;
-            penaltyBadge.classList.add('visible');
-            clearTimeout(penaltyTimer);
-            penaltyTimer = setTimeout(() => {
-              if (penaltyBadge) penaltyBadge.classList.remove('visible');
-            }, 1200);
+            // Siguiente cliente en este puesto
+            const t = setTimeout(() => spawnCustomer(idx), 900);
+            spawnTimeouts.push(t);
           }
         }
+      });
+
+      if (needsRender) {
+        renderSpots();
       }
+    }, 100);
 
-      tensionBar.style.width = `${tension}%`;
-      drawScene({ x, y });
+    // Entrega de cosméticos al tocar los botones de la estación de peluquería
+    document.querySelectorAll('.cosmetic-card-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (gameWon) return;
+        const cosmeticId = btn.getAttribute('data-id');
+        const cosmetic = COSMETICS.find(c => c.id === cosmeticId);
 
-      if (cutCount >= points.length && tension < 70) {
-        levelDone = true;
-        setTimeout(nextLevel, 300);
-      }
-    }
+        // Buscar clientes que necesitan este cosmético y aún no lo han recibido
+        const eligibleSpots = [];
+        spots.forEach((spot, idx) => {
+          if (spot.active && spot.customer && spot.customer.order.includes(cosmeticId) && !spot.delivered.includes(cosmeticId)) {
+            eligibleSpots.push(idx);
+          }
+        });
 
-    function onPointerDown(e) {
-      isCutting = true;
-      const rect = canvas.getBoundingClientRect();
-      const x = (e.clientX - rect.left) * (canvas.width / rect.width);
-      const y = (e.clientY - rect.top) * (canvas.height / rect.height);
-      handlePointer(x, y);
-    }
+        if (eligibleSpots.length > 0) {
+          // Si ambos lo necesitan, priorizar al que le queda menos tiempo
+          eligibleSpots.sort((a, b) => spots[a].timeLeft - spots[b].timeLeft);
+          const targetSpotIdx = eligibleSpots[0];
+          const targetSpot = spots[targetSpotIdx];
 
-    function onPointerMove(e) {
-      if (!isCutting) return;
-      const rect = canvas.getBoundingClientRect();
-      const x = (e.clientX - rect.left) * (canvas.width / rect.width);
-      const y = (e.clientY - rect.top) * (canvas.height / rect.height);
-      handlePointer(x, y);
-    }
+          targetSpot.delivered.push(cosmeticId);
+          sound.playSnap();
 
-    function onPointerUp() { isCutting = false; }
+          // Comprobar si completó el pedido de este cliente
+          const orderFulfilled = targetSpot.customer.order.every(reqId => targetSpot.delivered.includes(reqId));
 
-    canvas.addEventListener('pointerdown', onPointerDown);
-    canvas.addEventListener('pointermove', onPointerMove);
-    window.addEventListener('pointerup', onPointerUp);
+          if (orderFulfilled) {
+            sound.playSuccess();
+            servedCount++;
+            const earnedTips = 120 + Math.floor(targetSpot.timeLeft * 8);
+            tipsTotal += earnedTips;
+
+            servedTxt.textContent = `${servedCount} / ${TOTAL_CLIENTS_GOAL}`;
+            tipsTxt.textContent = `$${tipsTotal}`;
+
+            if (feedbackHint) {
+              feedbackHint.textContent = `⭐ ¡${targetSpot.customer.name} atendida perfectamente! +$${earnedTips} de propina`;
+              feedbackHint.style.color = '#10b981';
+            }
+
+            // Mostrar toast flotante de propina en el puesto
+            const toast = document.createElement('div');
+            toast.className = 'tip-floating-toast';
+            toast.textContent = `+$${earnedTips} ✨`;
+            counterRow.appendChild(toast);
+            setTimeout(() => toast.remove(), 800);
+
+            targetSpot.active = false;
+            renderSpots();
+
+            // Verificar si se completaron los 10 clientes
+            if (servedCount >= TOTAL_CLIENTS_GOAL) {
+              gameWon = true;
+              clearInterval(tickInterval);
+              completeCurrentChallenge('¡Atendiste con éxito a los 10 clientes de peluquería en GlowSmec estilo Cooking Salon!');
+              return;
+            }
+
+            // Traer siguiente cliente a este puesto tras una breve pausa
+            const nextT = setTimeout(() => spawnCustomer(targetSpotIdx), 800);
+            spawnTimeouts.push(nextT);
+          } else {
+            if (feedbackHint) {
+              feedbackHint.textContent = `🧴 ¡${cosmetic ? cosmetic.name : ''} entregado a ${targetSpot.customer.name}! Falta otro cosmético.`;
+              feedbackHint.style.color = '#38bdf8';
+            }
+            renderSpots();
+          }
+        } else {
+          // Ningún cliente lo necesita en este momento
+          sound.playClick();
+          btn.style.transform = 'scale(0.9)';
+          setTimeout(() => btn.style.transform = '', 150);
+          if (feedbackHint) {
+            feedbackHint.textContent = `⚠️ Ningún cliente actual necesita ${cosmetic ? cosmetic.name : 'este producto'} ahora.`;
+            feedbackHint.style.color = '#f59e0b';
+          }
+        }
+      });
+    });
 
     activeGameCleanup = () => {
-      canvas.removeEventListener('pointerdown', onPointerDown);
-      canvas.removeEventListener('pointermove', onPointerMove);
-      window.removeEventListener('pointerup', onPointerUp);
-      clearTimeout(penaltyTimer);
+      if (tickInterval) clearInterval(tickInterval);
+      spawnTimeouts.forEach(t => clearTimeout(t));
     };
   }
 
