@@ -33,14 +33,14 @@ document.addEventListener('DOMContentLoaded', () => {
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
       osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(880, this.ctx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(110, this.ctx.currentTime + 0.12);
-      gain.gain.setValueAtTime(0.2, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.12);
+      osc.frequency.setValueAtTime(850, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(120, this.ctx.currentTime + 0.1);
+      gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.1);
       osc.connect(gain);
       gain.connect(this.ctx.destination);
       osc.start();
-      osc.stop(this.ctx.currentTime + 0.12);
+      osc.stop(this.ctx.currentTime + 0.1);
     }
 
     playJump() {
@@ -116,14 +116,32 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!this.ctx) return;
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
-      osc.type = 'highpass';
-      osc.frequency.setValueAtTime(1200, this.ctx.currentTime);
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(1400, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(300, this.ctx.currentTime + 0.05);
       gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.005, this.ctx.currentTime + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.005, this.ctx.currentTime + 0.05);
       osc.connect(gain);
       gain.connect(this.ctx.destination);
       osc.start();
-      osc.stop(this.ctx.currentTime + 0.04);
+      osc.stop(this.ctx.currentTime + 0.05);
+    }
+
+    playHurt() {
+      if (!this.enabled) return;
+      this.init();
+      if (!this.ctx) return;
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(180, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(60, this.ctx.currentTime + 0.2);
+      gain.gain.setValueAtTime(0.25, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, this.ctx.currentTime + 0.2);
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.2);
     }
 
     playStamp() {
@@ -182,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const sound = new SoundSynth();
 
-  // 2. DATASET DE LOS 7 DESTINOS Y SUS NUEVOS MINIJUEGOS
+  // 2. DATASET DE LOS 7 DESTINOS
   const destinations = [
     {
       id: '01',
@@ -196,13 +214,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-jet-fighter-up',
       briefing: {
         title: 'VitLine Airlines',
-        desc: 'Plataforma para vuelos comerciales y asistencia de viaje. Pilota la aeronave por el corredor aéreo esquivando turbulencias hasta aterrizar en tu destino.',
-        req: 'Pilota la nave VitLine, dispara a las turbulencias y alcanza el 100% de la distancia de vuelo.'
+        desc: 'Plataforma para vuelos comerciales y asistencia de viaje. La aeronave dispara automáticamente de forma infinita mientras esquivas las turbulencias hasta aterrizar.',
+        req: 'Pilota la nave con disparo continuo automático y alcanza el 100% de la distancia de vuelo.'
       },
       game: {
         title: 'Misión Aérea VitLine',
-        subtitle: 'Arcade Clásico de Naves Vertical',
-        badge: 'Shooter Vertical'
+        subtitle: 'Disparo Automático Infinito & Vuelo Vertical',
+        badge: 'Shooter Automático'
       }
     },
     {
@@ -217,13 +235,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-compass',
       briefing: {
         title: 'DaLulú Travel Agency',
-        desc: 'Agencia de viajes dedicada a crear experiencias seguras e itinerarios personalizados por Colombia. Explora el laberinto y recolecta las letras de la palabra DALULÚ.',
-        req: 'Encuentra las 6 letras de DALULÚ en el laberinto y llega a la salida turística.'
+        desc: 'Agencia de viajes dedicada a crear experiencias por Colombia. Debes recolectar las letras de DALULÚ en el orden exacto (D -> A -> L -> U -> L -> U) para abrir la salida.',
+        req: 'Recoge las 6 letras en el orden estricto de DALULÚ y cruza la meta turística.'
       },
       game: {
-        title: 'Laberinto de la Palabra',
-        subtitle: 'Acertijo Turístico DaLulú',
-        badge: 'Laberinto & Palabra'
+        title: 'Laberinto de la Palabra en Orden',
+        subtitle: 'Acertijo Turístico DaLulú (Orden Estricto)',
+        badge: 'D-A-L-U-L-U en Orden'
       }
     },
     {
@@ -238,13 +256,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-scissors',
       briefing: {
         title: 'GlowSmec Salón & Spa',
-        desc: 'Plataforma de belleza y estilismo profesional. Pon a prueba tu pulso como en la prueba de la galleta de Squid Game: realiza el corte de cabello perfecto siguiendo la silueta guía sin desviarte.',
-        req: 'Desliza las tijeras con precisión milimétrica a lo largo del contorno sin salirte del margen seguro.'
+        desc: 'Plataforma de belleza profesional. Supera los 5 estilos de corte de precisión estilo Squid Game (Flequillo, Fade, Barba, Tribal y Pompadour).',
+        req: 'Completa los 5 niveles de corte de cabello manteniendo el pulso firme sin salirte del margen.'
       },
       game: {
-        title: 'Corte de Precisión Estético',
-        subtitle: 'Juego de Pulso Estilo Squid Game',
-        badge: 'Precisión & Pulso'
+        title: '5 Desafíos de Corte de Precisión',
+        subtitle: 'Serie de 5 Estilos Estéticos GlowSmec',
+        badge: '5 Niveles de Corte'
       }
     },
     {
@@ -259,13 +277,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-worm',
       briefing: {
         title: 'GreenTask Sostenible',
-        desc: 'Plataforma comprometida con el compostaje y la regeneración ecológica. Guía al gusano ecológico para que devore manzanas orgánicas y crezca sucesivamente.',
-        req: 'Come 5 manzanas orgánicas con el gusano para nutrir el suelo sin chocar contra las paredes.'
+        desc: 'Plataforma ecológica y compostaje. Guía al gusano a un ritmo tranquilo y pausado para comer 10 manzanas orgánicas y crecer sucesivamente.',
+        req: 'Come 10 manzanas orgánicas a ritmo pausado con el gusano para nutrir el huerto.'
       },
       game: {
-        title: 'Gusano de las Manzanas',
-        subtitle: 'Snake Clásico de Crecimiento',
-        badge: 'Gusano & Manzanas'
+        title: 'Gusano de las Manzanas (10 Manzanas)',
+        subtitle: 'Snake Sostenible a Ritmo Pausado',
+        badge: 'Meta: 10 Manzanas'
       }
     },
     {
@@ -280,13 +298,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-dog',
       briefing: {
         title: 'Patitas al Rescate',
-        desc: 'Refugio de rescate animal y adopción responsable. El perrito Toby corre velozmente por la ciudad superando obstáculos al estilo del dinosaurio de Chrome para llegar al centro de adopción.',
-        req: 'Salta los obstáculos tocando la pantalla o con espacio y llega al refugio canino.'
+        desc: 'Refugio de rescate animal. El perrito realista corre moviendo sus patas; dispones de 3 vidas. Cada obstáculo no evitado te quita 1 vida; si pierdes las 3 vidas, reinicias la carrera.',
+        req: 'Salta los obstáculos con el perrito realista, cuida tus 3 vidas y llega al 100% de la distancia.'
       },
       game: {
-        title: 'Carrera del Perrito Rescatado',
-        subtitle: 'Runner Tipo Dinosaurio de Google',
-        badge: 'Runner Canino'
+        title: 'Carrera Canina Realista (3 Vidas)',
+        subtitle: 'Runner con Animación de Patas & Vidas',
+        badge: '3 Vidas & Patas Animadas'
       }
     },
     {
@@ -301,11 +319,11 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-robot',
       briefing: {
         title: 'SoftPlay Academy',
-        desc: 'Academia interactiva de pensamiento computacional. Programa al robot SoftBot mediante órdenes de dirección (Arriba, Abajo, Izquierda, Derecha) para llevarlo a la meta sin escribir código.',
-        req: 'Construye la secuencia de órdenes con los botones direccionales y presiona EJECUTAR para guiar al robot.'
+        desc: 'Academia interactiva de lógica computacional. Programa al robot mediante botones direccionales para llevarlo hasta la computadora meta sin escribir código.',
+        req: 'Construye la secuencia de órdenes y presiona EJECUTAR para ver al robot completar la ruta.'
       },
       game: {
-        title: 'Programación de Robot',
+        title: 'Programador de Robots',
         subtitle: 'Lógica Visual e Interactiva por Botones',
         badge: 'Órdenes sin Código'
       }
@@ -334,13 +352,12 @@ document.addEventListener('DOMContentLoaded', () => {
   ];
 
   // 3. ESTADO GLOBAL & PERSISTENCIA
-  const STORAGE_KEY = 'pasaporte_11_4_state_v2';
+  const STORAGE_KEY = 'pasaporte_11_4_state_v3';
   let appState = {
     currentIndex: 0,
     stamps: {},
     passengerName: 'Evaluador Oficial 11-4',
-    soundEnabled: true,
-    isFullscreen: false
+    soundEnabled: true
   };
 
   function loadSavedState() {
@@ -422,13 +439,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const bgSlide2 = document.getElementById('game-bg-slide-2');
   let activeBgSlide = 1;
 
-  // Cleanup de timers y animación del minijuego activo
   let activeGameCleanup = null;
 
   // 5. CONTROLADOR DE PANTALLA COMPLETA
   function toggleFullscreen(forceState) {
     const shouldBeFullscreen = forceState !== undefined ? forceState : !gamePlayCard.classList.contains('is-fullscreen');
-    
+
     if (shouldBeFullscreen) {
       gamePlayCard.classList.add('is-fullscreen');
       fullscreenBtnText.textContent = 'Salir';
@@ -457,7 +473,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.addEventListener('fullscreenchange', () => {
     if (!document.fullscreenElement && gamePlayCard.classList.contains('is-fullscreen')) {
-      // Si el usuario presionó Escape en modo nativo
       gamePlayCard.classList.remove('is-fullscreen');
       fullscreenBtnText.textContent = 'Pantalla Completa';
       toggleFullscreenBtn.querySelector('i').className = 'fa-solid fa-expand';
@@ -560,13 +575,11 @@ document.addEventListener('DOMContentLoaded', () => {
     sound.playSuccess();
     sound.playStamp();
 
-    // Estampar en estado
     appState.stamps[dest.id] = true;
     persistState();
     renderDock();
     updatePassportStats();
 
-    // Actualizar badges
     destStatusBadge.className = 'dest-status-badge stamped';
     destStatusBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Acreditado 11-4</span>';
     stampAwardAlert.classList.add('active');
@@ -575,13 +588,11 @@ document.addEventListener('DOMContentLoaded', () => {
     claimStampBtn.disabled = true;
     claimStampText.textContent = '¡Sello Oficial Estampado!';
 
-    // Desplegar Overlay de Victoria
     victoryTitle.textContent = `¡DESAFÍO ${dest.name.toUpperCase()} COMPLETADO!`;
     victoryDesc.textContent = successMsg || 'Has acreditado este proyecto exitosamente en tu pasaporte.';
     victoryStampShowcase.innerHTML = `<i class="fa-solid ${dest.icon}"></i>`;
     gameVictoryOverlay.classList.add('active');
 
-    // Configurar cuenta regresiva de 3.5 segundos hacia el siguiente destino
     let timeLeft = 3.5;
     countdownProgressBar.style.width = '100%';
     victoryCountdownTxt.textContent = `Avanzando al siguiente destino en ${timeLeft.toFixed(1)}s...`;
@@ -620,7 +631,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (appState.currentIndex < destinations.length - 1) {
       switchDestination(appState.currentIndex + 1);
     } else {
-      // Se completaron los 7 destinos
       renderPassportModal();
       passportModal.classList.add('active');
     }
@@ -649,7 +659,7 @@ document.addEventListener('DOMContentLoaded', () => {
       claimStampBtn.disabled = true;
       claimStampText.textContent = 'Sello Ya Obtenido';
       stampAwardAlert.classList.add('active');
-      stampAwardAlert.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>¡Este destino ya está estampado y verificado! Puedes volver a jugarlo.</span>';
+      stampAwardAlert.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>¡Destino ya acreditado! Puedes volver a jugar.</span>';
     } else {
       claimStampBtn.disabled = true;
       claimStampText.textContent = 'Estampar Sello';
@@ -681,7 +691,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 1. VITLINE: SHOOT 'EM UP VERTICAL ARCADE
+  // 1. VITLINE: SHOOT 'EM UP VERTICAL CON DISPARO AUTOMÁTICO & ENEMIGOS LENTOS
   // =========================================================================
   function buildVitLineArcade() {
     interactiveArena.innerHTML = `
@@ -696,10 +706,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <canvas id="vitline-canvas"></canvas>
         </div>
 
-        <div class="vitline-mobile-controls">
-          <button id="v-shoot-btn" class="btn-shoot-action">
-            <i class="fa-solid fa-bolt"></i> DISPARAR LÁSER
-          </button>
+        <div style="text-align:center; font-size:0.72rem; color:var(--blue-accent); padding:0.2rem;">
+          ⚡ Disparo automático infinito activo • Desliza el dedo o usa flechas para mover la nave
         </div>
       </div>
     `;
@@ -710,7 +718,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const distTxt = document.getElementById('v-dist-txt');
     const scoreTxt = document.getElementById('v-score-txt');
     const shieldTxt = document.getElementById('v-shield-txt');
-    const shootBtn = document.getElementById('v-shoot-btn');
 
     function resizeCanvas() {
       canvas.width = wrap.clientWidth || 320;
@@ -729,30 +736,24 @@ document.addEventListener('DOMContentLoaded', () => {
     let shields = 3;
     let gameWon = false;
     let enemySpawnCounter = 0;
+    let autoShootCounter = 0;
 
-    // Inicializar nubes de fondo
     for (let i = 0; i < 6; i++) {
       clouds.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
         r: 15 + Math.random() * 25,
-        speed: 0.6 + Math.random() * 0.8
+        speed: 0.3 + Math.random() * 0.4
       });
     }
 
     function shoot() {
       if (gameWon) return;
       sound.playLaser();
-      bullets.push({ x: plane.x - 6, y: plane.y - 12, vx: 0, vy: -7 });
-      bullets.push({ x: plane.x + 6, y: plane.y - 12, vx: 0, vy: -7 });
+      bullets.push({ x: plane.x - 7, y: plane.y - 12, vx: 0, vy: -7 });
+      bullets.push({ x: plane.x + 7, y: plane.y - 12, vx: 0, vy: -7 });
     }
 
-    shootBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      shoot();
-    });
-
-    // Control táctil directo sobre el canvas (Móvil)
     function handleTouchMove(e) {
       e.preventDefault();
       const rect = canvas.getBoundingClientRect();
@@ -763,20 +764,12 @@ document.addEventListener('DOMContentLoaded', () => {
       plane.y = Math.max(30, Math.min(canvas.height - 20, targetY));
     }
     canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-    canvas.addEventListener('touchstart', (e) => {
-      handleTouchMove(e);
-      shoot();
-    }, { passive: false });
+    canvas.addEventListener('touchstart', handleTouchMove, { passive: false });
 
-    // Controles de Teclado
     const keys = {};
     function onKeyDown(e) {
       if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' ', 'w', 'a', 's', 'd'].includes(e.key)) {
         keys[e.key] = true;
-        if (e.key === ' ') {
-          e.preventDefault();
-          shoot();
-        }
       }
     }
     function onKeyUp(e) { keys[e.key] = false; }
@@ -786,14 +779,21 @@ document.addEventListener('DOMContentLoaded', () => {
     function loop() {
       if (gameWon) return;
 
-      // Teclado
+      // Movimiento con teclado
       if (keys['ArrowLeft'] || keys['a']) plane.x = Math.max(16, plane.x - plane.speed);
       if (keys['ArrowRight'] || keys['d']) plane.x = Math.min(canvas.width - 16, plane.x + plane.speed);
       if (keys['ArrowUp'] || keys['w']) plane.y = Math.max(30, plane.y - plane.speed);
       if (keys['ArrowDown'] || keys['s']) plane.y = Math.min(canvas.height - 20, plane.y + plane.speed);
 
-      // Distancia
-      distance += 0.09;
+      // Disparo automático infinito
+      autoShootCounter++;
+      if (autoShootCounter >= 11) {
+        autoShootCounter = 0;
+        shoot();
+      }
+
+      // Distancia de vuelo
+      distance += 0.08;
       if (distance >= 100) {
         distance = 100;
         gameWon = true;
@@ -803,12 +803,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       distTxt.textContent = `${Math.floor(distance)}%`;
 
-      // Limpiar y fondo
       ctx.fillStyle = '#050c1b';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Nubes de fondo
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+      // Nubes lentas
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
       clouds.forEach(c => {
         c.y += c.speed;
         if (c.y > canvas.height + c.r) {
@@ -820,21 +819,21 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fill();
       });
 
-      // Spawn de obstáculos (Turbulencias / Drones)
+      // Spawn de obstáculos lentos
       enemySpawnCounter++;
-      if (enemySpawnCounter > 35) {
+      if (enemySpawnCounter > 48) {
         enemySpawnCounter = 0;
         enemies.push({
           x: 20 + Math.random() * (canvas.width - 40),
           y: -20,
           w: 22,
           h: 22,
-          speed: 1.8 + Math.random() * 1.5,
+          speed: 0.75 + Math.random() * 0.65, // Más lento según pedido
           type: Math.random() > 0.5 ? 'storm' : 'drone'
         });
       }
 
-      // Actualizar y dibujar balas
+      // Balas
       ctx.fillStyle = '#38bdf8';
       ctx.shadowBlur = 8;
       ctx.shadowColor = '#38bdf8';
@@ -846,12 +845,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       ctx.shadowBlur = 0;
 
-      // Actualizar y dibujar enemigos
+      // Enemigos
       for (let i = enemies.length - 1; i >= 0; i--) {
         const en = enemies[i];
         en.y += en.speed;
 
-        // Dibujar obstáculo
         if (en.type === 'storm') {
           ctx.fillStyle = '#94a3b8';
           ctx.beginPath();
@@ -871,17 +869,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Colisión con balas
         for (let j = bullets.length - 1; j >= 0; j--) {
           const b = bullets[j];
-          const dist = Math.hypot(b.x - en.x, b.y - en.y);
-          if (dist < 18) {
+          if (Math.hypot(b.x - en.x, b.y - en.y) < 18) {
             sound.playSnap();
-            score += 15;
+            score += 10;
             scoreTxt.textContent = score;
-            // Partículas
-            for (let p = 0; p < 6; p++) {
+            for (let p = 0; p < 5; p++) {
               particles.push({
                 x: en.x, y: en.y,
-                vx: (Math.random() - 0.5) * 4,
-                vy: (Math.random() - 0.5) * 4,
+                vx: (Math.random() - 0.5) * 3,
+                vy: (Math.random() - 0.5) * 3,
                 alpha: 1
               });
             }
@@ -892,9 +888,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Colisión con el avión
-        if (enemies[i] && Math.hypot(plane.x - en.x, plane.y - en.y) < 22) {
+        if (enemies[i] && Math.hypot(plane.x - en.x, plane.y - en.y) < 20) {
           shields--;
-          sound.playLaser();
+          sound.playHurt();
           enemies.splice(i, 1);
           shieldTxt.textContent = shields === 2 ? '❤️❤️' : (shields === 1 ? '❤️' : '💔');
           if (shields <= 0) {
@@ -906,7 +902,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (en.y > canvas.height + 25) enemies.splice(i, 1);
       }
 
-      // Dibujar partículas
+      // Partículas
       for (let i = particles.length - 1; i >= 0; i--) {
         const p = particles[i];
         p.x += p.vx;
@@ -917,18 +913,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (p.alpha <= 0) particles.splice(i, 1);
       }
 
-      // Dibujar avión del jugador VitLine
+      // Dibujar Avión
       ctx.save();
       ctx.translate(plane.x, plane.y);
-      // Fuego de propulsión
       ctx.fillStyle = '#f59e0b';
       ctx.beginPath();
-      ctx.moveTo(-5, 14);
-      ctx.lineTo(0, 18 + Math.random() * 8);
-      ctx.lineTo(5, 14);
+      ctx.moveTo(-4, 14);
+      ctx.lineTo(0, 18 + Math.random() * 6);
+      ctx.lineTo(4, 14);
       ctx.fill();
 
-      // Fuselaje del avión
       ctx.fillStyle = '#ffffff';
       ctx.beginPath();
       ctx.moveTo(0, -18);
@@ -942,7 +936,6 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.closePath();
       ctx.fill();
 
-      // Cabina
       ctx.fillStyle = '#0284c7';
       ctx.fillRect(-2, -10, 4, 8);
       ctx.restore();
@@ -960,13 +953,13 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 2. DALULÚ TRAVEL: LABERINTO DE LA PALABRA
+  // 2. DALULÚ TRAVEL: LABERINTO EN ORDEN ESTRICTO (D - A - L - U - L - U)
   // =========================================================================
   function buildDaluluMaze() {
     const TARGET_WORD = 'DALULU';
-    let collectedLetters = [];
+    let currentLetterIndex = 0;
 
-    // Laberinto 7x7 (0 = camino, 1 = muro, 2 = salida)
+    // Laberinto 7x7
     const mazeLayout = [
       [0, 0, 1, 0, 0, 0, 0],
       [1, 0, 1, 0, 1, 1, 0],
@@ -977,14 +970,14 @@ document.addEventListener('DOMContentLoaded', () => {
       [0, 0, 1, 0, 0, 0, 2]
     ];
 
-    // Posiciones de las 6 letras de D-A-L-U-L-U
+    // Letras distribuidas con índice estricto de recolección (0 a 5)
     const letterSpawns = [
-      { r: 0, c: 1, char: 'D', collected: false },
-      { r: 0, c: 5, char: 'A', collected: false },
-      { r: 2, c: 2, char: 'L', collected: false },
-      { r: 3, c: 4, char: 'U', collected: false },
-      { r: 5, c: 3, char: 'L', collected: false },
-      { r: 4, c: 6, char: 'U', collected: false }
+      { r: 0, c: 1, char: 'D', order: 0, collected: false },
+      { r: 0, c: 5, char: 'A', order: 1, collected: false },
+      { r: 2, c: 2, char: 'L', order: 2, collected: false },
+      { r: 3, c: 4, char: 'U', order: 3, collected: false },
+      { r: 5, c: 3, char: 'L', order: 4, collected: false },
+      { r: 4, c: 6, char: 'U', order: 5, collected: false }
     ];
 
     let playerPos = { r: 0, c: 0 };
@@ -993,8 +986,12 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="dalulu-maze-ui">
         <div class="maze-word-tracker" id="maze-word-tracker">
           ${TARGET_WORD.split('').map((char, i) => `
-            <div class="letter-tile-slot" id="slot-letter-${i}">_</div>
+            <div class="letter-tile-slot ${i === 0 ? 'target-active' : ''}" id="slot-letter-${i}">_</div>
           `).join('')}
+        </div>
+
+        <div id="dalulu-order-hint" style="font-size:0.74rem; color:var(--gold-accent); text-align:center; font-weight:700;">
+          Próxima letra a recoger: "D" (1/6)
         </div>
 
         <div class="dalulu-maze-board" id="maze-board" style="grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(7, 1fr);">
@@ -1010,6 +1007,33 @@ document.addEventListener('DOMContentLoaded', () => {
     `;
 
     const board = document.getElementById('maze-board');
+    const hintEl = document.getElementById('dalulu-order-hint');
+
+    function updateSlotsUI() {
+      for (let i = 0; i < TARGET_WORD.length; i++) {
+        const slot = document.getElementById(`slot-letter-${i}`);
+        if (slot) {
+          slot.classList.remove('target-active');
+          if (i < currentLetterIndex) {
+            slot.textContent = TARGET_WORD[i];
+            slot.classList.add('collected');
+          } else if (i === currentLetterIndex) {
+            slot.textContent = '_';
+            slot.classList.add('target-active');
+          } else {
+            slot.textContent = '_';
+            slot.classList.remove('collected');
+          }
+        }
+      }
+
+      if (currentLetterIndex < TARGET_WORD.length) {
+        hintEl.textContent = `Próxima letra a recoger en orden: "${TARGET_WORD[currentLetterIndex]}" (${currentLetterIndex + 1}/6)`;
+      } else {
+        hintEl.style.color = 'var(--green-accent)';
+        hintEl.textContent = '¡Palabra DALULÚ completa! Cruza la meta turística 🏁';
+      }
+    }
 
     function renderMaze() {
       board.innerHTML = '';
@@ -1024,9 +1048,10 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             const letter = letterSpawns.find(l => l.r === r && l.c === c && !l.collected);
             if (letter) {
-              cell.innerHTML = `<span class="maze-letter-pickup">${letter.char}</span>`;
+              const isCurrentTarget = letter.order === currentLetterIndex;
+              cell.innerHTML = `<span class="maze-letter-pickup" style="${isCurrentTarget ? 'color:#38bdf8; font-size:0.95rem; text-shadow:0 0 8px #38bdf8;' : 'opacity:0.4;'}">${letter.char}</span>`;
             } else if (cellType === 2) {
-              cell.innerHTML = '<span style="font-size:0.8rem;">🏁</span>';
+              cell.innerHTML = '<span style="font-size:0.85rem;">🏁</span>';
             }
           }
           board.appendChild(cell);
@@ -1038,37 +1063,42 @@ document.addEventListener('DOMContentLoaded', () => {
       const nr = playerPos.r + dr;
       const nc = playerPos.c + dc;
       if (nr < 0 || nr >= 7 || nc < 0 || nc >= 7) return;
-      if (mazeLayout[nr][nc] === 1) return; // Muro
+      if (mazeLayout[nr][nc] === 1) return;
 
       playerPos.r = nr;
       playerPos.c = nc;
       sound.playStep();
 
-      // Recolección de letras
+      // Verificar si hay una letra
       const letter = letterSpawns.find(l => l.r === nr && l.c === nc && !l.collected);
       if (letter) {
-        letter.collected = true;
-        collectedLetters.push(letter.char);
-        sound.playSnap();
-        const slot = document.getElementById(`slot-letter-${collectedLetters.length - 1}`);
-        if (slot) {
-          slot.textContent = letter.char;
-          slot.classList.add('collected');
+        if (letter.order === currentLetterIndex) {
+          // Recolección en el orden adecuado
+          letter.collected = true;
+          currentLetterIndex++;
+          sound.playSnap();
+          updateSlotsUI();
+        } else {
+          // Intentó recoger una letra fuera de turno
+          sound.playClick();
+          hintEl.textContent = `¡Orden estricto! Primero debes recoger "${TARGET_WORD[currentLetterIndex]}"`;
         }
       }
 
       // Verificar salida
       if (mazeLayout[nr][nc] === 2) {
-        if (collectedLetters.length >= TARGET_WORD.length) {
-          completeCurrentChallenge('¡Palabra DALULÚ descubierta y ruta turística completada!');
+        if (currentLetterIndex >= TARGET_WORD.length) {
+          completeCurrentChallenge('¡Palabra DALULÚ completada en el orden exacto y meta alcanzada!');
         } else {
           sound.playClick();
+          hintEl.textContent = '¡Aún te faltan letras para desbloquear la salida!';
         }
       }
 
       renderMaze();
     }
 
+    updateSlotsUI();
     renderMaze();
 
     document.getElementById('dpad-up').addEventListener('click', () => tryMove(-1, 0));
@@ -1090,14 +1120,34 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 3. GLOWSMEC: CORTE DE CABELLO DE PRECISIÓN (ESTILO SQUID GAME DALGONA)
+  // 3. GLOWSMEC: 5 NIVELES DE PRECISIÓN DE CORTE (ESTILO SQUID GAME DALGONA)
   // =========================================================================
   function buildGlowsmecPrecision() {
+    const HAIRCUT_LEVELS = [
+      { name: 'Nivel 1: Flequillo Recto & Bob', curveType: 'straight_arc' },
+      { name: 'Nivel 2: Fade Degradado Lateral', curveType: 'fade_down' },
+      { name: 'Nivel 3: Perfilado de Barba & Patilla', curveType: 'beard_angle' },
+      { name: 'Nivel 4: Diseño Freestyle Barber', curveType: 'wave_zigzag' },
+      { name: 'Nivel 5: Pompadour Estilizado GlowSmec', curveType: 'pompadour_crest' }
+    ];
+
+    let currentLevel = 0;
+
     interactiveArena.innerHTML = `
       <div class="glowsmec-precision-ui">
+        <div class="glowsmec-levels-strip" id="glow-levels-strip">
+          ${HAIRCUT_LEVELS.map((lvl, i) => `
+            <div class="glowsmec-level-pill ${i === 0 ? 'active' : ''}" id="pill-lvl-${i}">
+              Lvl ${i + 1}
+            </div>
+          `).join('')}
+        </div>
+
         <div class="precision-hud-bar">
-          <span><i class="fa-solid fa-scissors"></i> Progreso de Corte: <strong id="glow-pct">0%</strong></span>
-          <div style="display: flex; align-items: center; gap: 0.35rem;">
+          <span id="glow-lvl-title" style="font-weight:700; color:#f472b6;">
+            ${HAIRCUT_LEVELS[0].name}
+          </span>
+          <div style="display:flex; align-items:center; gap:0.35rem;">
             <span>Pulso:</span>
             <div class="tension-meter-track">
               <div id="glow-tension" class="tension-meter-fill"></div>
@@ -1109,8 +1159,8 @@ document.addEventListener('DOMContentLoaded', () => {
           <canvas id="glowsmec-canvas"></canvas>
         </div>
 
-        <p class="precision-instructions-hint">
-          ✂️ Mantén presionado y desliza la tijera por la línea punteada rosa sin salirte.
+        <p class="precision-instructions-hint" id="glow-hint-txt">
+          ✂️ Nivel 1/5: Desliza las tijeras siguiendo la línea punteada para realizar el corte.
         </p>
       </div>
     `;
@@ -1118,42 +1168,62 @@ document.addEventListener('DOMContentLoaded', () => {
     const canvas = document.getElementById('glowsmec-canvas');
     const stage = document.getElementById('haircut-canvas-stage');
     const ctx = canvas.getContext('2d');
-    const pctTxt = document.getElementById('glow-pct');
     const tensionBar = document.getElementById('glow-tension');
+    const lvlTitle = document.getElementById('glow-lvl-title');
+    const hintTxt = document.getElementById('glow-hint-txt');
 
     function resize() {
       canvas.width = stage.clientWidth || 320;
-      canvas.height = stage.clientHeight || 240;
+      canvas.height = stage.clientHeight || 220;
     }
     resize();
 
-    // Generar curva de corte de cabello (silueta perfil elegante)
-    const points = [];
-    const numPoints = 28;
-    for (let i = 0; i < numPoints; i++) {
-      const t = i / (numPoints - 1);
-      const px = canvas.width * 0.18 + t * (canvas.width * 0.64);
-      // Curva de peinado fade con ondas
-      const py = canvas.height * 0.55 + Math.sin(t * Math.PI * 1.5) * 45;
-      points.push({ x: px, y: py, cut: false });
-    }
-
+    let points = [];
     let isCutting = false;
     let cutCount = 0;
     let tension = 0;
-    let gameWon = false;
+    let levelDone = false;
+
+    function generateCurve(type) {
+      points = [];
+      const numPoints = 26;
+      for (let i = 0; i < numPoints; i++) {
+        const t = i / (numPoints - 1);
+        let px = canvas.width * 0.16 + t * (canvas.width * 0.68);
+        let py = canvas.height * 0.55;
+
+        if (type === 'straight_arc') {
+          py = canvas.height * 0.45 + Math.sin(t * Math.PI) * 25;
+        } else if (type === 'fade_down') {
+          py = canvas.height * 0.35 + t * (canvas.height * 0.4);
+        } else if (type === 'beard_angle') {
+          py = t < 0.5 ? canvas.height * 0.35 + t * 50 : canvas.height * 0.6 - (t - 0.5) * 45;
+        } else if (type === 'wave_zigzag') {
+          py = canvas.height * 0.52 + Math.sin(t * Math.PI * 3) * 30;
+        } else if (type === 'pompadour_crest') {
+          py = canvas.height * 0.65 - Math.sin(t * Math.PI) * 55;
+        }
+
+        points.push({ x: px, y: py, cut: false });
+      }
+      cutCount = 0;
+      tension = 0;
+      levelDone = false;
+    }
+
+    generateCurve(HAIRCUT_LEVELS[0].curveType);
 
     function drawScene(currentPos) {
       ctx.fillStyle = '#030712';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Silueta de cabeza/estilismo
+      // Silueta estilizadora de fondo
       ctx.fillStyle = '#1e293b';
       ctx.beginPath();
-      ctx.arc(canvas.width * 0.5, canvas.height * 0.7, canvas.height * 0.38, 0, Math.PI * 2);
+      ctx.arc(canvas.width * 0.5, canvas.height * 0.68, canvas.height * 0.36, 0, Math.PI * 2);
       ctx.fill();
 
-      // Línea guía original (punteada)
+      // Línea guía
       ctx.strokeStyle = 'rgba(236, 72, 153, 0.4)';
       ctx.lineWidth = 14;
       ctx.lineCap = 'round';
@@ -1164,9 +1234,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       ctx.stroke();
 
-      // Línea de corte trazada
+      // Trazado de corte
       ctx.strokeStyle = '#10b981';
-      ctx.lineWidth = 4;
+      ctx.lineWidth = 3.5;
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
       points.forEach((p, idx) => {
@@ -1176,7 +1246,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Puntos ya cortados
+      // Puntos cortados
       points.forEach((p) => {
         if (p.cut) {
           ctx.fillStyle = '#38bdf8';
@@ -1186,18 +1256,39 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // Herramienta de corte en la posición actual
       if (currentPos) {
         ctx.fillStyle = '#ec4899';
-        ctx.font = '20px sans-serif';
-        ctx.fillText('✂️', currentPos.x - 10, currentPos.y - 4);
+        ctx.font = '22px sans-serif';
+        ctx.fillText('✂️', currentPos.x - 11, currentPos.y - 4);
       }
     }
 
     drawScene(null);
 
+    function nextLevel() {
+      currentLevel++;
+      sound.playSuccess();
+
+      for (let i = 0; i < HAIRCUT_LEVELS.length; i++) {
+        const pill = document.getElementById(`pill-lvl-${i}`);
+        if (pill) {
+          pill.className = 'glowsmec-level-pill ' + (i < currentLevel ? 'completed' : (i === currentLevel ? 'active' : ''));
+        }
+      }
+
+      if (currentLevel >= HAIRCUT_LEVELS.length) {
+        completeCurrentChallenge('¡Has dominado los 5 estilos de corte con pulso impecable en GlowSmec!');
+      } else {
+        lvlTitle.textContent = HAIRCUT_LEVELS[currentLevel].name;
+        hintTxt.textContent = `✂️ Nivel ${currentLevel + 1}/5: Sigue el contorno del corte.`;
+        generateCurve(HAIRCUT_LEVELS[currentLevel].curveType);
+        tensionBar.style.width = '0%';
+        drawScene(null);
+      }
+    }
+
     function handlePointer(x, y) {
-      if (gameWon) return;
+      if (levelDone) return;
       let minDistance = 999;
       let closestIdx = -1;
 
@@ -1209,8 +1300,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      if (minDistance < 22) {
-        // En la zona segura
+      if (minDistance < 24) {
         tension = Math.max(0, tension - 3);
         if (!points[closestIdx].cut) {
           points[closestIdx].cut = true;
@@ -1218,19 +1308,15 @@ document.addEventListener('DOMContentLoaded', () => {
           sound.playSnip();
         }
       } else {
-        // Desviado de la línea
-        tension = Math.min(100, tension + 4);
+        tension = Math.min(100, tension + 3.5);
       }
 
       tensionBar.style.width = `${tension}%`;
-      const pct = Math.round((cutCount / points.length) * 100);
-      pctTxt.textContent = `${pct}%`;
-
       drawScene({ x, y });
 
-      if (cutCount >= points.length && tension < 60) {
-        gameWon = true;
-        completeCurrentChallenge('¡Corte de cabello impecable con precisión de 5 estrellas!');
+      if (cutCount >= points.length && tension < 65) {
+        levelDone = true;
+        setTimeout(nextLevel, 300);
       }
     }
 
@@ -1264,14 +1350,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 4. GREENTASK: GUSANO CON LA MANZANA (SNAKE CLÁSICO)
+  // 4. GREENTASK: GUSANO MÁS LENTO & 10 MANZANAS
   // =========================================================================
   function buildGreenTaskSnake() {
+    const TARGET_APPLES = 10; // Cambiado a 10 según requerimiento
     interactiveArena.innerHTML = `
       <div class="greentask-snake-ui">
         <div class="snake-hud-bar">
-          <span><i class="fa-solid fa-apple-whole"></i> Manzanas: <strong id="snake-apple-txt">0 / 5</strong></span>
-          <span><i class="fa-solid fa-trophy"></i> Meta: 5 manzanas</span>
+          <span><i class="fa-solid fa-apple-whole"></i> Manzanas: <strong id="snake-apple-txt">0 / 10</strong></span>
+          <span><i class="fa-solid fa-trophy"></i> Meta: 10 Manzanas (Ritmo Pausado)</span>
         </div>
 
         <div class="snake-canvas-wrap" id="snake-canvas-wrap">
@@ -1323,22 +1410,20 @@ document.addEventListener('DOMContentLoaded', () => {
       dir = nextDir;
       const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
 
-      // Borde envolvente
       if (head.x < 0) head.x = GRID_SIZE - 1;
       if (head.x >= GRID_SIZE) head.x = 0;
       if (head.y < 0) head.y = GRID_SIZE - 1;
       if (head.y >= GRID_SIZE) head.y = 0;
 
-      // Comer manzana
       if (head.x === apple.x && head.y === apple.y) {
         sound.playEat();
         applesEaten++;
-        appleTxt.textContent = `${applesEaten} / 5`;
+        appleTxt.textContent = `${applesEaten} / 10`;
         spawnApple();
-        if (applesEaten >= 5) {
+        if (applesEaten >= TARGET_APPLES) {
           gameWon = true;
           clearInterval(snakeInterval);
-          completeCurrentChallenge('¡Gusano ecológico alimentado y compostaje GreenTask completado!');
+          completeCurrentChallenge('¡Gusano ecológico creció con las 10 manzanas y compostó el huerto GreenTask!');
           return;
         }
       } else {
@@ -1347,7 +1432,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       snake.unshift(head);
 
-      // Dibujar
       ctx.fillStyle = '#020617';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -1366,7 +1450,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.roundRect(seg.x * tileW + 1, seg.y * tileH + 1, tileW - 2, tileH - 2, 4);
         ctx.fill();
         if (idx === 0) {
-          // Ojos del gusano
           ctx.fillStyle = '#030712';
           ctx.beginPath();
           ctx.arc((seg.x + 0.3) * tileW, (seg.y + 0.35) * tileH, 2, 0, Math.PI * 2);
@@ -1376,7 +1459,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    snakeInterval = setInterval(tick, 140);
+    // Gusano más pausado/lento (230ms en vez de 140ms)
+    snakeInterval = setInterval(tick, 230);
 
     function changeDir(dx, dy) {
       if ((dx !== 0 && dir.x === -dx) || (dy !== 0 && dir.y === -dy)) return;
@@ -1404,14 +1488,14 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 5. PATITAS AL RESCATE: CHROME DINO RUNNER CON PERRO
+  // 5. PATITAS AL RESCATE: RUNNER CON PERRO REALISTA (PATAS ANDANDO) & 3 VIDAS
   // =========================================================================
   function buildPatitasRunner() {
     interactiveArena.innerHTML = `
       <div class="patitas-runner-ui">
         <div class="runner-hud-bar">
           <span><i class="fa-solid fa-flag-checkered"></i> Refugio: <strong id="runner-dist-txt">0%</strong></span>
-          <span><i class="fa-solid fa-heart"></i> Misión Adopción</span>
+          <span><i class="fa-solid fa-heart"></i> Vidas: <strong id="runner-lives-txt">❤️❤️❤️</strong></span>
         </div>
 
         <div class="runner-canvas-wrap" id="runner-canvas-wrap">
@@ -1428,6 +1512,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrap = document.getElementById('runner-canvas-wrap');
     const ctx = canvas.getContext('2d');
     const distTxt = document.getElementById('runner-dist-txt');
+    const livesTxt = document.getElementById('runner-lives-txt');
     const jumpBtn = document.getElementById('runner-jump-btn');
 
     canvas.width = wrap.clientWidth || 320;
@@ -1435,11 +1520,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let animId = null;
     let groundY = canvas.height - 35;
-    let dog = { x: 38, y: groundY - 26, vy: 0, gravity: 0.65, isJumping: false, frame: 0 };
+    let dog = { x: 42, y: groundY - 28, vy: 0, gravity: 0.65, isJumping: false, frame: 0 };
     let obstacles = [];
     let distance = 0;
+    let lives = 3;
     let spawnCounter = 0;
     let gameWon = false;
+    let hurtFlash = 0;
 
     function jump() {
       if (gameWon) return;
@@ -1467,10 +1554,122 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     window.addEventListener('keydown', onKeyDown);
 
+    function updateLivesUI() {
+      livesTxt.textContent = lives === 3 ? '❤️❤️❤️' : (lives === 2 ? '❤️❤️' : (lives === 1 ? '❤️' : '💀'));
+    }
+
+    function resetRun() {
+      distance = 0;
+      lives = 3;
+      obstacles = [];
+      updateLivesUI();
+      distTxt.textContent = '0%';
+    }
+
+    function drawDog(x, y, frame, jumping) {
+      ctx.save();
+      ctx.translate(x, y);
+
+      // Color base del perro (caramelo dorado)
+      const dogColor = hurtFlash > 0 ? '#ef4444' : '#d97706';
+      const earColor = hurtFlash > 0 ? '#b91c1c' : '#b45309';
+
+      // Cola alegre batiendo
+      const tailWag = Math.sin(frame * 0.4) * 0.4;
+      ctx.save();
+      ctx.translate(-14, -6);
+      ctx.rotate(-0.5 + tailWag);
+      ctx.fillStyle = earColor;
+      ctx.beginPath();
+      ctx.roundRect(0, -3, 10, 5, 2);
+      ctx.fill();
+      ctx.restore();
+
+      // Patas traseras (animación trotando)
+      const legPhase1 = jumping ? 0.3 : Math.sin(frame * 0.35);
+      const legPhase2 = jumping ? -0.3 : -Math.sin(frame * 0.35);
+
+      ctx.strokeStyle = earColor;
+      ctx.lineWidth = 3.5;
+      ctx.lineCap = 'round';
+
+      // Pata trasera izquierda
+      ctx.beginPath();
+      ctx.moveTo(-8, 6);
+      ctx.lineTo(-8 + legPhase2 * 7, 18);
+      ctx.stroke();
+
+      // Pata delantera izquierda
+      ctx.beginPath();
+      ctx.moveTo(8, 6);
+      ctx.lineTo(8 + legPhase1 * 7, 18);
+      ctx.stroke();
+
+      // Cuerpo del perro
+      ctx.fillStyle = dogColor;
+      ctx.beginPath();
+      ctx.roundRect(-14, -8, 28, 16, 6);
+      ctx.fill();
+
+      // Cabeza
+      ctx.beginPath();
+      ctx.roundRect(8, -18, 16, 14, 5);
+      ctx.fill();
+
+      // Hocico
+      ctx.beginPath();
+      ctx.roundRect(18, -13, 8, 8, 3);
+      ctx.fill();
+
+      // Nariz
+      ctx.fillStyle = '#030712';
+      ctx.beginPath();
+      ctx.arc(24, -10, 2, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Ojo
+      ctx.fillStyle = '#030712';
+      ctx.beginPath();
+      ctx.arc(15, -13, 2, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(14.5, -13.5, 0.7, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Oreja que ondea con el trote
+      const earFlap = jumping ? -0.5 : Math.sin(frame * 0.3) * 0.25;
+      ctx.save();
+      ctx.translate(11, -16);
+      ctx.rotate(0.3 + earFlap);
+      ctx.fillStyle = earColor;
+      ctx.beginPath();
+      ctx.roundRect(-2, 0, 6, 12, 3);
+      ctx.fill();
+      ctx.restore();
+
+      // Patas derechas (primer plano)
+      ctx.strokeStyle = dogColor;
+      ctx.lineWidth = 3.5;
+
+      // Pata trasera derecha
+      ctx.beginPath();
+      ctx.moveTo(-6, 6);
+      ctx.lineTo(-6 + legPhase1 * 7, 18);
+      ctx.stroke();
+
+      // Pata delantera derecha
+      ctx.beginPath();
+      ctx.moveTo(10, 6);
+      ctx.lineTo(10 + legPhase2 * 7, 18);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
     function loop() {
       if (gameWon) return;
 
-      // Actualizar física del perro
       dog.y += dog.vy;
       dog.vy += dog.gravity;
       if (dog.y >= groundY - 26) {
@@ -1479,8 +1678,8 @@ document.addEventListener('DOMContentLoaded', () => {
         dog.isJumping = false;
       }
       dog.frame++;
+      if (hurtFlash > 0) hurtFlash--;
 
-      // Progreso de distancia
       distance += 0.12;
       distTxt.textContent = `${Math.min(100, Math.floor(distance))}%`;
       if (distance >= 100) {
@@ -1490,9 +1689,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
-      // Spawn de obstáculos
       spawnCounter++;
-      if (spawnCounter > 55) {
+      if (spawnCounter > 58) {
         spawnCounter = 0;
         obstacles.push({
           x: canvas.width + 10,
@@ -1503,11 +1701,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
-      // Dibujar
       ctx.fillStyle = '#071020';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Línea de tierra
+      // Suelo
       ctx.strokeStyle = '#38bdf8';
       ctx.lineWidth = 2;
       ctx.beginPath();
@@ -1518,7 +1715,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // Obstáculos
       for (let i = obstacles.length - 1; i >= 0; i--) {
         const obs = obstacles[i];
-        obs.x -= 3.5;
+        obs.x -= 3.2;
 
         if (obs.type === 'cone') {
           ctx.fillStyle = '#f97316';
@@ -1533,19 +1730,24 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx.fillRect(obs.x, obs.y + 4, obs.w, obs.h - 4);
         }
 
-        // Colisión suave (reinicia un poco de distancia sin castigar al usuario)
-        if (Math.hypot(dog.x - obs.x, dog.y - obs.y) < 18) {
-          distance = Math.max(0, distance - 4);
-          sound.playLaser();
+        // Colisión: Quita 1 vida. Si llega a 0, reinicia la carrera
+        if (Math.hypot(dog.x - obs.x, dog.y - obs.y) < 22) {
+          lives--;
+          sound.playHurt();
+          hurtFlash = 15;
           obstacles.splice(i, 1);
+          updateLivesUI();
+
+          if (lives <= 0) {
+            resetRun();
+          }
         } else if (obs.x < -20) {
           obstacles.splice(i, 1);
         }
       }
 
-      // Dibujar perrito
-      ctx.font = '24px sans-serif';
-      ctx.fillText('🐶', dog.x - 12, dog.y + 20);
+      // Dibujar perro animado realista
+      drawDog(dog.x, dog.y, dog.frame, dog.isJumping);
 
       animId = requestAnimationFrame(loop);
     }
@@ -1559,9 +1761,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 6. SOFTPLAY: PROGRAMAR ROBOT CON BOTONES DE ÓRDENES
+  // 6. SOFTPLAY: PROGRAMADOR DE ROBOTS (SIN CÓDIGO)
   // =========================================================================
-  function buildSoftPlayGame() {
+  function buildSoftPlayRobot() {
     let program = [];
     const GRID_SIZE = 5;
     let robotPos = { r: 0, c: 0 };
@@ -1576,7 +1778,7 @@ document.addEventListener('DOMContentLoaded', () => {
     interactiveArena.innerHTML = `
       <div class="softplay-robot-ui">
         <div class="robot-command-queue-bar" id="robot-queue">
-          <span style="font-size:0.72rem; color:var(--text-muted);">Secuencia vacía. Agrega órdenes:</span>
+          <span style="font-size:0.72rem; color:var(--text-muted);">Toca las flechas para ordenar pasos al robot:</span>
         </div>
 
         <div class="robot-board-grid" id="robot-board"></div>
@@ -1643,7 +1845,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderBoard();
     renderQueue();
 
-    // Agregar órdenes
     document.querySelectorAll('.btn-arrow-order').forEach(btn => {
       btn.addEventListener('click', () => {
         if (program.length < 12) {
@@ -1662,7 +1863,6 @@ document.addEventListener('DOMContentLoaded', () => {
       renderQueue();
     });
 
-    // Ejecutar programa paso a paso
     execBtn.addEventListener('click', () => {
       if (program.length === 0) return;
       execBtn.disabled = true;
@@ -1671,7 +1871,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       let stepIdx = 0;
       const stepInterval = setInterval(() => {
-        // Desmarcar anterior
         document.querySelectorAll('.cmd-badge').forEach(b => b.classList.remove('active-step'));
 
         if (stepIdx >= program.length) {
@@ -1695,7 +1894,6 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (cmd === 'LEFT') nc--;
         else if (cmd === 'RIGHT') nc++;
 
-        // Chequear límites y obstáculos
         if (nr >= 0 && nr < GRID_SIZE && nc >= 0 && nc < GRID_SIZE) {
           const hitObs = obstacles.some(o => o.r === nr && o.c === nc);
           if (!hitObs) {
@@ -1703,16 +1901,18 @@ document.addEventListener('DOMContentLoaded', () => {
             robotPos.c = nc;
             sound.playStep();
           } else {
-            sound.playLaser();
+            sound.playHurt();
           }
         } else {
-          sound.playLaser();
+          sound.playHurt();
         }
 
         renderBoard();
         stepIdx++;
       }, 350);
     });
+
+    activeGameCleanup = () => {};
   }
 
   // =========================================================================
@@ -1752,7 +1952,7 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
           <div class="pc-slot-zone" data-slot="ssd">
             <i class="fa-solid fa-hard-drive slot-icon" style="font-size:1.3rem;"></i>
-            <span style="font-size:0.7rem; font-weight:700;">Slot SSD M.2</span>
+            <span style="font-size:0.7rem; font-weight:700;">Slot M.2</span>
           </div>
           <div class="pc-slot-zone" data-slot="psu" style="grid-column: span 2;">
             <i class="fa-solid fa-plug slot-icon" style="font-size:1.3rem;"></i>
@@ -1781,7 +1981,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const partCards = document.querySelectorAll('.pc-part-card');
     const slotZones = document.querySelectorAll('.pc-slot-zone');
 
-    // Selección de componente
     partCards.forEach(card => {
       card.addEventListener('click', () => {
         const compId = card.getAttribute('data-comp');
@@ -1792,7 +1991,6 @@ document.addEventListener('DOMContentLoaded', () => {
         card.classList.add('selected');
         selectedComp = compId;
 
-        // Resaltar ranura correspondiente
         slotZones.forEach(z => {
           if (z.getAttribute('data-slot') === compId) z.classList.add('highlight');
           else z.classList.remove('highlight');
@@ -1800,21 +1998,18 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Colocación en la ranura
     slotZones.forEach(slot => {
       slot.addEventListener('click', () => {
         const slotType = slot.getAttribute('data-slot');
         if (installedParts[slotType]) return;
 
         if (selectedComp === slotType) {
-          // Encaje perfecto
           sound.playSnap();
           installedParts[slotType] = true;
           slot.classList.remove('highlight');
           slot.classList.add('installed');
           slot.querySelector('span').textContent = '✓ Instalado';
 
-          // Marcar tarjeta de componente como instalada
           const card = document.querySelector(`.pc-part-card[data-comp="${slotType}"]`);
           if (card) {
             card.classList.remove('selected');
@@ -1832,7 +2027,7 @@ document.addEventListener('DOMContentLoaded', () => {
             statusMsg.textContent = '¡Todos los componentes listos para encender!';
           }
         } else if (selectedComp) {
-          sound.playLaser();
+          sound.playHurt();
           statusMsg.style.color = '#f87171';
           statusMsg.textContent = 'Esta ranura no corresponde a la pieza seleccionada.';
         }
@@ -1850,6 +2045,8 @@ document.addEventListener('DOMContentLoaded', () => {
         completeCurrentChallenge('¡PC Gamer completamente ensamblado y servicio técnico TecnoFix certificado!');
       }, 1400);
     });
+
+    activeGameCleanup = () => {};
   }
 
   // 11. CAMBIAR DESTINO ACTIVO
@@ -1860,7 +2057,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const dest = destinations[appState.currentIndex];
 
-    // Encabezado
     missionDestPill.textContent = `DESTINO ${dest.id} • ${dest.name.toUpperCase()}`;
     const isStamped = !!appState.stamps[dest.id];
     if (isStamped) {
@@ -1871,7 +2067,6 @@ document.addEventListener('DOMContentLoaded', () => {
       destStatusBadge.innerHTML = '<i class="fa-regular fa-circle-dot"></i> <span>Pendiente de Sello</span>';
     }
 
-    // Video y Misión
     if (gameVideo.getAttribute('src') !== dest.videoSrc) {
       gameVideo.src = dest.videoSrc;
       gameVideo.currentTime = 0;
@@ -1881,18 +2076,12 @@ document.addEventListener('DOMContentLoaded', () => {
     briefingDesc.textContent = dest.briefing.desc;
     briefingReq.textContent = `Desafío: ${dest.briefing.req}`;
 
-    // Minijuego
     minigameTitle.innerHTML = `<i class="fa-solid ${dest.icon}"></i> ${dest.game.title}`;
     minigameSubtitle.textContent = dest.game.subtitle;
     minigameBadge.textContent = dest.game.badge;
 
-    // Fondo
     updateBackground(dest.bgImage);
-
-    // Cargar Minijuego
     loadMinigame(dest);
-
-    // Actualizar dock
     renderDock();
     updatePassportStats();
   }
@@ -1926,7 +2115,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Atajos de Teclado
   window.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT') return;
     if (e.key === 'ArrowRight' && e.ctrlKey) {
