@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
       category: 'Sistema Web Full-Stack',
       status: 'Disponible',
       isReady: true,
-      videoSrc: 'assets/video/vitlinepage.mp4',
+      videoSrc: 'vitlinepage.mp4',
       bgImage: 'assets/images/tecnologia.jpeg',
       summary: {
         purpose: 'Sistema integral para la cotización de rutas comerciales, reservación de tiquetes de ida y vuelta, y emisión digital de comprobantes.',
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
       category: 'Portal Web Turístico',
       status: 'Disponible',
       isReady: true,
-      videoSrc: 'assets/video/dalulupage.mp4',
+      videoSrc: 'dalulupage.mp4',
       bgImage: 'assets/images/aprender.jpeg',
       summary: {
         purpose: 'Plataforma orientada a brindar asesoría personalizada, itinerarios guiados y promoción de destinos colombianos como Guatapé y Medellín.',
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
       category: 'Plataforma de Servicios y Citas',
       status: 'Disponible',
       isReady: true,
-      videoSrc: 'assets/video/glowsmecpage.mp4',
+      videoSrc: 'glowsmecpage.mp4',
       bgImage: 'assets/images/oportunidades.jpeg',
       summary: {
         purpose: 'Solución digital para salones de estética que integra catálogo de servicios, asesoría de estilo y reserva digital de citas.',
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
       category: 'Plataforma Ambiental y Social',
       status: 'Disponible',
       isReady: true,
-      videoSrc: 'assets/video/greentaskpage.webm',
+      videoSrc: 'greentaskpage.webm',
       bgImage: 'assets/images/juntos.jpeg',
       summary: {
         purpose: 'Fomentar la regeneración ambiental, el reciclaje responsable de plásticos PET, papel, cartón y la gestión comunitaria de donaciones.',
@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
       category: 'Gestión Social y Refugio Animal',
       status: 'Disponible',
       isReady: true,
-      videoSrc: 'assets/video/patitasalrescatepage.mp4',
+      videoSrc: 'patitasalrescatepage.mp4',
       bgImage: 'assets/images/catalina.jpeg',
       summary: {
         purpose: 'Conectar animales vulnerables con familias adoptantes responsables, gestionar solicitudes de rescate y apoyar el refugio con una tienda solidaria.',
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', () => {
       category: 'Plataforma EdTech Interactiva',
       status: 'Disponible',
       isReady: true,
-      videoSrc: 'assets/video/softplaypage.mp4',
+      videoSrc: 'softplaypage.mp4',
       bgImage: 'assets/images/quehacemos.jpeg',
       summary: {
         purpose: 'Facilitar el aprendizaje de programación web (HTML, CSS, JavaScript) mediante una metodología interactiva basada en retos prácticos.',
@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
       category: 'E-Commerce y Soporte Técnico',
       status: 'Disponible',
       isReady: true,
-      videoSrc: 'assets/video/tecnofixpage.mp4',
+      videoSrc: 'tecnofixpage.mp4',
       bgImage: 'assets/images/tecnologia.jpeg',
       summary: {
         purpose: 'Comercialización de computadores gamer, repuestos y componentes, junto con un sistema de agendamiento para mantenimiento preventivo y correctivo.',

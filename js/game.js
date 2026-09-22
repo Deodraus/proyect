@@ -191,7 +191,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'VitLine Airlines',
       badge: '01 • VitLine',
       category: 'Vuelos & Reservas',
-      videoSrc: 'assets/video/vitlinepage.mp4',
+      videoSrc: 'vitlinepage.mp4',
       bgImage: 'assets/images/tecnologia.jpeg',
       icon: 'fa-jet-fighter-up',
       briefing: {
@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'DaLulú Travel',
       badge: '02 • DaLulú',
       category: 'Turismo en Colombia',
-      videoSrc: 'assets/video/dalulupage.mp4',
+      videoSrc: 'dalulupage.mp4',
       bgImage: 'assets/images/aprender.jpeg',
       icon: 'fa-compass',
       briefing: {
@@ -233,7 +233,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'GlowSmec Salón & Spa',
       badge: '03 • GlowSmec',
       category: 'Cuidado Estético & Spa',
-      videoSrc: 'assets/video/glowsmecpage.mp4',
+      videoSrc: 'glowsmecpage.mp4',
       bgImage: 'assets/images/oportunidades.jpeg',
       icon: 'fa-scissors',
       briefing: {
@@ -254,7 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'GreenTask Sostenible',
       badge: '04 • GreenTask',
       category: 'Ecología & Reciclaje',
-      videoSrc: 'assets/video/greentaskpage.webm',
+      videoSrc: 'greentaskpage.webm',
       bgImage: 'assets/images/juntos.jpeg',
       icon: 'fa-worm',
       briefing: {
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'Patitas al Rescate',
       badge: '05 • Patitas',
       category: 'Adopción & Rescate Animal',
-      videoSrc: 'assets/video/patitasalrescatepage.mp4',
+      videoSrc: 'patitasalrescatepage.mp4',
       bgImage: 'assets/images/catalina.jpeg',
       icon: 'fa-dog',
       briefing: {
@@ -296,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'SoftPlay Academy',
       badge: '06 • SoftPlay',
       category: 'Educación en Programación',
-      videoSrc: 'assets/video/softplaypage.mp4',
+      videoSrc: 'softplaypage.mp4',
       bgImage: 'assets/images/quehacemos.jpeg',
       icon: 'fa-robot',
       briefing: {
@@ -317,7 +317,7 @@ document.addEventListener('DOMContentLoaded', () => {
       title: 'TecnoFix Computadores',
       badge: '07 • TecnoFix',
       category: 'Hardware & Servicio Técnico',
-      videoSrc: 'assets/video/tecnofixpage.mp4',
+      videoSrc: 'tecnofixpage.mp4',
       bgImage: 'assets/images/tecnologia.jpeg',
       icon: 'fa-microchip',
       briefing: {
