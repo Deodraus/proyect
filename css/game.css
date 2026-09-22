@@ -1017,6 +1017,31 @@ html, body {
   display: block;
 }
 
+.glow-penalty-badge {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: var(--radius-full);
+  background: rgba(239, 68, 68, 0.2);
+  border: 1px solid #ef4444;
+  color: #fca5a5;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: translateY(-2px);
+}
+
+.glow-penalty-badge.visible {
+  opacity: 1;
+  transform: translateY(0);
+  animation: pulsePenalty 0.6s infinite alternate;
+}
+
+@keyframes pulsePenalty {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.08); box-shadow: 0 0 8px rgba(239, 68, 68, 0.6); }
+}
+
 .precision-instructions-hint {
   font-size: 0.72rem;
   color: var(--text-muted);
@@ -1059,8 +1084,30 @@ html, body {
   background: #020617;
   border-radius: var(--radius-sm);
   overflow: hidden;
-  border: 1.5px solid rgba(16, 185, 129, 0.35);
+  border: 2px solid rgba(239, 68, 68, 0.7);
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.35);
   touch-action: none;
+  transition: all 0.2s ease;
+}
+
+.snake-canvas-wrap.crashed {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 25px rgba(239, 68, 68, 0.95) !important;
+  animation: snakeCrashShake 0.4s ease-in-out;
+}
+
+@keyframes snakeCrashShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+
+.snake-hazard-hint {
+  font-size: 0.7rem;
+  color: #f87171;
+  text-align: center;
+  font-weight: 700;
+  padding: 0.15rem;
 }
 
 #snake-canvas {
@@ -1093,6 +1140,16 @@ html, body {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.74rem;
   color: #ffffff;
+}
+
+.runner-speed-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--radius-full);
+  background: rgba(56, 189, 248, 0.15);
+  border: 1px solid var(--blue-accent);
+  color: var(--blue-accent);
 }
 
 .runner-canvas-wrap {
@@ -1147,8 +1204,56 @@ html, body {
   flex-direction: column;
   height: 100%;
   width: 100%;
-  gap: 0.4rem;
+  gap: 0.35rem;
   align-items: center;
+}
+
+.softplay-puzzles-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100%;
+  overflow-x: auto;
+  padding: 0.2rem 0;
+  scrollbar-width: thin;
+}
+
+.softplay-puzzle-pill {
+  flex-shrink: 0;
+  padding: 0.15rem 0.45rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-muted);
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.softplay-puzzle-pill.active {
+  background: rgba(56, 189, 248, 0.25);
+  border-color: var(--blue-accent);
+  color: var(--blue-accent);
+  box-shadow: 0 0 8px var(--blue-glow);
+  transform: scale(1.05);
+}
+
+.softplay-puzzle-pill.completed {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: var(--green-accent);
+  color: var(--green-accent);
+}
+
+.softplay-puzzle-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
 }
 
 .robot-command-queue-bar {

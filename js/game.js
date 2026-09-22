@@ -214,13 +214,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-jet-fighter-up',
       briefing: {
         title: 'VitLine Airlines',
-        desc: 'Plataforma para vuelos comerciales y asistencia de viaje. La aeronave dispara automáticamente de forma infinita mientras esquivas las turbulencias hasta aterrizar.',
-        req: 'Pilota la nave con disparo continuo automático y alcanza el 100% de la distancia de vuelo.'
+        desc: 'Plataforma para vuelos comerciales y asistencia de viaje. Elimina los drones enemigos con disparo automático infinito y esquiva las turbulencias hasta aterrizar.',
+        req: 'Pilota la nave con disparo continuo automático y destruye a los drones enemigos hasta alcanzar el 100%.'
       },
       game: {
         title: 'Misión Aérea VitLine',
-        subtitle: 'Disparo Automático Infinito & Vuelo Vertical',
-        badge: 'Shooter Automático'
+        subtitle: 'Drones Enemigos & Disparo Automático',
+        badge: 'Shooter de Drones'
       }
     },
     {
@@ -256,13 +256,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-scissors',
       briefing: {
         title: 'GlowSmec Salón & Spa',
-        desc: 'Plataforma de belleza profesional. Supera los 5 estilos de corte de precisión estilo Squid Game (Flequillo, Fade, Barba, Tribal y Pompadour).',
-        req: 'Completa los 5 niveles de corte de cabello manteniendo el pulso firme sin salirte del margen.'
+        desc: 'Plataforma de belleza profesional. Supera los 5 estilos de corte con silueta realista de rostro y cabello. Mantén el pulso fino: ¡salirte del trazo penaliza alargando el recorrido!',
+        req: 'Completa los 5 cortes con pulso firme. Salirte del trazo hará más largo el corte.'
       },
       game: {
         title: '5 Desafíos de Corte de Precisión',
-        subtitle: 'Serie de 5 Estilos Estéticos GlowSmec',
-        badge: '5 Niveles de Corte'
+        subtitle: 'Corte Realista & Penalización Dinámica',
+        badge: '5 Estilos con Rostro'
       }
     },
     {
@@ -277,13 +277,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-worm',
       briefing: {
         title: 'GreenTask Sostenible',
-        desc: 'Plataforma ecológica y compostaje. Guía al gusano a un ritmo tranquilo y pausado para comer 10 manzanas orgánicas y crecer sucesivamente.',
-        req: 'Come 10 manzanas orgánicas a ritmo pausado con el gusano para nutrir el huerto.'
+        desc: 'Plataforma ecológica y compostaje. Guía al gusano a ritmo pausado para comer 10 manzanas. ¡Cuidado! Chocar contra las paredes o morderte a ti mismo causa derrota inmediata y reinicio.',
+        req: 'Come 10 manzanas sin tocar ninguna pared ni morder tu cuerpo para nutrir el huerto.'
       },
       game: {
-        title: 'Gusano de las Manzanas (10 Manzanas)',
-        subtitle: 'Snake Sostenible a Ritmo Pausado',
-        badge: 'Meta: 10 Manzanas'
+        title: 'Gusano Ecológico (Paredes Mortales)',
+        subtitle: 'Come 10 Manzanas • Sin Chocar Paredes ni Cola',
+        badge: '10 Manzanas • Pared Mortal'
       }
     },
     {
@@ -298,13 +298,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-dog',
       briefing: {
         title: 'Patitas al Rescate',
-        desc: 'Refugio de rescate animal. El perrito realista corre moviendo sus patas; dispones de 3 vidas. Cada obstáculo no evitado te quita 1 vida; si pierdes las 3 vidas, reinicias la carrera.',
-        req: 'Salta los obstáculos con el perrito realista, cuida tus 3 vidas y llega al 100% de la distancia.'
+        desc: 'Refugio de rescate animal. El perrito realista corre moviendo sus patas por un trayecto largo que acelera progresivamente. Dispones de 3 vidas para llegar a salvo.',
+        req: 'Supera el trayecto largo con velocidad creciente y conserva al menos 1 de tus 3 vidas.'
       },
       game: {
-        title: 'Carrera Canina Realista (3 Vidas)',
-        subtitle: 'Runner con Animación de Patas & Vidas',
-        badge: '3 Vidas & Patas Animadas'
+        title: 'Carrera Canina Acelerada (3 Vidas)',
+        subtitle: 'Trayecto Largo • Velocidad Progresiva',
+        badge: 'Velocidad Creciente • 3 Vidas'
       }
     },
     {
@@ -319,13 +319,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-robot',
       briefing: {
         title: 'SoftPlay Academy',
-        desc: 'Academia interactiva de lógica computacional. Programa al robot mediante botones direccionales para llevarlo hasta la computadora meta sin escribir código.',
-        req: 'Construye la secuencia de órdenes y presiona EJECUTAR para ver al robot completar la ruta.'
+        desc: 'Academia de lógica computacional. Resuelve la serie de 10 acertijos algorítmicos programando los movimientos del robot con botones para esquivar obstáculos y alcanzar la meta.',
+        req: 'Programa y resuelve con éxito los 10 acertijos de ruta para graduarte en SoftPlay.'
       },
       game: {
-        title: 'Programador de Robots',
-        subtitle: 'Lógica Visual e Interactiva por Botones',
-        badge: 'Órdenes sin Código'
+        title: 'Programador de Robots (10 Acertijos)',
+        subtitle: 'Serie Completa de 10 Niveles Algorítmicos',
+        badge: '10 Acertijos'
       }
     },
     {
@@ -819,17 +819,116 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.fill();
       });
 
-      // Spawn de obstáculos lentos
+      // Dibujar Drones Enemigos con fondo transparente y aspas giratorias
+      function drawEnemyDrone(x, y, frame, type) {
+        ctx.save();
+        ctx.translate(x, y);
+        const rotorAngle = (frame * 0.45) % (Math.PI * 2);
+
+        if (type === 'assault') {
+          // Drone de Asalto Pesado (Quadcopter en 'X' sin fondo)
+          ctx.strokeStyle = '#64748b';
+          ctx.lineWidth = 2.8;
+          ctx.lineCap = 'round';
+          ctx.beginPath();
+          ctx.moveTo(-12, -12); ctx.lineTo(12, 12);
+          ctx.moveTo(12, -12); ctx.lineTo(-12, 12);
+          ctx.stroke();
+
+          // 4 Motores y hélices transparentes girando
+          const rotors = [[-12, -12], [12, -12], [-12, 12], [12, 12]];
+          rotors.forEach(([rx, ry], idx) => {
+            ctx.fillStyle = '#1e293b';
+            ctx.beginPath();
+            ctx.arc(rx, ry, 3.5, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.save();
+            ctx.translate(rx, ry);
+            ctx.rotate(rotorAngle * (idx % 2 === 0 ? 1 : -1));
+            ctx.strokeStyle = 'rgba(239, 68, 68, 0.85)';
+            ctx.lineWidth = 1.6;
+            ctx.beginPath();
+            ctx.moveTo(-8, 0); ctx.lineTo(8, 0);
+            ctx.stroke();
+            ctx.restore();
+          });
+
+          // Chasis central metálico futurista
+          ctx.fillStyle = '#0f172a';
+          ctx.strokeStyle = '#ef4444';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.roundRect(-8, -8, 16, 16, 4);
+          ctx.fill();
+          ctx.stroke();
+
+          // Sensor óptico hostil con resplandor carmesí
+          ctx.fillStyle = '#ef4444';
+          ctx.shadowColor = '#ef4444';
+          ctx.shadowBlur = 9;
+          ctx.beginPath();
+          ctx.arc(0, 0, 3.5, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        } else {
+          // Drone Caza de Reconocimiento (Bi-rotor en flecha sin fondo)
+          ctx.fillStyle = '#1e293b';
+          ctx.strokeStyle = '#f59e0b';
+          ctx.lineWidth = 1.6;
+          ctx.beginPath();
+          ctx.moveTo(0, 11);
+          ctx.lineTo(13, -5);
+          ctx.lineTo(7, -11);
+          ctx.lineTo(0, -6);
+          ctx.lineTo(-7, -11);
+          ctx.lineTo(-13, -5);
+          ctx.closePath();
+          ctx.fill();
+          ctx.stroke();
+
+          // Rotores duales en las alas
+          [[-12, -5], [12, -5]].forEach(([rx, ry], idx) => {
+            ctx.fillStyle = '#334155';
+            ctx.beginPath();
+            ctx.arc(rx, ry, 3, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.save();
+            ctx.translate(rx, ry);
+            ctx.rotate(rotorAngle * (idx === 0 ? 1 : -1));
+            ctx.strokeStyle = 'rgba(245, 158, 11, 0.85)';
+            ctx.lineWidth = 1.5;
+            ctx.beginPath();
+            ctx.moveTo(-7, 0); ctx.lineTo(7, 0);
+            ctx.stroke();
+            ctx.restore();
+          });
+
+          // Ojo sensor ámbar
+          ctx.fillStyle = '#fbbf24';
+          ctx.shadowColor = '#f59e0b';
+          ctx.shadowBlur = 8;
+          ctx.beginPath();
+          ctx.arc(0, 0, 3, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.shadowBlur = 0;
+        }
+
+        ctx.restore();
+      }
+
+      // Spawn de Drones enemigos lentos
       enemySpawnCounter++;
       if (enemySpawnCounter > 48) {
         enemySpawnCounter = 0;
         enemies.push({
-          x: 20 + Math.random() * (canvas.width - 40),
-          y: -20,
-          w: 22,
-          h: 22,
-          speed: 0.75 + Math.random() * 0.65, // Más lento según pedido
-          type: Math.random() > 0.5 ? 'storm' : 'drone'
+          x: 22 + Math.random() * (canvas.width - 44),
+          y: -22,
+          w: 24,
+          h: 24,
+          speed: 0.72 + Math.random() * 0.55,
+          type: Math.random() > 0.5 ? 'assault' : 'scout'
         });
       }
 
@@ -845,26 +944,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       ctx.shadowBlur = 0;
 
-      // Enemigos
+      // Enemigos Drones (Sin caja de fondo)
       for (let i = enemies.length - 1; i >= 0; i--) {
         const en = enemies[i];
         en.y += en.speed;
 
-        if (en.type === 'storm') {
-          ctx.fillStyle = '#94a3b8';
-          ctx.beginPath();
-          ctx.arc(en.x, en.y, 12, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.fillStyle = '#f59e0b';
-          ctx.font = '10px sans-serif';
-          ctx.fillText('⚡', en.x - 5, en.y + 4);
-        } else {
-          ctx.fillStyle = '#ef4444';
-          ctx.fillRect(en.x - 10, en.y - 10, 20, 20);
-          ctx.fillStyle = '#ffffff';
-          ctx.font = '10px sans-serif';
-          ctx.fillText('⚠️', en.x - 6, en.y + 4);
-        }
+        drawEnemyDrone(en.x, en.y, Math.floor(distance * 10) + i * 5, en.type);
 
         // Colisión con balas
         for (let j = bullets.length - 1; j >= 0; j--) {
@@ -1147,6 +1232,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <span id="glow-lvl-title" style="font-weight:700; color:#f472b6;">
             ${HAIRCUT_LEVELS[0].name}
           </span>
+          <span id="glow-penalty-badge" class="glow-penalty-badge">
+            <i class="fa-solid fa-triangle-exclamation"></i> +Trazo Penalizado
+          </span>
           <div style="display:flex; align-items:center; gap:0.35rem;">
             <span>Pulso:</span>
             <div class="tension-meter-track">
@@ -1160,7 +1248,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <p class="precision-instructions-hint" id="glow-hint-txt">
-          ✂️ Nivel 1/5: Desliza las tijeras siguiendo la línea punteada para realizar el corte.
+          ✂️ Nivel 1/5: Desliza las tijeras sobre la línea punteada. ¡Si te sales del trazo, el recorrido se alargará más!
         </p>
       </div>
     `;
@@ -1171,6 +1259,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const tensionBar = document.getElementById('glow-tension');
     const lvlTitle = document.getElementById('glow-lvl-title');
     const hintTxt = document.getElementById('glow-hint-txt');
+    const penaltyBadge = document.getElementById('glow-penalty-badge');
 
     function resize() {
       canvas.width = stage.clientWidth || 320;
@@ -1183,25 +1272,27 @@ document.addEventListener('DOMContentLoaded', () => {
     let cutCount = 0;
     let tension = 0;
     let levelDone = false;
+    let offTrackTicks = 0;
+    let penaltyTimer = null;
 
     function generateCurve(type) {
       points = [];
-      const numPoints = 26;
+      const numPoints = 24;
       for (let i = 0; i < numPoints; i++) {
         const t = i / (numPoints - 1);
-        let px = canvas.width * 0.16 + t * (canvas.width * 0.68);
-        let py = canvas.height * 0.55;
+        let px = canvas.width * 0.18 + t * (canvas.width * 0.64);
+        let py = canvas.height * 0.52;
 
         if (type === 'straight_arc') {
-          py = canvas.height * 0.45 + Math.sin(t * Math.PI) * 25;
+          py = canvas.height * 0.44 + Math.sin(t * Math.PI) * 22;
         } else if (type === 'fade_down') {
-          py = canvas.height * 0.35 + t * (canvas.height * 0.4);
+          py = canvas.height * 0.36 + t * (canvas.height * 0.38);
         } else if (type === 'beard_angle') {
-          py = t < 0.5 ? canvas.height * 0.35 + t * 50 : canvas.height * 0.6 - (t - 0.5) * 45;
+          py = t < 0.5 ? canvas.height * 0.38 + t * 45 : canvas.height * 0.6 - (t - 0.5) * 40;
         } else if (type === 'wave_zigzag') {
-          py = canvas.height * 0.52 + Math.sin(t * Math.PI * 3) * 30;
+          py = canvas.height * 0.5 + Math.sin(t * Math.PI * 3) * 28;
         } else if (type === 'pompadour_crest') {
-          py = canvas.height * 0.65 - Math.sin(t * Math.PI) * 55;
+          py = canvas.height * 0.62 - Math.sin(t * Math.PI) * 52;
         }
 
         points.push({ x: px, y: py, cut: false });
@@ -1209,21 +1300,226 @@ document.addEventListener('DOMContentLoaded', () => {
       cutCount = 0;
       tension = 0;
       levelDone = false;
+      offTrackTicks = 0;
     }
 
     generateCurve(HAIRCUT_LEVELS[0].curveType);
+
+    // Dibuja una cabeza humana y corte de cabello estilizado realista
+    function drawRealisticHeadAndHair(levelIndex) {
+      const cx = canvas.width * 0.5;
+      const cy = canvas.height * 0.62;
+
+      // 1. Capa de peluquería & hombros
+      const capeGrad = ctx.createLinearGradient(cx - 80, cy, cx + 80, cy + 80);
+      capeGrad.addColorStop(0, '#0f172a');
+      capeGrad.addColorStop(0.5, '#1e293b');
+      capeGrad.addColorStop(1, '#0f172a');
+      ctx.fillStyle = capeGrad;
+      ctx.beginPath();
+      ctx.moveTo(cx - 75, canvas.height);
+      ctx.quadraticCurveTo(cx - 60, cy + 35, cx - 24, cy + 30);
+      ctx.lineTo(cx + 24, cy + 30);
+      ctx.quadraticCurveTo(cx + 60, cy + 35, cx + 75, canvas.height);
+      ctx.closePath();
+      ctx.fill();
+
+      // Cuello estilizado
+      const skinGrad = ctx.createLinearGradient(cx - 30, cy - 20, cx + 30, cy + 30);
+      skinGrad.addColorStop(0, '#334155');
+      skinGrad.addColorStop(0.6, '#1e293b');
+      skinGrad.addColorStop(1, '#0f172a');
+      ctx.fillStyle = skinGrad;
+      ctx.beginPath();
+      ctx.moveTo(cx - 18, cy);
+      ctx.lineTo(cx - 20, cy + 32);
+      ctx.lineTo(cx + 18, cy + 32);
+      ctx.lineTo(cx + 16, cy);
+      ctx.closePath();
+      ctx.fill();
+
+      // 2. Perfil anatómico realista de la cabeza y rostro
+      ctx.save();
+      ctx.fillStyle = '#1e293b';
+      ctx.strokeStyle = '#475569';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      // Empezar en la nuca
+      ctx.moveTo(cx - 22, cy);
+      // Occipucio y curvatura craneal posterior
+      ctx.quadraticCurveTo(cx - 38, cy - 35, cx - 15, cy - 65);
+      // Coronilla y frente
+      ctx.quadraticCurveTo(cx, cy - 72, cx + 18, cy - 55);
+      // Frente hacia el puente de la nariz
+      ctx.quadraticCurveTo(cx + 28, cy - 40, cx + 32, cy - 26);
+      // Punta de la nariz
+      ctx.lineTo(cx + 38, cy - 20);
+      // Debajo de la nariz y filtrum
+      ctx.lineTo(cx + 30, cy - 16);
+      // Labio superior e inferior
+      ctx.quadraticCurveTo(cx + 34, cy - 12, cx + 30, cy - 8);
+      // Mentón prominente
+      ctx.quadraticCurveTo(cx + 35, cy, cx + 24, cy + 8);
+      // Línea de la mandíbula hacia la oreja
+      ctx.quadraticCurveTo(cx + 8, cy + 12, cx - 4, cy + 4);
+      // Cuello anterior
+      ctx.lineTo(cx + 16, cy + 30);
+      ctx.lineTo(cx - 18, cy + 30);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Oreja detallada
+      ctx.fillStyle = '#334155';
+      ctx.strokeStyle = '#64748b';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.ellipse(cx - 2, cy - 12, 6, 11, 0.15, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // Interior de la oreja
+      ctx.beginPath();
+      ctx.arc(cx - 2, cy - 12, 3.5, 0, Math.PI);
+      ctx.stroke();
+
+      // Ojo cerrado y ceja en reposo de salón
+      ctx.strokeStyle = '#64748b';
+      ctx.lineWidth = 1.8;
+      ctx.beginPath();
+      ctx.arc(cx + 20, cy - 25, 4, 0.2, Math.PI - 0.2);
+      ctx.stroke();
+
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(cx + 14, cy - 32);
+      ctx.quadraticCurveTo(cx + 22, cy - 35, cx + 28, cy - 30);
+      ctx.stroke();
+
+      // 3. Cabello realista volumétrico con textura y capas
+      const hairGrad = ctx.createLinearGradient(cx - 40, cy - 80, cx + 30, cy);
+      hairGrad.addColorStop(0, '#f472b6');
+      hairGrad.addColorStop(0.35, '#db2777');
+      hairGrad.addColorStop(0.7, '#831843');
+      hairGrad.addColorStop(1, '#1e1b4b');
+
+      ctx.fillStyle = hairGrad;
+      ctx.beginPath();
+
+      if (levelIndex === 0) {
+        // Flequillo recto y corte Bob simétrico
+        ctx.moveTo(cx - 24, cy - 10);
+        ctx.quadraticCurveTo(cx - 42, cy - 45, cx - 20, cy - 72);
+        ctx.quadraticCurveTo(cx + 5, cy - 82, cx + 30, cy - 65);
+        ctx.quadraticCurveTo(cx + 36, cy - 40, cx + 30, cy - 32);
+        ctx.quadraticCurveTo(cx + 15, cy - 38, cx + 6, cy - 32);
+        ctx.quadraticCurveTo(cx - 10, cy - 25, cx - 24, cy - 10);
+      } else if (levelIndex === 1) {
+        // Fade Degradado Lateral alto
+        ctx.moveTo(cx - 20, cy - 18);
+        ctx.quadraticCurveTo(cx - 36, cy - 50, cx - 14, cy - 76);
+        ctx.quadraticCurveTo(cx + 12, cy - 84, cx + 32, cy - 62);
+        ctx.quadraticCurveTo(cx + 20, cy - 42, cx + 8, cy - 36);
+        ctx.quadraticCurveTo(cx - 6, cy - 26, cx - 20, cy - 18);
+      } else if (levelIndex === 2) {
+        // Barba perfilada y patilla
+        ctx.moveTo(cx - 18, cy - 15);
+        ctx.quadraticCurveTo(cx - 32, cy - 45, cx - 10, cy - 70);
+        ctx.quadraticCurveTo(cx + 15, cy - 78, cx + 28, cy - 55);
+        ctx.quadraticCurveTo(cx + 10, cy - 35, cx - 2, cy - 20);
+        ctx.lineTo(cx - 4, cy + 2);
+        ctx.quadraticCurveTo(cx + 18, cy + 8, cx + 32, cy - 4);
+        ctx.quadraticCurveTo(cx + 20, cy + 18, cx - 8, cy + 14);
+      } else if (levelIndex === 3) {
+        // Diseño freestyle con relieve
+        ctx.moveTo(cx - 22, cy - 12);
+        ctx.quadraticCurveTo(cx - 42, cy - 55, cx - 16, cy - 80);
+        ctx.quadraticCurveTo(cx + 18, cy - 85, cx + 34, cy - 60);
+        ctx.quadraticCurveTo(cx + 16, cy - 40, cx + 2, cy - 30);
+        ctx.quadraticCurveTo(cx - 12, cy - 20, cx - 22, cy - 12);
+      } else {
+        // Pompadour estilizado con cresta alta
+        ctx.moveTo(cx - 24, cy - 12);
+        ctx.quadraticCurveTo(cx - 40, cy - 50, cx - 18, cy - 84);
+        ctx.quadraticCurveTo(cx + 12, cy - 95, cx + 38, cy - 72);
+        ctx.quadraticCurveTo(cx + 26, cy - 45, cx + 12, cy - 36);
+        ctx.quadraticCurveTo(cx - 8, cy - 24, cx - 24, cy - 12);
+      }
+      ctx.closePath();
+      ctx.fill();
+
+      // Hebras de luz y brillo capilar
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+      ctx.lineWidth = 1.2;
+      ctx.beginPath();
+      ctx.moveTo(cx - 12, cy - 68);
+      ctx.quadraticCurveTo(cx + 4, cy - 76, cx + 20, cy - 60);
+      ctx.moveTo(cx - 18, cy - 55);
+      ctx.quadraticCurveTo(cx - 2, cy - 62, cx + 14, cy - 48);
+      ctx.stroke();
+
+      ctx.restore();
+    }
+
+    // Dibuja tijeras de precisión realistas con acero y tornillo
+    function drawRealisticScissors(x, y) {
+      ctx.save();
+      ctx.translate(x, y);
+
+      // Cuchilla 1
+      ctx.fillStyle = '#e2e8f0';
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(20, -10);
+      ctx.lineTo(22, -12);
+      ctx.lineTo(6, -3);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Cuchilla 2
+      ctx.fillStyle = '#cbd5e1';
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.lineTo(20, 8);
+      ctx.lineTo(22, 10);
+      ctx.lineTo(6, 2);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Mango izquierdo
+      ctx.strokeStyle = '#ec4899';
+      ctx.lineWidth = 2.8;
+      ctx.beginPath();
+      ctx.arc(-11, -7, 6, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Mango derecho
+      ctx.beginPath();
+      ctx.arc(-11, 7, 6, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Tornillo pivote dorado
+      ctx.fillStyle = '#fbbf24';
+      ctx.beginPath();
+      ctx.arc(0, 0, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      ctx.restore();
+    }
 
     function drawScene(currentPos) {
       ctx.fillStyle = '#030712';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Silueta estilizadora de fondo
-      ctx.fillStyle = '#1e293b';
-      ctx.beginPath();
-      ctx.arc(canvas.width * 0.5, canvas.height * 0.68, canvas.height * 0.36, 0, Math.PI * 2);
-      ctx.fill();
+      // 1. Dibujar cabeza y cabello detallado realista
+      drawRealisticHeadAndHair(currentLevel);
 
-      // Línea guía
+      // 2. Línea guía luminosa de corte
       ctx.strokeStyle = 'rgba(236, 72, 153, 0.4)';
       ctx.lineWidth = 14;
       ctx.lineCap = 'round';
@@ -1234,9 +1530,9 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       ctx.stroke();
 
-      // Trazado de corte
+      // 3. Trazado punteado guía
       ctx.strokeStyle = '#10b981';
-      ctx.lineWidth = 3.5;
+      ctx.lineWidth = 3;
       ctx.setLineDash([4, 4]);
       ctx.beginPath();
       points.forEach((p, idx) => {
@@ -1246,20 +1542,22 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.stroke();
       ctx.setLineDash([]);
 
-      // Puntos cortados
+      // 4. Puntos cortados con éxito
       points.forEach((p) => {
         if (p.cut) {
           ctx.fillStyle = '#38bdf8';
+          ctx.shadowColor = '#38bdf8';
+          ctx.shadowBlur = 6;
           ctx.beginPath();
-          ctx.arc(p.x, p.y, 5, 0, Math.PI * 2);
+          ctx.arc(p.x, p.y, 4.5, 0, Math.PI * 2);
           ctx.fill();
+          ctx.shadowBlur = 0;
         }
       });
 
+      // 5. Cursor de tijeras realistas
       if (currentPos) {
-        ctx.fillStyle = '#ec4899';
-        ctx.font = '22px sans-serif';
-        ctx.fillText('✂️', currentPos.x - 11, currentPos.y - 4);
+        drawRealisticScissors(currentPos.x, currentPos.y);
       }
     }
 
@@ -1277,10 +1575,10 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (currentLevel >= HAIRCUT_LEVELS.length) {
-        completeCurrentChallenge('¡Has dominado los 5 estilos de corte con pulso impecable en GlowSmec!');
+        completeCurrentChallenge('¡Has dominado los 5 estilos de corte con siluetas y pulso estético en GlowSmec!');
       } else {
         lvlTitle.textContent = HAIRCUT_LEVELS[currentLevel].name;
-        hintTxt.textContent = `✂️ Nivel ${currentLevel + 1}/5: Sigue el contorno del corte.`;
+        hintTxt.textContent = `✂️ Nivel ${currentLevel + 1}/5: Sigue el contorno del corte. ¡Evita salirte para no alargar el trazo!`;
         generateCurve(HAIRCUT_LEVELS[currentLevel].curveType);
         tensionBar.style.width = '0%';
         drawScene(null);
@@ -1300,21 +1598,48 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      if (minDistance < 24) {
-        tension = Math.max(0, tension - 3);
+      if (minDistance < 22) {
+        // Sobre el trazo correcto
+        tension = Math.max(0, tension - 2.5);
+        offTrackTicks = 0;
         if (!points[closestIdx].cut) {
           points[closestIdx].cut = true;
           cutCount++;
           sound.playSnip();
         }
       } else {
-        tension = Math.min(100, tension + 3.5);
+        // ¡SE SALIÓ DEL TRAZO! Penalización: aumenta tensión y ALARGA el trazo
+        tension = Math.min(100, tension + 4);
+        offTrackTicks++;
+
+        // Entre más falle o se desvíe, más largo se vuelve el trazo
+        if (offTrackTicks % 6 === 0 && points.length < 42) {
+          const lastPoint = points[points.length - 1];
+          const prevPoint = points[points.length - 2] || lastPoint;
+          const dx = lastPoint.x - prevPoint.x;
+          const dy = lastPoint.y - prevPoint.y;
+
+          // Añadir nuevo punto de penalización al final del trazo
+          const nx = Math.max(canvas.width * 0.12, Math.min(canvas.width * 0.88, lastPoint.x + dx * 0.75 + (Math.random() - 0.5) * 12));
+          const ny = Math.max(canvas.height * 0.3, Math.min(canvas.height * 0.72, lastPoint.y + dy * 0.75 + (Math.sin(points.length) * 10)));
+          points.push({ x: nx, y: ny, cut: false });
+
+          sound.playHurt();
+          if (penaltyBadge) {
+            penaltyBadge.textContent = `⚠️ ¡Desvío! Trazo +${points.length - 24}`;
+            penaltyBadge.classList.add('visible');
+            clearTimeout(penaltyTimer);
+            penaltyTimer = setTimeout(() => {
+              if (penaltyBadge) penaltyBadge.classList.remove('visible');
+            }, 1200);
+          }
+        }
       }
 
       tensionBar.style.width = `${tension}%`;
       drawScene({ x, y });
 
-      if (cutCount >= points.length && tension < 65) {
+      if (cutCount >= points.length && tension < 70) {
         levelDone = true;
         setTimeout(nextLevel, 300);
       }
@@ -1346,6 +1671,7 @@ document.addEventListener('DOMContentLoaded', () => {
       canvas.removeEventListener('pointerdown', onPointerDown);
       canvas.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('pointerup', onPointerUp);
+      clearTimeout(penaltyTimer);
     };
   }
 
@@ -1353,16 +1679,20 @@ document.addEventListener('DOMContentLoaded', () => {
   // 4. GREENTASK: GUSANO MÁS LENTO & 10 MANZANAS
   // =========================================================================
   function buildGreenTaskSnake() {
-    const TARGET_APPLES = 10; // Cambiado a 10 según requerimiento
+    const TARGET_APPLES = 10;
     interactiveArena.innerHTML = `
       <div class="greentask-snake-ui">
         <div class="snake-hud-bar">
           <span><i class="fa-solid fa-apple-whole"></i> Manzanas: <strong id="snake-apple-txt">0 / 10</strong></span>
-          <span><i class="fa-solid fa-trophy"></i> Meta: 10 Manzanas (Ritmo Pausado)</span>
+          <span style="color:#f87171;"><i class="fa-solid fa-triangle-exclamation"></i> <strong>Paredes Mortales</strong></span>
         </div>
 
         <div class="snake-canvas-wrap" id="snake-canvas-wrap">
           <canvas id="snake-canvas"></canvas>
+        </div>
+
+        <div id="snake-hazard-hint" class="snake-hazard-hint">
+          ⚡ ¡Cuidado! Chocar contra las paredes o morder tu cola reinicia el minijuego a 0.
         </div>
 
         <div class="mobile-touch-dpad">
@@ -1378,6 +1708,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrap = document.getElementById('snake-canvas-wrap');
     const ctx = canvas.getContext('2d');
     const appleTxt = document.getElementById('snake-apple-txt');
+    const hazardHint = document.getElementById('snake-hazard-hint');
 
     const GRID_SIZE = 14;
     canvas.width = wrap.clientWidth || 280;
@@ -1398,10 +1729,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let snakeInterval = null;
 
     function spawnApple() {
-      apple = {
-        x: Math.floor(Math.random() * GRID_SIZE),
-        y: Math.floor(Math.random() * GRID_SIZE)
-      };
+      let valid = false;
+      while (!valid) {
+        apple = {
+          x: Math.floor(Math.random() * (GRID_SIZE - 2)) + 1,
+          y: Math.floor(Math.random() * (GRID_SIZE - 2)) + 1
+        };
+        valid = !snake.some(s => s.x === apple.x && s.y === apple.y);
+      }
     }
 
     function tick() {
@@ -1410,10 +1745,43 @@ document.addEventListener('DOMContentLoaded', () => {
       dir = nextDir;
       const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
 
-      if (head.x < 0) head.x = GRID_SIZE - 1;
-      if (head.x >= GRID_SIZE) head.x = 0;
-      if (head.y < 0) head.y = GRID_SIZE - 1;
-      if (head.y >= GRID_SIZE) head.y = 0;
+      // 1. Pérdida automática al tocar una pared exterior
+      const hitWall = head.x < 0 || head.x >= GRID_SIZE || head.y < 0 || head.y >= GRID_SIZE;
+
+      // 2. Pérdida automática al morderse a sí mismo
+      const hitSelf = snake.some(seg => seg.x === head.x && seg.y === head.y);
+
+      if (hitWall || hitSelf) {
+        sound.playHurt();
+        if (wrap) {
+          wrap.classList.add('crashed');
+          setTimeout(() => { if (wrap) wrap.classList.remove('crashed'); }, 420);
+        }
+
+        if (hazardHint) {
+          hazardHint.textContent = hitWall ? '💥 ¡Chocaste contra la pared! Reiniciando a 0 manzanas...' : '💥 ¡Te mordiste la cola! Reiniciando a 0 manzanas...';
+          hazardHint.style.color = '#ef4444';
+          setTimeout(() => {
+            if (hazardHint) {
+              hazardHint.textContent = '⚡ ¡Cuidado! Chocar contra las paredes o morder tu cola reinicia el minijuego a 0.';
+              hazardHint.style.color = '#f87171';
+            }
+          }, 1600);
+        }
+
+        // Reinicio completo desde el principio
+        applesEaten = 0;
+        appleTxt.textContent = '0 / 10';
+        snake = [
+          { x: 5, y: 5 },
+          { x: 4, y: 5 },
+          { x: 3, y: 5 }
+        ];
+        dir = { x: 1, y: 0 };
+        nextDir = { x: 1, y: 0 };
+        spawnApple();
+        return;
+      }
 
       if (head.x === apple.x && head.y === apple.y) {
         sound.playEat();
@@ -1423,7 +1791,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (applesEaten >= TARGET_APPLES) {
           gameWon = true;
           clearInterval(snakeInterval);
-          completeCurrentChallenge('¡Gusano ecológico creció con las 10 manzanas y compostó el huerto GreenTask!');
+          completeCurrentChallenge('¡Gusano ecológico creció con las 10 manzanas sin chocar las paredes mortales en GreenTask!');
           return;
         }
       } else {
@@ -1435,11 +1803,20 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.fillStyle = '#020617';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // Dibujar perímetro de advertencia de pared mortal
+      ctx.strokeStyle = 'rgba(239, 68, 68, 0.4)';
+      ctx.lineWidth = 3;
+      ctx.strokeRect(1.5, 1.5, canvas.width - 3, canvas.height - 3);
+
       // Manzana
       ctx.fillStyle = '#ef4444';
+      ctx.shadowColor = '#ef4444';
+      ctx.shadowBlur = 8;
       ctx.beginPath();
       ctx.arc((apple.x + 0.5) * tileW, (apple.y + 0.5) * tileH, tileW * 0.4, 0, Math.PI * 2);
       ctx.fill();
+      ctx.shadowBlur = 0;
+
       ctx.fillStyle = '#10b981';
       ctx.fillRect((apple.x + 0.45) * tileW, apple.y * tileH, tileW * 0.15, tileH * 0.25);
 
@@ -1459,7 +1836,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Gusano más pausado/lento (230ms en vez de 140ms)
+    // Ritmo pausado tranquilo (230ms por tick)
     snakeInterval = setInterval(tick, 230);
 
     function changeDir(dx, dy) {
@@ -1495,6 +1872,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="patitas-runner-ui">
         <div class="runner-hud-bar">
           <span><i class="fa-solid fa-flag-checkered"></i> Refugio: <strong id="runner-dist-txt">0%</strong></span>
+          <span class="runner-speed-badge" id="runner-speed-txt"><i class="fa-solid fa-bolt"></i> 1.0x</span>
           <span><i class="fa-solid fa-heart"></i> Vidas: <strong id="runner-lives-txt">❤️❤️❤️</strong></span>
         </div>
 
@@ -1512,6 +1890,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrap = document.getElementById('runner-canvas-wrap');
     const ctx = canvas.getContext('2d');
     const distTxt = document.getElementById('runner-dist-txt');
+    const speedTxt = document.getElementById('runner-speed-txt');
     const livesTxt = document.getElementById('runner-lives-txt');
     const jumpBtn = document.getElementById('runner-jump-btn');
 
@@ -1564,6 +1943,7 @@ document.addEventListener('DOMContentLoaded', () => {
       obstacles = [];
       updateLivesUI();
       distTxt.textContent = '0%';
+      if (speedTxt) speedTxt.innerHTML = '<i class="fa-solid fa-bolt"></i> 1.0x';
     }
 
     function drawDog(x, y, frame, jumping) {
@@ -1670,6 +2050,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function loop() {
       if (gameWon) return;
 
+      // Cálculo de aceleración progresiva con la distancia
+      const speedMultiplier = 1 + (distance / 100) * 1.6; // 1.0x hasta 2.6x
+      const scrollSpeed = 2.4 + (distance / 100) * 4.4;  // de 2.4px a 6.8px/frame
+
       dog.y += dog.vy;
       dog.vy += dog.gravity;
       if (dog.y >= groundY - 26) {
@@ -1677,20 +2061,27 @@ document.addEventListener('DOMContentLoaded', () => {
         dog.vy = 0;
         dog.isJumping = false;
       }
-      dog.frame++;
+      dog.frame += 0.8 * speedMultiplier;
       if (hurtFlash > 0) hurtFlash--;
 
-      distance += 0.12;
+      // Trayecto significativamente más largo (0.038 por frame)
+      distance += 0.038;
       distTxt.textContent = `${Math.min(100, Math.floor(distance))}%`;
+      if (speedTxt) {
+        speedTxt.innerHTML = `<i class="fa-solid fa-bolt"></i> ${speedMultiplier.toFixed(1)}x`;
+      }
+
       if (distance >= 100) {
         distance = 100;
         gameWon = true;
-        completeCurrentChallenge('¡El perrito llegó a salvo al refugio de Patitas al Rescate!');
+        completeCurrentChallenge('¡El perrito superó la carrera acelerada y llegó a salvo al refugio de Patitas al Rescate!');
         return;
       }
 
+      // Spawn dinámico adaptado a la velocidad
       spawnCounter++;
-      if (spawnCounter > 58) {
+      const spawnLimit = Math.max(34, Math.floor(62 - (distance / 100) * 26));
+      if (spawnCounter > spawnLimit) {
         spawnCounter = 0;
         obstacles.push({
           x: canvas.width + 10,
@@ -1712,10 +2103,10 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.lineTo(canvas.width, groundY);
       ctx.stroke();
 
-      // Obstáculos
+      // Obstáculos que se desplazan a velocidad progresiva creciente
       for (let i = obstacles.length - 1; i >= 0; i--) {
         const obs = obstacles[i];
-        obs.x -= 3.2;
+        obs.x -= scrollSpeed;
 
         if (obs.type === 'cone') {
           ctx.fillStyle = '#f97316';
@@ -1730,7 +2121,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx.fillRect(obs.x, obs.y + 4, obs.w, obs.h - 4);
         }
 
-        // Colisión: Quita 1 vida. Si llega a 0, reinicia la carrera
+        // Colisión: Quita 1 vida. Si llega a 0, reinicia la carrera completa
         if (Math.hypot(dog.x - obs.x, dog.y - obs.y) < 22) {
           lives--;
           sound.playHurt();
@@ -1764,19 +2155,126 @@ document.addEventListener('DOMContentLoaded', () => {
   // 6. SOFTPLAY: PROGRAMADOR DE ROBOTS (SIN CÓDIGO)
   // =========================================================================
   function buildSoftPlayRobot() {
-    let program = [];
-    const GRID_SIZE = 5;
-    let robotPos = { r: 0, c: 0 };
-    const targetPos = { r: 4, c: 4 };
-    const obstacles = [
-      { r: 1, c: 1 },
-      { r: 1, c: 2 },
-      { r: 3, c: 2 },
-      { r: 3, c: 3 }
+    const PUZZLES = [
+      {
+        id: 1,
+        title: 'Nivel 1: Paso Libre',
+        desc: 'Mueve el robot en línea recta hacia la terminal.',
+        size: 5,
+        start: { r: 2, c: 0 },
+        target: { r: 2, c: 4 },
+        obstacles: [{ r: 1, c: 2 }, { r: 3, c: 2 }]
+      },
+      {
+        id: 2,
+        title: 'Nivel 2: El Desvío en L',
+        desc: 'Rodea la pared central para alcanzar la meta.',
+        size: 5,
+        start: { r: 0, c: 0 },
+        target: { r: 4, c: 4 },
+        obstacles: [{ r: 0, c: 2 }, { r: 1, c: 2 }, { r: 2, c: 2 }]
+      },
+      {
+        id: 3,
+        title: 'Nivel 3: Muralla Zigzag',
+        desc: 'Navega la ruta en S esquivando los muros.',
+        size: 5,
+        start: { r: 0, c: 0 },
+        target: { r: 4, c: 0 },
+        obstacles: [{ r: 1, c: 0 }, { r: 1, c: 1 }, { r: 1, c: 2 }, { r: 3, c: 2 }, { r: 3, c: 3 }, { r: 3, c: 4 }]
+      },
+      {
+        id: 4,
+        title: 'Nivel 4: El Búnker en U',
+        desc: 'Ingresa al búnker y conéctate a la computadora central.',
+        size: 5,
+        start: { r: 0, c: 4 },
+        target: { r: 2, c: 2 },
+        obstacles: [{ r: 1, c: 1 }, { r: 2, c: 1 }, { r: 3, c: 1 }, { r: 3, c: 2 }, { r: 3, c: 3 }, { r: 1, c: 3 }]
+      },
+      {
+        id: 5,
+        title: 'Nivel 5: Paso Estrecho',
+        desc: 'Cruza por el único nodo abierto del firewall.',
+        size: 5,
+        start: { r: 4, c: 0 },
+        target: { r: 0, c: 4 },
+        obstacles: [{ r: 2, c: 0 }, { r: 2, c: 1 }, { r: 2, c: 3 }, { r: 2, c: 4 }]
+      },
+      {
+        id: 6,
+        title: 'Nivel 6: Circuito Cuadrado',
+        desc: 'Bordea el núcleo impenetrable por el anillo exterior.',
+        size: 5,
+        start: { r: 0, c: 0 },
+        target: { r: 4, c: 2 },
+        obstacles: [{ r: 1, c: 1 }, { r: 1, c: 2 }, { r: 1, c: 3 }, { r: 2, c: 1 }, { r: 2, c: 2 }, { r: 2, c: 3 }, { r: 3, c: 1 }, { r: 3, c: 2 }, { r: 3, c: 3 }]
+      },
+      {
+        id: 7,
+        title: 'Nivel 7: Intersección en Cruz',
+        desc: 'El centro tiene un bloqueo en cruz; navega por los flancos.',
+        size: 5,
+        start: { r: 0, c: 2 },
+        target: { r: 4, c: 2 },
+        obstacles: [{ r: 2, c: 1 }, { r: 2, c: 2 }, { r: 2, c: 3 }, { r: 1, c: 2 }, { r: 3, c: 2 }]
+      },
+      {
+        id: 8,
+        title: 'Nivel 8: Puente de Datos',
+        desc: 'Cruza entre los dos cuadrantes a través del puente único.',
+        size: 5,
+        start: { r: 4, c: 4 },
+        target: { r: 0, c: 0 },
+        obstacles: [{ r: 0, c: 2 }, { r: 1, c: 2 }, { r: 3, c: 2 }, { r: 4, c: 2 }, { r: 2, c: 0 }, { r: 2, c: 4 }]
+      },
+      {
+        id: 9,
+        title: 'Nivel 9: Campo Minado',
+        desc: 'Programa con precisión milimétrica entre obstáculos dispersos.',
+        size: 5,
+        start: { r: 0, c: 0 },
+        target: { r: 4, c: 4 },
+        obstacles: [{ r: 0, c: 3 }, { r: 1, c: 1 }, { r: 2, c: 3 }, { r: 3, c: 1 }, { r: 3, c: 2 }, { r: 4, c: 1 }]
+      },
+      {
+        id: 10,
+        title: 'Nivel 10: El Gran Algoritmo',
+        desc: 'Desafío final: laberinto espiral con curva cerrada.',
+        size: 5,
+        start: { r: 4, c: 0 },
+        target: { r: 0, c: 4 },
+        obstacles: [{ r: 4, c: 1 }, { r: 3, c: 1 }, { r: 2, c: 1 }, { r: 1, c: 1 }, { r: 1, c: 3 }, { r: 2, c: 3 }, { r: 3, c: 3 }, { r: 4, c: 3 }]
+      }
     ];
+
+    let currentPuzzleIdx = 0;
+    let program = [];
+    let isExecuting = false;
+    let stepInterval = null;
+
+    let currentPuzzle = PUZZLES[currentPuzzleIdx];
+    let robotPos = { ...currentPuzzle.start };
 
     interactiveArena.innerHTML = `
       <div class="softplay-robot-ui">
+        <div class="softplay-puzzles-strip" id="softplay-puzzles-strip">
+          ${PUZZLES.map((p, i) => `
+            <div class="softplay-puzzle-pill ${i === 0 ? 'active' : ''}" id="sp-pill-${i}">
+              P${i + 1}
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="softplay-puzzle-meta">
+          <span id="puzzle-title-txt" style="font-weight:700; color:var(--blue-accent);">
+            ${currentPuzzle.title}
+          </span>
+          <span id="puzzle-step-counter" style="color:var(--text-muted); font-family:'JetBrains Mono', monospace;">
+            Órdenes: 0 / 14
+          </span>
+        </div>
+
         <div class="robot-command-queue-bar" id="robot-queue">
           <span style="font-size:0.72rem; color:var(--text-muted);">Toca las flechas para ordenar pasos al robot:</span>
         </div>
@@ -1803,21 +2301,50 @@ document.addEventListener('DOMContentLoaded', () => {
     const queueBar = document.getElementById('robot-queue');
     const execBtn = document.getElementById('btn-exec-prog');
     const clearBtn = document.getElementById('btn-clear-prog');
+    const titleTxt = document.getElementById('puzzle-title-txt');
+    const counterTxt = document.getElementById('puzzle-step-counter');
+
+    function loadPuzzle(idx) {
+      currentPuzzleIdx = idx;
+      currentPuzzle = PUZZLES[currentPuzzleIdx];
+      robotPos = { ...currentPuzzle.start };
+      program = [];
+      isExecuting = false;
+      if (stepInterval) clearInterval(stepInterval);
+      execBtn.disabled = false;
+
+      titleTxt.textContent = currentPuzzle.title;
+      counterTxt.textContent = 'Órdenes: 0 / 14';
+
+      for (let i = 0; i < PUZZLES.length; i++) {
+        const pill = document.getElementById(`sp-pill-${i}`);
+        if (pill) {
+          pill.className = 'softplay-puzzle-pill ' + (i < currentPuzzleIdx ? 'completed' : (i === currentPuzzleIdx ? 'active' : ''));
+        }
+      }
+
+      renderBoard();
+      renderQueue();
+    }
 
     function renderBoard() {
       board.innerHTML = '';
-      for (let r = 0; r < GRID_SIZE; r++) {
-        for (let c = 0; c < GRID_SIZE; c++) {
+      const size = currentPuzzle.size;
+      board.style.gridTemplateColumns = `repeat(${size}, 1fr)`;
+      board.style.gridTemplateRows = `repeat(${size}, 1fr)`;
+
+      for (let r = 0; r < size; r++) {
+        for (let c = 0; c < size; c++) {
           const cell = document.createElement('div');
-          const isObs = obstacles.some(o => o.r === r && o.c === c);
-          const isTarget = targetPos.r === r && targetPos.c === c;
+          const isObs = currentPuzzle.obstacles.some(o => o.r === r && o.c === c);
+          const isTarget = currentPuzzle.target.r === r && currentPuzzle.target.c === c;
 
           cell.className = 'robot-cell ' + (isObs ? 'obstacle' : (isTarget ? 'target' : ''));
 
           if (robotPos.r === r && robotPos.c === c) {
             cell.innerHTML = '<span class="robot-token">🤖</span>';
           } else if (isTarget) {
-            cell.innerHTML = '<span style="font-size:1.1rem;">💻</span>';
+            cell.innerHTML = '<span style="font-size:1.15rem;">💻</span>';
           } else if (isObs) {
             cell.innerHTML = '<span style="font-size:0.9rem;">🧱</span>';
           }
@@ -1840,6 +2367,7 @@ document.addEventListener('DOMContentLoaded', () => {
           queueBar.appendChild(badge);
         });
       }
+      counterTxt.textContent = `Órdenes: ${program.length} / 14`;
     }
 
     renderBoard();
@@ -1847,7 +2375,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.btn-arrow-order').forEach(btn => {
       btn.addEventListener('click', () => {
-        if (program.length < 12) {
+        if (isExecuting) return;
+        if (program.length < 14) {
           sound.playClick();
           program.push(btn.getAttribute('data-cmd'));
           renderQueue();
@@ -1856,28 +2385,50 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     clearBtn.addEventListener('click', () => {
+      if (isExecuting) return;
       sound.playClick();
       program = [];
-      robotPos = { r: 0, c: 0 };
+      robotPos = { ...currentPuzzle.start };
       renderBoard();
       renderQueue();
     });
 
     execBtn.addEventListener('click', () => {
-      if (program.length === 0) return;
+      if (program.length === 0 || isExecuting) return;
+      isExecuting = true;
       execBtn.disabled = true;
-      robotPos = { r: 0, c: 0 };
+      robotPos = { ...currentPuzzle.start };
       renderBoard();
 
       let stepIdx = 0;
-      const stepInterval = setInterval(() => {
+      stepInterval = setInterval(() => {
         document.querySelectorAll('.cmd-badge').forEach(b => b.classList.remove('active-step'));
 
         if (stepIdx >= program.length) {
           clearInterval(stepInterval);
+          isExecuting = false;
           execBtn.disabled = false;
-          if (robotPos.r === targetPos.r && robotPos.c === targetPos.c) {
-            completeCurrentChallenge('¡Algoritmo exitoso! El robot llegó a la meta en SoftPlay.');
+
+          // Comprobar si llegó a la computadora meta
+          if (robotPos.r === currentPuzzle.target.r && robotPos.c === currentPuzzle.target.c) {
+            sound.playSuccess();
+            const currentPill = document.getElementById(`sp-pill-${currentPuzzleIdx}`);
+            if (currentPill) currentPill.classList.add('completed');
+
+            if (currentPuzzleIdx >= PUZZLES.length - 1) {
+              completeCurrentChallenge('¡Completaste con éxito los 10 acertijos algorítmicos de programación en SoftPlay!');
+            } else {
+              titleTxt.textContent = `✅ ¡Acertijo ${currentPuzzleIdx + 1} Resuelto! Cargando el siguiente...`;
+              setTimeout(() => {
+                loadPuzzle(currentPuzzleIdx + 1);
+              }, 750);
+            }
+          } else {
+            sound.playHurt();
+            titleTxt.textContent = `⚠️ No llegó a la meta. Ajusta las órdenes y reintenta.`;
+            setTimeout(() => {
+              titleTxt.textContent = currentPuzzle.title;
+            }, 1800);
           }
           return;
         }
@@ -1894,8 +2445,9 @@ document.addEventListener('DOMContentLoaded', () => {
         else if (cmd === 'LEFT') nc--;
         else if (cmd === 'RIGHT') nc++;
 
-        if (nr >= 0 && nr < GRID_SIZE && nc >= 0 && nc < GRID_SIZE) {
-          const hitObs = obstacles.some(o => o.r === nr && o.c === nc);
+        const size = currentPuzzle.size;
+        if (nr >= 0 && nr < size && nc >= 0 && nc < size) {
+          const hitObs = currentPuzzle.obstacles.some(o => o.r === nr && o.c === nc);
           if (!hitObs) {
             robotPos.r = nr;
             robotPos.c = nc;
@@ -1909,10 +2461,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         renderBoard();
         stepIdx++;
-      }, 350);
+      }, 340);
     });
 
-    activeGameCleanup = () => {};
+    activeGameCleanup = () => {
+      if (stepInterval) clearInterval(stepInterval);
+    };
   }
 
   // =========================================================================
