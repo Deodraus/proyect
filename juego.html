@@ -78,11 +78,11 @@
         </div>
 
         <div class="mission-briefing">
-          <h3 id="briefing-title"><i class="fa-solid fa-plane-departure"></i> VitLine Airlines</h3>
-          <p id="briefing-desc">Observa el video de la plataforma de reserva de vuelos y luego resuelve el desafío de despacho para estampar tu sello oficial.</p>
+          <h3 id="briefing-title"><i class="fa-solid fa-jet-fighter-up"></i> VitLine Airlines</h3>
+          <p id="briefing-desc">Observa el video de la plataforma de reserva de vuelos y luego supera la misión de vuelo en el arcade vertical para estampar tu sello oficial.</p>
           <div class="mission-req-box">
             <i class="fa-solid fa-gamepad"></i>
-            <span id="briefing-req">Desafío: Despacha un vuelo seleccionando ruta y clase comercial.</span>
+            <span id="briefing-req">Desafío: Pilota la nave VitLine, dispara a las turbulencias y alcanza el 100% de distancia.</span>
           </div>
         </div>
       </section>
@@ -91,10 +91,16 @@
       <section class="game-play-card" aria-label="Área de Minijuego">
         <div class="game-title-bar">
           <div>
-            <h2 id="minigame-title"><i class="fa-solid fa-radar"></i> Torre de Despacho Aéreo</h2>
-            <span id="minigame-subtitle" style="font-size: 0.78rem; color: var(--text-muted);">Simulador de Vuelo VitLine</span>
+            <h2 id="minigame-title"><i class="fa-solid fa-jet-fighter-up"></i> Misión Aérea VitLine</h2>
+            <span id="minigame-subtitle" style="font-size: 0.78rem; color: var(--text-muted);">Arcade Clásico de Naves Vertical</span>
           </div>
-          <span id="minigame-badge" class="game-instructions-badge">1 Reto Rápido</span>
+          <div class="game-header-tools">
+            <span id="minigame-badge" class="game-instructions-badge">Arcade Móvil</span>
+            <button id="toggle-fullscreen-btn" class="btn-fullscreen-toggle" title="Alternar Pantalla Completa">
+              <i class="fa-solid fa-expand"></i>
+              <span id="fullscreen-btn-text">Pantalla Completa</span>
+            </button>
+          </div>
         </div>
 
         <!-- Área Dinámica donde se inyecta el minijuego -->
@@ -113,6 +119,29 @@
             <i class="fa-solid fa-stamp"></i>
             <span id="claim-stamp-text">Estampar Sello</span>
           </button>
+        </div>
+
+        <!-- Overlay de Victoria y Transición Automática al Siguiente Destino -->
+        <div id="game-victory-overlay" class="game-victory-overlay">
+          <div class="victory-card-box">
+            <div class="victory-icon-circle"><i class="fa-solid fa-trophy"></i></div>
+            <h3 id="victory-title">¡DESAFÍO COMPLETADO!</h3>
+            <p id="victory-desc">Has superado la misión y obtenido el sello oficial.</p>
+            <div class="victory-stamp-showcase" id="victory-stamp-showcase">
+              <i class="fa-solid fa-plane-departure"></i>
+            </div>
+            <div class="victory-countdown-bar">
+              <span id="victory-countdown-txt">Avanzando al siguiente destino en 3s...</span>
+              <div class="countdown-progress-track">
+                <div id="countdown-progress-bar" class="countdown-progress-bar"></div>
+              </div>
+            </div>
+            <div class="victory-actions">
+              <button id="btn-next-dest-now" class="btn-stamp-action">
+                <i class="fa-solid fa-forward-step"></i> Siguiente Destino
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
