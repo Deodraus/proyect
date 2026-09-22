@@ -256,13 +256,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-spray-can-sparkles',
       briefing: {
         title: 'GlowSmec Salón & Spa',
-        desc: 'Simulador de atención rápida al estilo Cooking Diner. Atiende a los 10 clientes que van llegando a la peluquería entregándoles los cosméticos que solicitan antes de que se agoten sus 15 segundos.',
-        req: 'Atiende a los 10 clientes del salón entregando sus cosméticos a tiempo (15 segundos por cliente).'
+        desc: 'Simulador de atención rápida al estilo Cooking Diner. Atiende a los 10 clientes que van llegando a la peluquería entregándoles los cosméticos que solicitan antes de que se agoten sus 20 segundos.',
+        req: 'Atiende a los 10 clientes del salón entregando sus cosméticos a tiempo (20 segundos por cliente).'
       },
       game: {
         title: 'Atención en Salón de Belleza',
-        subtitle: 'Estilo Cooking Diner • 10 Clientes • 15s por Pedido',
-        badge: '10 Clientes (15s)'
+        subtitle: 'Estilo Cooking Diner • 10 Clientes • 20s por Pedido',
+        badge: '10 Clientes (20s)'
       }
     },
     {
@@ -1208,21 +1208,21 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. GLOWSMEC: 5 NIVELES DE PRECISIÓN DE CORTE (ESTILO SQUID GAME DALGONA)
   // =========================================================================
   // =========================================================================
-  // 3. GLOWSMEC: ATENCIÓN A CLIENTES • ESTILO COCINA / SALON DASH (10 CLIENTES • 15s)
+  // 3. GLOWSMEC: ATENCIÓN A CLIENTES • ESTILO COCINA / SALON DASH (10 CLIENTES • 20s)
   // =========================================================================
   function buildGlowsmecSalon() {
     const TOTAL_CLIENTS_GOAL = 10;
-    const PATIENCE_TIME = 15.0; // 15 segundos exactos por cliente
+    const PATIENCE_TIME = 20.0; // 20 segundos exactos por cliente
 
     const COSMETICS = [
-      { id: 'shampoo', name: 'Champú Keratina', icon: '🧴', color: '#06b6d4' },
-      { id: 'mascarilla', name: 'Mascarilla Spa', icon: '🌿', color: '#10b981' },
-      { id: 'tinte', name: 'Tinte Glow Rosa', icon: '🎨', color: '#ec4899' },
-      { id: 'cera', name: 'Cera Modeladora', icon: '💈', color: '#3b82f6' },
-      { id: 'tijeras', name: 'Tijeras Barber', icon: '✂️', color: '#64748b' },
-      { id: 'secador', name: 'Secador Iónico', icon: '💨', color: '#8b5cf6' },
-      { id: 'serum', name: 'Sérum Brillo', icon: '✨', color: '#f59e0b' },
-      { id: 'spray', name: 'Laca Fijadora', icon: '🌟', color: '#f43f5e' }
+      { id: 'shampoo', name: 'Shampoo', faIcon: 'fa-pump-soap', color: '#0284c7', bgColor: 'rgba(2, 132, 199, 0.22)', borderColor: '#38bdf8' },
+      { id: 'mascarilla', name: 'Mascarilla', faIcon: 'fa-spa', color: '#10b981', bgColor: 'rgba(16, 185, 129, 0.22)', borderColor: '#34d399' },
+      { id: 'tinte', name: 'Tinte', faIcon: 'fa-fill-drip', color: '#ec4899', bgColor: 'rgba(236, 72, 153, 0.22)', borderColor: '#f472b6' },
+      { id: 'cera', name: 'Cera', faIcon: 'fa-cube', color: '#f59e0b', bgColor: 'rgba(245, 158, 11, 0.22)', borderColor: '#fbbf24' },
+      { id: 'tijeras', name: 'Tijeras', faIcon: 'fa-scissors', color: '#3b82f6', bgColor: 'rgba(59, 130, 246, 0.22)', borderColor: '#60a5fa' },
+      { id: 'secador', name: 'Secador', faIcon: 'fa-wind', color: '#8b5cf6', bgColor: 'rgba(139, 92, 246, 0.22)', borderColor: '#a78bfa' },
+      { id: 'serum', name: 'Sérum', faIcon: 'fa-droplet', color: '#14b8a6', bgColor: 'rgba(20, 184, 166, 0.22)', borderColor: '#2dd4bf' },
+      { id: 'laca', name: 'Laca', faIcon: 'fa-spray-can-sparkles', color: '#f43f5e', bgColor: 'rgba(244, 63, 94, 0.22)', borderColor: '#fb7185' }
     ];
 
     const CUSTOMER_POOL = [
@@ -1230,12 +1230,12 @@ document.addEventListener('DOMContentLoaded', () => {
       { id: 2, name: 'Alejandro', avatar: '👨‍💼', order: ['cera', 'tijeras'], msg: '¡Corte y cera para la reunión!' },
       { id: 3, name: 'Valentina', avatar: '👱‍♀️', order: ['tinte', 'serum'], msg: '¡Tinte fucsia y gotas de brillo!' },
       { id: 4, name: 'Mateo', avatar: '👨‍🦱', order: ['shampoo', 'mascarilla'], msg: '¡Spa nutritivo capilar!' },
-      { id: 5, name: 'Camila', avatar: '👩‍🦳', order: ['spray', 'secador'], msg: '¡Peinado elegante y laca!' },
+      { id: 5, name: 'Camila', avatar: '👩‍🦳', order: ['laca', 'secador'], msg: '¡Peinado elegante y laca!' },
       { id: 6, name: 'Lucas', avatar: '🧑', order: ['tijeras', 'cera'], msg: '¡Perfilado con tijeras y cera!' },
-      { id: 7, name: 'Isabella', avatar: '👩‍🦱', order: ['tinte', 'spray'], msg: '¡Tinte de noche y fijación!' },
+      { id: 7, name: 'Isabella', avatar: '👩‍🦱', order: ['tinte', 'laca'], msg: '¡Tinte de noche y fijación!' },
       { id: 8, name: 'Daniel', avatar: '🧔', order: ['shampoo', 'serum'], msg: '¡Lavado relajante con sérum!' },
       { id: 9, name: 'Mariana', avatar: '👩', order: ['mascarilla', 'secador'], msg: '¡Mascarilla de keratina y calor!' },
-      { id: 10, name: 'Andrés', avatar: '🧑‍🦱', order: ['cera', 'spray'], msg: '¡Look de gala con cera y fijador!' }
+      { id: 10, name: 'Andrés', avatar: '🧑‍🦱', order: ['cera', 'laca'], msg: '¡Look de gala con cera y fijador!' }
     ];
 
     let servedCount = 0;
@@ -1256,7 +1256,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="salon-hud-bar">
           <span><i class="fa-solid fa-users"></i> Clientes Atendidos: <strong id="salon-served-txt" style="color:#ffffff;">0 / 10</strong></span>
           <span style="color:#fbbf24;"><i class="fa-solid fa-coins"></i> Propinas: <strong id="salon-tips-txt">$0</strong></span>
-          <span><i class="fa-solid fa-stopwatch"></i> Paciencia: <strong id="salon-global-timer">15.0s</strong></span>
+          <span><i class="fa-solid fa-stopwatch"></i> Paciencia: <strong id="salon-global-timer">20.0s</strong></span>
         </div>
 
         <div class="cooking-salon-scene">
@@ -1267,13 +1267,15 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div id="salon-feedback-hint" style="width:100%; text-align:center; font-size:0.72rem; color:var(--text-muted); min-height:18px;">
-          Toca el cosmético que pide el cliente para servírselo antes de que se agote su barra vertical (15s)
+          Toca el cosmético que pide el cliente para servírselo antes de que se agote su barra vertical (20s)
         </div>
 
         <div class="cosmetics-shelf-grid" id="cosmetics-shelf">
           ${COSMETICS.map(cos => `
-            <button class="cosmetic-card-btn" data-id="${cos.id}">
-              <span class="cosmetic-icon">${cos.icon}</span>
+            <button class="cosmetic-card-btn" data-id="${cos.id}" style="--item-color:${cos.color}; --item-border:${cos.borderColor}; --item-bg:${cos.bgColor};">
+              <div class="cosmetic-icon-bubble" style="background:${cos.bgColor}; border:1.5px solid ${cos.borderColor}; color:${cos.color};">
+                <i class="fa-solid ${cos.faIcon}"></i>
+              </div>
               <span class="cosmetic-name">${cos.name}</span>
             </button>
           `).join('')}
@@ -1297,8 +1299,8 @@ document.addEventListener('DOMContentLoaded', () => {
           spotEl.className = 'customer-counter-spot';
           const cust = spot.customer;
           const pct = Math.max(0, (spot.timeLeft / PATIENCE_TIME) * 100);
-          const isWarning = spot.timeLeft <= 7 && spot.timeLeft > 4;
-          const isUrgent = spot.timeLeft <= 4;
+          const isWarning = spot.timeLeft <= 10 && spot.timeLeft > 5;
+          const isUrgent = spot.timeLeft <= 5;
 
           spotEl.innerHTML = `
             <div class="customer-avatar-box">
@@ -1312,17 +1314,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${cust.order.map(itemId => {
                   const item = COSMETICS.find(c => c.id === itemId);
                   const isDone = spot.delivered.includes(itemId);
+                  const borderClr = isDone ? '#22c55e' : (item ? item.borderColor : '#cbd5e1');
+                  const bgClr = isDone ? '#dcfce7' : (item ? item.bgColor : '#f8fafc');
+                  const textClr = isDone ? '#15803d' : '#0f172a';
+                  const iconClr = isDone ? '#15803d' : (item ? item.color : '#0f172a');
                   return `
-                    <div class="order-dish-badge ${isDone ? 'collected' : ''}">
-                      <span class="order-dish-icon">${item ? item.icon : '✨'}</span>
-                      <span>${item ? item.name.split(' ')[0] : ''}</span>
+                    <div class="order-dish-badge ${isDone ? 'collected' : ''}" style="border-color:${borderClr}; background:${bgClr}; color:${textClr};">
+                      <span class="order-dish-icon" style="color:${iconClr};">
+                        <i class="fa-solid ${item ? item.faIcon : 'fa-star'}"></i>
+                      </span>
+                      <span class="order-dish-name" style="color:${textClr};">${item ? item.name : ''}</span>
                       ${isDone ? '<i class="fa-solid fa-check" style="margin-left:auto; color:#10b981;"></i>' : ''}
                     </div>
                   `;
                 }).join('')}
               </div>
 
-              <!-- Barra Vertical de Paciencia estilo Cooking Game -->
+              <!-- Barra Vertical de Paciencia estilo Cooking Game (20s) -->
               <div class="order-timer-vertical" title="Paciencia restante: ${spot.timeLeft.toFixed(1)}s">
                 <div class="vertical-timer-fill ${isUrgent ? 'urgent' : (isWarning ? 'warning' : '')}" style="height:${pct}%;"></div>
               </div>
@@ -1362,16 +1370,16 @@ document.addEventListener('DOMContentLoaded', () => {
           spot.timeLeft -= 0.1;
           needsRender = true;
 
-          // Se agotaron los 15 segundos
+          // Se agotaron los 20 segundos
           if (spot.timeLeft <= 0) {
             spot.active = false;
             sound.playHurt();
             if (feedbackHint) {
-              feedbackHint.textContent = `😤 ¡${spot.customer.name} se fue enojada porque se agotaron sus 15s!`;
+              feedbackHint.textContent = `😤 ¡${spot.customer.name} se fue enojada porque se agotaron sus 20s!`;
               feedbackHint.style.color = '#ef4444';
               setTimeout(() => {
                 if (feedbackHint) {
-                  feedbackHint.textContent = 'Toca el cosmético que pide el cliente para servírselo antes de que se agote su barra vertical (15s)';
+                  feedbackHint.textContent = 'Toca el cosmético que pide el cliente para servírselo antes de que se agote su barra vertical (20s)';
                   feedbackHint.style.color = 'var(--text-muted)';
                 }
               }, 1800);
