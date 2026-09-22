@@ -631,6 +631,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (appState.currentIndex < destinations.length - 1) {
       switchDestination(appState.currentIndex + 1);
     } else {
+      // Todos los minijuegos concluidos: salir de pantalla completa para ver Pasaporte y Sala VIP
+      toggleFullscreen(false);
       renderPassportModal();
       passportModal.classList.add('active');
     }
@@ -704,6 +706,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         <div class="vitline-canvas-wrap" id="vitline-canvas-wrap">
           <canvas id="vitline-canvas"></canvas>
+
+          <!-- Pantalla de Inicio con Botón Play y Pantalla Completa Automática -->
+          <div class="vitline-start-overlay" id="vitline-start-overlay">
+            <div class="vitline-start-modal">
+              <div class="vitline-start-badge">
+                <i class="fa-solid fa-plane-departure"></i> Destino 01 • VitLine
+              </div>
+              <h3 class="vitline-start-title">Misión Aérea VitLine</h3>
+              <p class="vitline-start-desc">
+                Despega en la plataforma de reservas comerciales. Elimina los drones enemigos con disparo automático continuo y esquiva los obstáculos hasta llegar al destino.
+              </p>
+              <div class="vitline-start-features">
+                <div class="feature-tag"><i class="fa-solid fa-expand"></i> Pantalla Completa Automática</div>
+                <div class="feature-tag"><i class="fa-solid fa-bolt"></i> Disparo Infinito Activo</div>
+                <div class="feature-tag"><i class="fa-solid fa-shield-heart"></i> 3 Vidas de Escudo</div>
+              </div>
+              <button id="vitline-start-btn" class="btn-play-vitline">
+                <i class="fa-solid fa-play"></i> JUGAR (PLAY)
+              </button>
+            </div>
+          </div>
         </div>
 
         <div style="text-align:center; font-size:0.72rem; color:var(--blue-accent); padding:0.2rem;">
@@ -718,15 +741,36 @@ document.addEventListener('DOMContentLoaded', () => {
     const distTxt = document.getElementById('v-dist-txt');
     const scoreTxt = document.getElementById('v-score-txt');
     const shieldTxt = document.getElementById('v-shield-txt');
+    const startOverlay = document.getElementById('vitline-start-overlay');
+    const startBtn = document.getElementById('vitline-start-btn');
+
+    let isPlaying = false;
 
     function resizeCanvas() {
       canvas.width = wrap.clientWidth || 320;
       canvas.height = wrap.clientHeight || 260;
+      if (!isPlaying && plane) {
+        plane.x = canvas.width / 2;
+        plane.y = canvas.height - 40;
+      }
     }
-    resizeCanvas();
 
     let animId = null;
-    let plane = { x: canvas.width / 2, y: canvas.height - 40, w: 28, h: 32, speed: 4 };
+    let plane = { x: (wrap.clientWidth || 320) / 2, y: (wrap.clientHeight || 260) - 40, w: 28, h: 32, speed: 4 };
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    if (startBtn && startOverlay) {
+      startBtn.addEventListener('click', () => {
+        toggleFullscreen(true);
+        startOverlay.style.display = 'none';
+        isPlaying = true;
+        resizeCanvas();
+        setTimeout(resizeCanvas, 120);
+        setTimeout(resizeCanvas, 300);
+      });
+    }
+
     let bullets = [];
     let enemies = [];
     let particles = [];
@@ -776,8 +820,59 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('keydown', onKeyDown);
     window.addEventListener('keyup', onKeyUp);
 
+    function drawPlane(px, py) {
+      ctx.save();
+      ctx.translate(px, py);
+      ctx.fillStyle = '#f59e0b';
+      ctx.beginPath();
+      ctx.moveTo(-4, 14);
+      ctx.lineTo(0, 18 + Math.random() * 6);
+      ctx.lineTo(4, 14);
+      ctx.fill();
+
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.moveTo(0, -18);
+      ctx.lineTo(6, -6);
+      ctx.lineTo(16, 6);
+      ctx.lineTo(4, 12);
+      ctx.lineTo(0, 10);
+      ctx.lineTo(-4, 12);
+      ctx.lineTo(-16, 6);
+      ctx.lineTo(-6, -6);
+      ctx.closePath();
+      ctx.fill();
+
+      ctx.fillStyle = '#0284c7';
+      ctx.fillRect(-2, -10, 4, 8);
+      ctx.restore();
+    }
+
     function loop() {
       if (gameWon) return;
+
+      ctx.fillStyle = '#050c1b';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Nubes lentas
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
+      clouds.forEach(c => {
+        c.y += isPlaying ? c.speed : c.speed * 0.4;
+        if (c.y > canvas.height + c.r) {
+          c.y = -c.r;
+          c.x = Math.random() * canvas.width;
+        }
+        ctx.beginPath();
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+        ctx.fill();
+      });
+
+      // Si el jugador no ha pulsado JUGAR (PLAY), se mantiene la nave en reposo decorativo
+      if (!isPlaying) {
+        drawPlane(plane.x, plane.y);
+        animId = requestAnimationFrame(loop);
+        return;
+      }
 
       // Movimiento con teclado
       if (keys['ArrowLeft'] || keys['a']) plane.x = Math.max(16, plane.x - plane.speed);
@@ -802,22 +897,6 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       distTxt.textContent = `${Math.floor(distance)}%`;
-
-      ctx.fillStyle = '#050c1b';
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-      // Nubes lentas
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.05)';
-      clouds.forEach(c => {
-        c.y += c.speed;
-        if (c.y > canvas.height + c.r) {
-          c.y = -c.r;
-          c.x = Math.random() * canvas.width;
-        }
-        ctx.beginPath();
-        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
-        ctx.fill();
-      });
 
       // Dibujar Drones Enemigos con fondo transparente y aspas giratorias
       function drawEnemyDrone(x, y, frame, type) {
@@ -999,31 +1078,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Dibujar Avión
-      ctx.save();
-      ctx.translate(plane.x, plane.y);
-      ctx.fillStyle = '#f59e0b';
-      ctx.beginPath();
-      ctx.moveTo(-4, 14);
-      ctx.lineTo(0, 18 + Math.random() * 6);
-      ctx.lineTo(4, 14);
-      ctx.fill();
-
-      ctx.fillStyle = '#ffffff';
-      ctx.beginPath();
-      ctx.moveTo(0, -18);
-      ctx.lineTo(6, -6);
-      ctx.lineTo(16, 6);
-      ctx.lineTo(4, 12);
-      ctx.lineTo(0, 10);
-      ctx.lineTo(-4, 12);
-      ctx.lineTo(-16, 6);
-      ctx.lineTo(-6, -6);
-      ctx.closePath();
-      ctx.fill();
-
-      ctx.fillStyle = '#0284c7';
-      ctx.fillRect(-2, -10, 4, 8);
-      ctx.restore();
+      drawPlane(plane.x, plane.y);
 
       animId = requestAnimationFrame(loop);
     }
@@ -1034,6 +1089,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cancelAnimationFrame(animId);
       window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('keyup', onKeyUp);
+      window.removeEventListener('resize', resizeCanvas);
     };
   }
 
