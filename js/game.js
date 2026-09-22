@@ -214,13 +214,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-jet-fighter-up',
       briefing: {
         title: 'VitLine Airlines',
-        desc: 'Plataforma para vuelos comerciales y asistencia de viaje. Elimina los drones enemigos con disparo automático infinito y esquiva las turbulencias hasta aterrizar.',
-        req: 'Pilota la nave con disparo continuo automático y destruye a los drones enemigos hasta alcanzar el 100%.'
+        desc: 'Plataforma para vuelos comerciales y asistencia de viaje. Elimina los drones enemigos blindados (3 impactos cada uno) con disparo automático infinito y esquiva las turbulencias hasta aterrizar.',
+        req: 'Pilota la nave con disparo continuo automático y destruye a los drones con 3 disparos cada uno hasta alcanzar el 100% de distancia.'
       },
       game: {
         title: 'Misión Aérea VitLine',
-        subtitle: 'Drones Enemigos & Disparo Automático',
-        badge: 'Shooter de Drones'
+        subtitle: 'Drones con 3 Vidas & Disparo Automático',
+        badge: 'Drones Resistentes (3 HP)'
       }
     },
     {
@@ -235,13 +235,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-compass',
       briefing: {
         title: 'DaLulú Travel Agency',
-        desc: 'Agencia de viajes dedicada a crear experiencias por Colombia. Debes recolectar las letras de DALULÚ en el orden exacto (D -> A -> L -> U -> L -> U) para abrir la salida.',
-        req: 'Recoge las 6 letras en el orden estricto de DALULÚ y cruza la meta turística.'
+        desc: 'Agencia de viajes dedicada a crear experiencias por Colombia. Debes resolver 5 acertijos de laberintos recolectando las letras en orden estricto de cada destino colombiano (DALULÚ, PLAYA, ANDES, SELVA y CARIBE) para cruzar cada meta turística.',
+        req: 'Supera los 5 acertijos de laberintos recogiendo las letras en orden estricto para desbloquear la salida.'
       },
       game: {
-        title: 'Laberinto de la Palabra en Orden',
-        subtitle: 'Acertijo Turístico DaLulú (Orden Estricto)',
-        badge: 'D-A-L-U-L-U en Orden'
+        title: 'Laberintos Turísticos (5 Acertijos)',
+        subtitle: '5 Laberintos de Colombia • Letras en Orden Estricto',
+        badge: '5 Acertijos de Laberinto'
       }
     },
     {
@@ -898,15 +898,39 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       distTxt.textContent = `${Math.floor(distance)}%`;
 
-      // Dibujar Drones Enemigos con fondo transparente y aspas giratorias
-      function drawEnemyDrone(x, y, frame, type) {
+      // Dibujar Drones Enemigos con barra de 3 vidas, fondo transparente y aspas giratorias
+      function drawEnemyDrone(x, y, frame, type, hp, maxHp, hitFlash) {
         ctx.save();
         ctx.translate(x, y);
         const rotorAngle = (frame * 0.45) % (Math.PI * 2);
 
+        // Resplandor de impacto
+        if (hitFlash && hitFlash > 0) {
+          ctx.shadowColor = '#38bdf8';
+          ctx.shadowBlur = 14;
+        }
+
+        // Barra de 3 Vidas (HP) del Drone
+        const barW = 22;
+        const barH = 3.5;
+        const barX = -barW / 2;
+        const barY = -19;
+        ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+        ctx.fillRect(barX - 1, barY - 1, barW + 2, barH + 2);
+
+        const segW = 6;
+        for (let k = 0; k < 3; k++) {
+          if (k < (hp !== undefined ? hp : 3)) {
+            ctx.fillStyle = hp === 3 ? '#22c55e' : (hp === 2 ? '#f59e0b' : '#ef4444');
+          } else {
+            ctx.fillStyle = 'rgba(255, 255, 255, 0.15)';
+          }
+          ctx.fillRect(barX + k * (segW + 1), barY, segW, barH);
+        }
+
         if (type === 'assault') {
           // Drone de Asalto Pesado (Quadcopter en 'X' sin fondo)
-          ctx.strokeStyle = '#64748b';
+          ctx.strokeStyle = hitFlash > 0 ? '#38bdf8' : '#64748b';
           ctx.lineWidth = 2.8;
           ctx.lineCap = 'round';
           ctx.beginPath();
@@ -934,7 +958,7 @@ document.addEventListener('DOMContentLoaded', () => {
           });
 
           // Chasis central metálico futurista
-          ctx.fillStyle = '#0f172a';
+          ctx.fillStyle = hitFlash > 0 ? '#1e293b' : '#0f172a';
           ctx.strokeStyle = '#ef4444';
           ctx.lineWidth = 1.5;
           ctx.beginPath();
@@ -952,7 +976,7 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx.shadowBlur = 0;
         } else {
           // Drone Caza de Reconocimiento (Bi-rotor en flecha sin fondo)
-          ctx.fillStyle = '#1e293b';
+          ctx.fillStyle = hitFlash > 0 ? '#334155' : '#1e293b';
           ctx.strokeStyle = '#f59e0b';
           ctx.lineWidth = 1.6;
           ctx.beginPath();
@@ -997,7 +1021,7 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.restore();
       }
 
-      // Spawn de Drones enemigos lentos
+      // Spawn de Drones enemigos con 3 Vidas (HP = 3)
       enemySpawnCounter++;
       if (enemySpawnCounter > 48) {
         enemySpawnCounter = 0;
@@ -1006,8 +1030,11 @@ document.addEventListener('DOMContentLoaded', () => {
           y: -22,
           w: 24,
           h: 24,
-          speed: 0.72 + Math.random() * 0.55,
-          type: Math.random() > 0.5 ? 'assault' : 'scout'
+          speed: 0.68 + Math.random() * 0.45,
+          type: Math.random() > 0.5 ? 'assault' : 'scout',
+          hp: 3,
+          maxHp: 3,
+          hitFlash: 0
         });
       }
 
@@ -1023,30 +1050,50 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       ctx.shadowBlur = 0;
 
-      // Enemigos Drones (Sin caja de fondo)
+      // Enemigos Drones con barra de 3 vidas
       for (let i = enemies.length - 1; i >= 0; i--) {
         const en = enemies[i];
         en.y += en.speed;
 
-        drawEnemyDrone(en.x, en.y, Math.floor(distance * 10) + i * 5, en.type);
+        drawEnemyDrone(en.x, en.y, Math.floor(distance * 10) + i * 5, en.type, en.hp, en.maxHp, en.hitFlash);
+        if (en.hitFlash > 0) en.hitFlash--;
 
-        // Colisión con balas
+        // Colisión con balas: se destruyen tras 3 disparos
         for (let j = bullets.length - 1; j >= 0; j--) {
           const b = bullets[j];
           if (Math.hypot(b.x - en.x, b.y - en.y) < 18) {
             sound.playSnap();
-            score += 10;
-            scoreTxt.textContent = score;
-            for (let p = 0; p < 5; p++) {
+            bullets.splice(j, 1);
+            en.hp--;
+            en.hitFlash = 5;
+
+            // Chispas de impacto
+            for (let p = 0; p < 3; p++) {
               particles.push({
-                x: en.x, y: en.y,
+                x: b.x, y: b.y,
                 vx: (Math.random() - 0.5) * 3,
                 vy: (Math.random() - 0.5) * 3,
-                alpha: 1
+                alpha: 1,
+                color: '#38bdf8'
               });
             }
-            enemies.splice(i, 1);
-            bullets.splice(j, 1);
+
+            // Destrucción tras recibir 3 impactos
+            if (en.hp <= 0) {
+              sound.playLaser();
+              score += 15;
+              scoreTxt.textContent = score;
+              for (let p = 0; p < 8; p++) {
+                particles.push({
+                  x: en.x, y: en.y,
+                  vx: (Math.random() - 0.5) * 5,
+                  vy: (Math.random() - 0.5) * 5,
+                  alpha: 1,
+                  color: en.type === 'assault' ? '#ef4444' : '#f59e0b'
+                });
+              }
+              enemies.splice(i, 1);
+            }
             break;
           }
         }
@@ -1072,8 +1119,10 @@ document.addEventListener('DOMContentLoaded', () => {
         p.x += p.vx;
         p.y += p.vy;
         p.alpha -= 0.05;
-        ctx.fillStyle = `rgba(56, 189, 248, ${p.alpha})`;
+        ctx.fillStyle = p.color || '#38bdf8';
+        ctx.globalAlpha = Math.max(0, p.alpha);
         ctx.fillRect(p.x, p.y, 3, 3);
+        ctx.globalAlpha = 1.0;
         if (p.alpha <= 0) particles.splice(i, 1);
       }
 
@@ -1097,46 +1146,153 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2. DALULÚ TRAVEL: LABERINTO EN ORDEN ESTRICTO (D - A - L - U - L - U)
   // =========================================================================
   function buildDaluluMaze() {
-    const TARGET_WORD = 'DALULU';
+    const MAZE_RIDDLES = [
+      {
+        id: 1,
+        title: 'Acertijo 1: El Nombre de la Aventura',
+        hint: 'Descubre la agencia oficial recorriendo los senderos del Eje Cafetero',
+        word: 'DALULU',
+        start: { r: 0, c: 0 },
+        layout: [
+          [0, 0, 1, 0, 0, 0, 0],
+          [1, 0, 1, 0, 1, 1, 0],
+          [0, 0, 0, 0, 1, 0, 0],
+          [0, 1, 1, 0, 0, 0, 1],
+          [0, 0, 1, 1, 1, 0, 0],
+          [1, 0, 0, 0, 1, 1, 0],
+          [0, 0, 1, 0, 0, 0, 2]
+        ],
+        letters: [
+          { r: 0, c: 1, char: 'D', order: 0 },
+          { r: 0, c: 5, char: 'A', order: 1 },
+          { r: 2, c: 2, char: 'L', order: 2 },
+          { r: 3, c: 4, char: 'U', order: 3 },
+          { r: 5, c: 3, char: 'L', order: 4 },
+          { r: 4, c: 6, char: 'U', order: 5 }
+        ]
+      },
+      {
+        id: 2,
+        title: 'Acertijo 2: El Paraíso de la Costa',
+        hint: 'Arenas blancas y aguas turquesas en las bahías del Parque Tayrona',
+        word: 'PLAYA',
+        start: { r: 6, c: 0 },
+        layout: [
+          [0, 0, 0, 0, 0, 0, 2],
+          [0, 1, 1, 1, 1, 1, 0],
+          [0, 0, 0, 0, 0, 1, 0],
+          [1, 1, 1, 1, 0, 1, 0],
+          [0, 0, 0, 0, 0, 1, 0],
+          [0, 1, 1, 1, 1, 1, 0],
+          [0, 0, 0, 0, 0, 0, 0]
+        ],
+        letters: [
+          { r: 6, c: 2, char: 'P', order: 0 },
+          { r: 4, c: 2, char: 'L', order: 1 },
+          { r: 2, c: 3, char: 'A', order: 2 },
+          { r: 3, c: 4, char: 'Y', order: 3 },
+          { r: 4, c: 6, char: 'A', order: 4 }
+        ]
+      },
+      {
+        id: 3,
+        title: 'Acertijo 3: La Gran Cordillera',
+        hint: 'Cumbres nevadas, páramos mágicos y valles cafeteros de Colombia',
+        word: 'ANDES',
+        start: { r: 0, c: 6 },
+        layout: [
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 1, 1, 1, 1, 1, 0],
+          [0, 1, 0, 0, 0, 1, 0],
+          [0, 1, 0, 1, 0, 1, 0],
+          [0, 0, 0, 0, 0, 1, 0],
+          [0, 1, 1, 1, 1, 1, 0],
+          [2, 0, 0, 0, 0, 0, 0]
+        ],
+        letters: [
+          { r: 0, c: 3, char: 'A', order: 0 },
+          { r: 2, c: 2, char: 'N', order: 1 },
+          { r: 3, c: 4, char: 'D', order: 2 },
+          { r: 4, c: 0, char: 'E', order: 3 },
+          { r: 6, c: 3, char: 'S', order: 4 }
+        ]
+      },
+      {
+        id: 4,
+        title: 'Acertijo 4: El Pulmón del Amazonas',
+        hint: 'Ríos caudalosos y la selva más biodiversa del planeta en Leticia',
+        word: 'SELVA',
+        start: { r: 3, c: 3 },
+        layout: [
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 1, 0, 1, 0, 1, 0],
+          [0, 1, 0, 1, 0, 1, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 1, 0, 1, 0, 1, 0],
+          [0, 1, 0, 1, 0, 1, 0],
+          [0, 0, 0, 0, 0, 0, 2]
+        ],
+        letters: [
+          { r: 1, c: 2, char: 'S', order: 0 },
+          { r: 0, c: 5, char: 'E', order: 1 },
+          { r: 3, c: 0, char: 'L', order: 2 },
+          { r: 5, c: 2, char: 'V', order: 3 },
+          { r: 5, c: 4, char: 'A', order: 4 }
+        ]
+      },
+      {
+        id: 5,
+        title: 'Acertijo 5: La Magia Colonial del Caribe',
+        hint: 'Murallas de piedra, balcones floridos y atardeceres en Cartagena',
+        word: 'CARIBE',
+        start: { r: 0, c: 0 },
+        layout: [
+          [0, 0, 0, 0, 0, 0, 0],
+          [1, 1, 1, 1, 1, 1, 0],
+          [0, 0, 0, 0, 0, 0, 0],
+          [0, 1, 1, 2, 1, 1, 0],
+          [0, 1, 0, 0, 0, 1, 0],
+          [0, 1, 1, 0, 1, 1, 0],
+          [0, 0, 0, 0, 0, 0, 0]
+        ],
+        letters: [
+          { r: 0, c: 3, char: 'C', order: 0 },
+          { r: 0, c: 6, char: 'A', order: 1 },
+          { r: 3, c: 6, char: 'R', order: 2 },
+          { r: 6, c: 5, char: 'I', order: 3 },
+          { r: 6, c: 1, char: 'B', order: 4 },
+          { r: 2, c: 2, char: 'E', order: 5 }
+        ]
+      }
+    ];
+
+    let currentRiddleIndex = 0;
+    let completedRiddles = [false, false, false, false, false];
     let currentLetterIndex = 0;
-
-    // Laberinto 7x7
-    const mazeLayout = [
-      [0, 0, 1, 0, 0, 0, 0],
-      [1, 0, 1, 0, 1, 1, 0],
-      [0, 0, 0, 0, 1, 0, 0],
-      [0, 1, 1, 0, 0, 0, 1],
-      [0, 0, 1, 1, 1, 0, 0],
-      [1, 0, 0, 0, 1, 1, 0],
-      [0, 0, 1, 0, 0, 0, 2]
-    ];
-
-    // Letras distribuidas con índice estricto de recolección (0 a 5)
-    const letterSpawns = [
-      { r: 0, c: 1, char: 'D', order: 0, collected: false },
-      { r: 0, c: 5, char: 'A', order: 1, collected: false },
-      { r: 2, c: 2, char: 'L', order: 2, collected: false },
-      { r: 3, c: 4, char: 'U', order: 3, collected: false },
-      { r: 5, c: 3, char: 'L', order: 4, collected: false },
-      { r: 4, c: 6, char: 'U', order: 5, collected: false }
-    ];
-
     let playerPos = { r: 0, c: 0 };
+    let letterSpawns = [];
+    let isTransitioning = false;
 
     interactiveArena.innerHTML = `
       <div class="dalulu-maze-ui">
-        <div class="maze-word-tracker" id="maze-word-tracker">
-          ${TARGET_WORD.split('').map((char, i) => `
-            <div class="letter-tile-slot ${i === 0 ? 'target-active' : ''}" id="slot-letter-${i}">_</div>
-          `).join('')}
+        <div class="dalulu-levels-bar">
+          <span style="font-size:0.75rem; font-weight:700; color:#ffffff;">
+            <i class="fa-solid fa-map-location-dot" style="color:var(--blue-accent);"></i> Acertijo <strong id="dalulu-riddle-num">1 / 5</strong>
+          </span>
+          <div class="dalulu-lvl-chips" id="dalulu-chips-row">
+            ${MAZE_RIDDLES.map((r, i) => `
+              <button class="dalulu-lvl-chip ${i === 0 ? 'active' : ''}" data-idx="${i}">A${i + 1}</button>
+            `).join('')}
+          </div>
         </div>
 
-        <div id="dalulu-order-hint" style="font-size:0.74rem; color:var(--gold-accent); text-align:center; font-weight:700;">
-          Próxima letra a recoger: "D" (1/6)
-        </div>
+        <div class="dalulu-riddle-box" id="dalulu-riddle-desc"></div>
 
-        <div class="dalulu-maze-board" id="maze-board" style="grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(7, 1fr);">
-        </div>
+        <div class="maze-word-tracker" id="maze-word-tracker"></div>
+
+        <div id="dalulu-order-hint" style="font-size:0.74rem; color:var(--gold-accent); text-align:center; font-weight:700;"></div>
+
+        <div class="dalulu-maze-board" id="maze-board" style="grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(7, 1fr);"></div>
 
         <div class="mobile-touch-dpad">
           <button class="dpad-btn up" id="dpad-up"><i class="fa-solid fa-arrow-up"></i></button>
@@ -1149,14 +1305,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const board = document.getElementById('maze-board');
     const hintEl = document.getElementById('dalulu-order-hint');
+    const riddleNumEl = document.getElementById('dalulu-riddle-num');
+    const riddleDescEl = document.getElementById('dalulu-riddle-desc');
+    const wordTracker = document.getElementById('maze-word-tracker');
+    const chipsRow = document.getElementById('dalulu-chips-row');
+
+    function renderChips() {
+      chipsRow.innerHTML = MAZE_RIDDLES.map((r, i) => {
+        const isDone = completedRiddles[i];
+        const isActive = i === currentRiddleIndex;
+        return `
+          <button class="dalulu-lvl-chip ${isActive ? 'active' : ''} ${isDone ? 'completed' : ''}" data-idx="${i}" title="${r.title}">
+            A${i + 1}${isDone ? ' ✓' : ''}
+          </button>
+        `;
+      }).join('');
+
+      chipsRow.querySelectorAll('.dalulu-lvl-chip').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const idx = parseInt(btn.getAttribute('data-idx'));
+          sound.playClick();
+          loadRiddle(idx);
+        });
+      });
+    }
 
     function updateSlotsUI() {
-      for (let i = 0; i < TARGET_WORD.length; i++) {
+      const riddle = MAZE_RIDDLES[currentRiddleIndex];
+      for (let i = 0; i < riddle.word.length; i++) {
         const slot = document.getElementById(`slot-letter-${i}`);
         if (slot) {
           slot.classList.remove('target-active');
           if (i < currentLetterIndex) {
-            slot.textContent = TARGET_WORD[i];
+            slot.textContent = riddle.word[i];
             slot.classList.add('collected');
           } else if (i === currentLetterIndex) {
             slot.textContent = '_';
@@ -1168,20 +1349,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
-      if (currentLetterIndex < TARGET_WORD.length) {
-        hintEl.textContent = `Próxima letra a recoger en orden: "${TARGET_WORD[currentLetterIndex]}" (${currentLetterIndex + 1}/6)`;
+      if (currentLetterIndex < riddle.word.length) {
+        hintEl.style.color = 'var(--gold-accent)';
+        hintEl.textContent = `Próxima letra a recoger en orden: "${riddle.word[currentLetterIndex]}" (${currentLetterIndex + 1}/${riddle.word.length})`;
       } else {
         hintEl.style.color = 'var(--green-accent)';
-        hintEl.textContent = '¡Palabra DALULÚ completa! Cruza la meta turística 🏁';
+        hintEl.textContent = `¡Palabra ${riddle.word} completa! Cruza la meta turística 🏁`;
       }
     }
 
     function renderMaze() {
+      const riddle = MAZE_RIDDLES[currentRiddleIndex];
       board.innerHTML = '';
       for (let r = 0; r < 7; r++) {
         for (let c = 0; c < 7; c++) {
           const cell = document.createElement('div');
-          const cellType = mazeLayout[r][c];
+          const cellType = riddle.layout[r][c];
           cell.className = 'maze-cell ' + (cellType === 1 ? 'wall' : (cellType === 2 ? 'exit' : 'path'));
 
           if (playerPos.r === r && playerPos.c === c) {
@@ -1200,36 +1383,75 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
+    function loadRiddle(index) {
+      if (index < 0 || index >= MAZE_RIDDLES.length) return;
+      currentRiddleIndex = index;
+      const riddle = MAZE_RIDDLES[currentRiddleIndex];
+
+      playerPos = { ...riddle.start };
+      letterSpawns = riddle.letters.map(l => ({ ...l, collected: false }));
+      currentLetterIndex = 0;
+      isTransitioning = false;
+
+      riddleNumEl.textContent = `${index + 1} / 5`;
+      riddleDescEl.innerHTML = `
+        <span><i class="fa-solid fa-puzzle-piece"></i> <strong>${riddle.title}</strong></span><br>
+        <span style="color:#cbd5e1; font-weight:500;">${riddle.hint}</span>
+      `;
+
+      wordTracker.innerHTML = riddle.word.split('').map((char, i) => `
+        <div class="letter-tile-slot ${i === 0 ? 'target-active' : ''}" id="slot-letter-${i}">_</div>
+      `).join('');
+
+      renderChips();
+      updateSlotsUI();
+      renderMaze();
+    }
+
     function tryMove(dr, dc) {
+      if (isTransitioning) return;
+      const riddle = MAZE_RIDDLES[currentRiddleIndex];
       const nr = playerPos.r + dr;
       const nc = playerPos.c + dc;
       if (nr < 0 || nr >= 7 || nc < 0 || nc >= 7) return;
-      if (mazeLayout[nr][nc] === 1) return;
+      if (riddle.layout[nr][nc] === 1) return;
 
       playerPos.r = nr;
       playerPos.c = nc;
       sound.playStep();
 
-      // Verificar si hay una letra
+      // Recolección en orden
       const letter = letterSpawns.find(l => l.r === nr && l.c === nc && !l.collected);
       if (letter) {
         if (letter.order === currentLetterIndex) {
-          // Recolección en el orden adecuado
           letter.collected = true;
           currentLetterIndex++;
           sound.playSnap();
           updateSlotsUI();
         } else {
-          // Intentó recoger una letra fuera de turno
           sound.playClick();
-          hintEl.textContent = `¡Orden estricto! Primero debes recoger "${TARGET_WORD[currentLetterIndex]}"`;
+          hintEl.textContent = `¡Orden estricto! Primero debes recoger "${riddle.word[currentLetterIndex]}"`;
         }
       }
 
-      // Verificar salida
-      if (mazeLayout[nr][nc] === 2) {
-        if (currentLetterIndex >= TARGET_WORD.length) {
-          completeCurrentChallenge('¡Palabra DALULÚ completada en el orden exacto y meta alcanzada!');
+      // Comprobar salida 🏁
+      if (riddle.layout[nr][nc] === 2) {
+        if (currentLetterIndex >= riddle.word.length) {
+          completedRiddles[currentRiddleIndex] = true;
+          renderChips();
+
+          if (currentRiddleIndex < MAZE_RIDDLES.length - 1) {
+            isTransitioning = true;
+            sound.playSuccess();
+            hintEl.style.color = 'var(--green-accent)';
+            hintEl.textContent = `🎉 ¡Acertijo ${currentRiddleIndex + 1} superado! Cargando siguiente laberinto...`;
+            setTimeout(() => {
+              loadRiddle(currentRiddleIndex + 1);
+            }, 850);
+          } else {
+            sound.playSuccess();
+            completeCurrentChallenge('¡Superaste con éxito los 5 acertijos de laberinto en DaLulú Travel!');
+          }
         } else {
           sound.playClick();
           hintEl.textContent = '¡Aún te faltan letras para desbloquear la salida!';
@@ -1239,8 +1461,7 @@ document.addEventListener('DOMContentLoaded', () => {
       renderMaze();
     }
 
-    updateSlotsUI();
-    renderMaze();
+    loadRiddle(0);
 
     document.getElementById('dpad-up').addEventListener('click', () => tryMove(-1, 0));
     document.getElementById('dpad-down').addEventListener('click', () => tryMove(1, 0));

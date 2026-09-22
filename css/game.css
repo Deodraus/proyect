@@ -930,8 +930,66 @@ html, body {
   flex-direction: column;
   height: 100%;
   width: 100%;
-  gap: 0.4rem;
+  gap: 0.35rem;
   align-items: center;
+}
+
+/* Selector y Barra de 5 Acertijos DaLulú */
+.dalulu-levels-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 0.35rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+}
+
+.dalulu-lvl-chips {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.dalulu-lvl-chip {
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  font-family: 'JetBrains Mono', monospace;
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.dalulu-lvl-chip.active {
+  background: rgba(56, 189, 248, 0.2);
+  border-color: #38bdf8;
+  color: #38bdf8;
+  box-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
+}
+
+.dalulu-lvl-chip.completed {
+  background: rgba(16, 185, 129, 0.2);
+  border-color: #10b981;
+  color: #10b981;
+}
+
+.dalulu-riddle-box {
+  width: 100%;
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--gold-accent);
+  background: rgba(251, 191, 36, 0.08);
+  border: 1px solid rgba(251, 191, 36, 0.25);
+  border-radius: 6px;
+  padding: 0.22rem 0.5rem;
+  font-weight: 700;
+  line-height: 1.25;
 }
 
 .maze-word-tracker {
