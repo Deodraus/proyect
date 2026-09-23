@@ -214,13 +214,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-jet-fighter-up',
       briefing: {
         title: 'VitLine Airlines',
-        desc: 'Plataforma para vuelos comerciales y asistencia de viaje. Elimina los drones enemigos blindados (3 impactos cada uno) con disparo automático infinito y esquiva las turbulencias hasta aterrizar.',
-        req: 'Pilota la nave con disparo continuo automático y destruye a los drones con 3 disparos cada uno hasta alcanzar el 100% de distancia.'
+        desc: 'Plataforma para vuelos comerciales y reservas. Destruye a los drones y a los densos muros blindados (50 impactos para destruirlos o esquívalos por los laterales) con disparo continuo hasta aterrizar.',
+        req: 'Pilota la nave, destruye o esquiva los muros blindados de 50 de vida y alcanza el 100% de distancia.'
       },
       game: {
         title: 'Misión Aérea VitLine',
-        subtitle: 'Drones con 3 Vidas & Disparo Automático',
-        badge: 'Drones Resistentes (3 HP)'
+        subtitle: 'Muros Blindados (50 HP) • Esquivar o Destruir',
+        badge: 'Muros de 50 HP'
       }
     },
     {
@@ -235,13 +235,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-compass',
       briefing: {
         title: 'DaLulú Travel Agency',
-        desc: 'Agencia de viajes dedicada a crear experiencias por Colombia. Debes resolver 5 acertijos de laberintos recolectando las letras en orden estricto de cada destino colombiano (DALULÚ, PLAYA, ANDES, SELVA y CARIBE) para cruzar cada meta turística.',
-        req: 'Supera los 5 acertijos de laberintos recogiendo las letras en orden estricto para desbloquear la salida.'
+        desc: 'Agencia de turismo por Colombia. Supera 3 niveles de alta dificultad recolectando las letras en orden estricto y con límite de movimientos. ¡Si pisas una letra incorrecta el nivel se reinicia!',
+        req: 'Supera los 3 niveles recolectando las letras en orden estricto antes de agotar tus movimientos.'
       },
       game: {
-        title: 'Laberintos Turísticos (5 Acertijos)',
-        subtitle: '5 Laberintos de Colombia • Letras en Orden Estricto',
-        badge: '5 Acertijos de Laberinto'
+        title: 'Laberintos Turísticos (3 Niveles)',
+        subtitle: '3 Niveles • Movimientos Limitados • Orden Estricto',
+        badge: '3 Niveles • Pasos Limitados'
       }
     },
     {
@@ -256,13 +256,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-spray-can-sparkles',
       briefing: {
         title: 'GlowSmec Salón & Spa',
-        desc: 'Simulador de atención rápida al estilo Cooking Diner. Atiende a los 10 clientes que van llegando a la peluquería entregándoles los cosméticos que solicitan antes de que se agoten sus 20 segundos.',
-        req: 'Atiende a los 10 clientes del salón entregando sus cosméticos a tiempo (20 segundos por cliente).'
+        desc: 'Simulador de atención rápida estilo Cooking Salon. Atiende con agilidad a los 15 clientes entregándoles los productos solicitados antes de que se agoten sus 10 segundos de paciencia.',
+        req: 'Atiende a los 15 clientes entregando sus cosméticos a tiempo (10 segundos por cliente).'
       },
       game: {
         title: 'Atención en Salón de Belleza',
-        subtitle: 'Estilo Cooking Diner • 10 Clientes • 20s por Pedido',
-        badge: '10 Clientes (20s)'
+        subtitle: 'Estilo Cooking Salon • 15 Clientes • 10s de Paciencia',
+        badge: '15 Clientes (10s)'
       }
     },
     {
@@ -277,13 +277,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-worm',
       briefing: {
         title: 'GreenTask Sostenible',
-        desc: 'Plataforma ecológica y compostaje. Guía al gusano a ritmo pausado para comer 10 manzanas. ¡Cuidado! Chocar contra las paredes o morderte a ti mismo causa derrota inmediata y reinicio.',
-        req: 'Come 10 manzanas sin tocar ninguna pared ni morder tu cuerpo para nutrir el huerto.'
+        desc: 'Plataforma ecológica y compostaje. Guía al gusano con animación fluida para comer 10 manzanas. ¡Cuidado! Chocar contra las paredes o morderte causa reinicio a 0.',
+        req: 'Come 10 manzanas con movimientos fluidos sin tocar paredes mortales ni tu propio cuerpo.'
       },
       game: {
-        title: 'Gusano Ecológico (Paredes Mortales)',
-        subtitle: 'Come 10 Manzanas • Sin Chocar Paredes ni Cola',
-        badge: '10 Manzanas • Pared Mortal'
+        title: 'Gusano Ecológico (Animación Fluida)',
+        subtitle: 'Come 10 Manzanas • Animación 60 FPS • Pared Mortal',
+        badge: 'Animación Fluida • 10 Manzanas'
       }
     },
     {
@@ -297,14 +297,14 @@ document.addEventListener('DOMContentLoaded', () => {
       bgImage: 'assets/images/catalina.jpeg',
       icon: 'fa-dog',
       briefing: {
-        title: 'Patitas al Rescate',
-        desc: 'Refugio de rescate animal. El perrito realista corre moviendo sus patas por un trayecto largo que acelera progresivamente. Dispones de 3 vidas para llegar a salvo.',
-        req: 'Supera el trayecto largo con velocidad creciente y conserva al menos 1 de tus 3 vidas.'
+        title: 'Patitas al Rescate (Geometry Dash Style)',
+        desc: 'Refugio de rescate animal. Carrera neón estilo Geometry Dash: salta picos y baja/deslízate rápidamente bajo obstáculos aéreos con controles dedicados de SALTAR y BAJAR.',
+        req: 'Supera la pista neón esquivando picos y barreras usando SALTAR y BAJAR sin perder tus 3 vidas.'
       },
       game: {
-        title: 'Carrera Canina Acelerada (3 Vidas)',
-        subtitle: 'Trayecto Largo • Velocidad Progresiva',
-        badge: 'Velocidad Creciente • 3 Vidas'
+        title: 'Carrera Neón Geometry Dash',
+        subtitle: 'Controles: SALTAR y BAJAR • Picos Neón y Deslizamiento',
+        badge: 'Estilo Geometry Dash'
       }
     },
     {
@@ -721,6 +721,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="feature-tag"><i class="fa-solid fa-expand"></i> Pantalla Completa Automática</div>
                 <div class="feature-tag"><i class="fa-solid fa-bolt"></i> Disparo Infinito Activo</div>
                 <div class="feature-tag"><i class="fa-solid fa-shield-heart"></i> 3 Vidas de Escudo</div>
+                <div class="feature-tag"><i class="fa-solid fa-cubes-stacked"></i> Muros Blindados (50 HP)</div>
               </div>
               <button id="vitline-start-btn" class="btn-play-vitline">
                 <i class="fa-solid fa-play"></i> JUGAR (PLAY)
@@ -730,7 +731,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div style="text-align:center; font-size:0.72rem; color:var(--blue-accent); padding:0.2rem;">
-          ⚡ Disparo automático infinito activo • Desliza el dedo o usa flechas para mover la nave
+          ⚡ Disparo infinito activo • Destruye muros blindados (50 disparos) o esquívalos por los lados
         </div>
       </div>
     `;
@@ -780,6 +781,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let shields = 3;
     let gameWon = false;
     let enemySpawnCounter = 0;
+    let wallSpawnCounter = 0;
     let autoShootCounter = 0;
 
     for (let i = 0; i < 6; i++) {
@@ -1021,6 +1023,67 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.restore();
       }
 
+      // Función para dibujar los Muros Blindados de 50 de Vida (HP = 50)
+      function drawWall(x, y, w, h, hp, maxHp, hitFlash) {
+        ctx.save();
+        ctx.translate(x, y);
+
+        if (hitFlash && hitFlash > 0) {
+          ctx.shadowColor = '#38bdf8';
+          ctx.shadowBlur = 16;
+        }
+
+        const halfW = w / 2;
+        const halfH = h / 2;
+
+        // Estructura exterior blindada
+        ctx.fillStyle = hitFlash > 0 ? '#38bdf8' : '#1e293b';
+        ctx.strokeStyle = hitFlash > 0 ? '#ffffff' : '#f59e0b';
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        ctx.roundRect(-halfW, -halfH, w, h, 6);
+        ctx.fill();
+        ctx.stroke();
+
+        // Franjas diagonales de peligro (hazard stripes)
+        ctx.save();
+        ctx.beginPath();
+        ctx.roundRect(-halfW + 2, -halfH + 2, w - 4, h - 4, 4);
+        ctx.clip();
+        ctx.strokeStyle = 'rgba(245, 158, 11, 0.35)';
+        ctx.lineWidth = 6;
+        for (let sx = -halfW - 20; sx < halfW + 20; sx += 14) {
+          ctx.beginPath();
+          ctx.moveTo(sx, -halfH);
+          ctx.lineTo(sx + 14, halfH);
+          ctx.stroke();
+        }
+        ctx.restore();
+
+        // Barra de Vida Superior (HP Bar: 50 a 0)
+        const barW = w - 8;
+        const barH = 5;
+        const barX = -barW / 2;
+        const barY = -halfH - 8;
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
+        ctx.fillRect(barX - 1, barY - 1, barW + 2, barH + 2);
+
+        const fillPct = Math.max(0, hp / maxHp);
+        ctx.fillStyle = fillPct > 0.5 ? '#22c55e' : (fillPct > 0.2 ? '#f59e0b' : '#ef4444');
+        ctx.fillRect(barX, barY, barW * fillPct, barH);
+
+        // Texto informativo del Muro con conteo exacto de HP
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 9px "JetBrains Mono", monospace';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.shadowColor = 'rgba(0,0,0,0.9)';
+        ctx.shadowBlur = 4;
+        ctx.fillText(`🛡️ MURO ${hp}/${maxHp}`, 0, 0);
+
+        ctx.restore();
+      }
+
       // Spawn de Drones enemigos con 3 Vidas (HP = 3)
       enemySpawnCounter++;
       if (enemySpawnCounter > 48) {
@@ -1038,6 +1101,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
+      // Spawn periódico de Muros Blindados de 50 HP (Se pueden destruir con 50 disparos o esquivar)
+      wallSpawnCounter++;
+      if (wallSpawnCounter > 175 && distance < 95) {
+        wallSpawnCounter = 0;
+        const wallW = Math.min(84, canvas.width * 0.38);
+        const minX = wallW / 2 + 18;
+        const maxX = canvas.width - (wallW / 2 + 18);
+        const wallX = minX + Math.random() * Math.max(10, maxX - minX);
+        enemies.push({
+          x: wallX,
+          y: -32,
+          w: wallW,
+          h: 28,
+          speed: 0.52,
+          type: 'wall',
+          hp: 50,
+          maxHp: 50,
+          hitFlash: 0
+        });
+      }
+
       // Balas
       ctx.fillStyle = '#38bdf8';
       ctx.shadowBlur = 8;
@@ -1050,46 +1134,62 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       ctx.shadowBlur = 0;
 
-      // Enemigos Drones con barra de 3 vidas
+      // Enemigos y Muros con barra de vida
       for (let i = enemies.length - 1; i >= 0; i--) {
         const en = enemies[i];
         en.y += en.speed;
 
-        drawEnemyDrone(en.x, en.y, Math.floor(distance * 10) + i * 5, en.type, en.hp, en.maxHp, en.hitFlash);
+        if (en.type === 'wall') {
+          drawWall(en.x, en.y, en.w, en.h, en.hp, en.maxHp, en.hitFlash);
+        } else {
+          drawEnemyDrone(en.x, en.y, Math.floor(distance * 10) + i * 5, en.type, en.hp, en.maxHp, en.hitFlash);
+        }
         if (en.hitFlash > 0) en.hitFlash--;
 
-        // Colisión con balas: se destruyen tras 3 disparos
+        // Colisión con balas:
         for (let j = bullets.length - 1; j >= 0; j--) {
           const b = bullets[j];
-          if (Math.hypot(b.x - en.x, b.y - en.y) < 18) {
+          let hit = false;
+          if (en.type === 'wall') {
+            hit = (b.x >= en.x - en.w / 2 && b.x <= en.x + en.w / 2 &&
+                   b.y >= en.y - en.h / 2 && b.y <= en.y + en.h / 2);
+          } else {
+            hit = (Math.hypot(b.x - en.x, b.y - en.y) < 18);
+          }
+
+          if (hit) {
             sound.playSnap();
             bullets.splice(j, 1);
             en.hp--;
-            en.hitFlash = 5;
+            en.hitFlash = 4;
 
             // Chispas de impacto
-            for (let p = 0; p < 3; p++) {
+            for (let p = 0; p < (en.type === 'wall' ? 2 : 3); p++) {
               particles.push({
                 x: b.x, y: b.y,
                 vx: (Math.random() - 0.5) * 3,
                 vy: (Math.random() - 0.5) * 3,
                 alpha: 1,
-                color: '#38bdf8'
+                color: en.type === 'wall' ? '#f59e0b' : '#38bdf8'
               });
             }
 
-            // Destrucción tras recibir 3 impactos
+            // Destrucción tras agotar los puntos de vida (50 para el muro, 3 para el drone)
             if (en.hp <= 0) {
               sound.playLaser();
-              score += 15;
+              const pointsEarned = en.type === 'wall' ? 100 : 15;
+              score += pointsEarned;
               scoreTxt.textContent = score;
-              for (let p = 0; p < 8; p++) {
+
+              const countParts = en.type === 'wall' ? 20 : 8;
+              for (let p = 0; p < countParts; p++) {
                 particles.push({
-                  x: en.x, y: en.y,
-                  vx: (Math.random() - 0.5) * 5,
-                  vy: (Math.random() - 0.5) * 5,
+                  x: en.x + (Math.random() - 0.5) * (en.w || 20),
+                  y: en.y + (Math.random() - 0.5) * (en.h || 20),
+                  vx: (Math.random() - 0.5) * 6,
+                  vy: (Math.random() - 0.5) * 6,
                   alpha: 1,
-                  color: en.type === 'assault' ? '#ef4444' : '#f59e0b'
+                  color: en.type === 'wall' ? '#f59e0b' : (en.type === 'assault' ? '#ef4444' : '#f59e0b')
                 });
               }
               enemies.splice(i, 1);
@@ -1099,18 +1199,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Colisión con el avión
-        if (enemies[i] && Math.hypot(plane.x - en.x, plane.y - en.y) < 20) {
-          shields--;
-          sound.playHurt();
-          enemies.splice(i, 1);
-          shieldTxt.textContent = shields === 2 ? '❤️❤️' : (shields === 1 ? '❤️' : '💔');
-          if (shields <= 0) {
-            shields = 3;
-            shieldTxt.textContent = '❤️❤️❤️';
+        if (enemies[i]) {
+          let planeHit = false;
+          if (en.type === 'wall') {
+            planeHit = (Math.abs(plane.x - en.x) < (en.w / 2 + 10) &&
+                        Math.abs(plane.y - en.y) < (en.h / 2 + 12));
+          } else {
+            planeHit = (Math.hypot(plane.x - en.x, plane.y - en.y) < 20);
+          }
+
+          if (planeHit) {
+            shields--;
+            sound.playHurt();
+            enemies.splice(i, 1);
+            shieldTxt.textContent = shields === 2 ? '❤️❤️' : (shields === 1 ? '❤️' : '💔');
+            if (shields <= 0) {
+              shields = 3;
+              shieldTxt.textContent = '❤️❤️❤️';
+            }
           }
         }
 
-        if (en.y > canvas.height + 25) enemies.splice(i, 1);
+        if (enemies[i] && en.y > canvas.height + 40) enemies.splice(i, 1);
       }
 
       // Partículas
@@ -1149,9 +1259,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const MAZE_RIDDLES = [
       {
         id: 1,
-        title: 'Acertijo 1: El Nombre de la Aventura',
-        hint: 'Descubre la agencia oficial recorriendo los senderos del Eje Cafetero',
+        title: 'Nivel 1: El Nombre de la Aventura',
+        hint: 'Sigue el sendero recolectando las letras en orden exacto: D - A - L - U - L - U',
         word: 'DALULU',
+        maxMoves: 28,
         start: { r: 0, c: 0 },
         layout: [
           [0, 0, 1, 0, 0, 0, 0],
@@ -1173,9 +1284,10 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       {
         id: 2,
-        title: 'Acertijo 2: El Paraíso de la Costa',
-        hint: 'Arenas blancas y aguas turquesas en las bahías del Parque Tayrona',
+        title: 'Nivel 2: El Paraíso de la Costa',
+        hint: 'Aguas turquesas y arrecifes. Recolecta en orden: P - L - A - Y - A',
         word: 'PLAYA',
+        maxMoves: 30,
         start: { r: 6, c: 0 },
         layout: [
           [0, 0, 0, 0, 0, 0, 2],
@@ -1196,55 +1308,10 @@ document.addEventListener('DOMContentLoaded', () => {
       },
       {
         id: 3,
-        title: 'Acertijo 3: La Gran Cordillera',
-        hint: 'Cumbres nevadas, páramos mágicos y valles cafeteros de Colombia',
-        word: 'ANDES',
-        start: { r: 0, c: 6 },
-        layout: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 1, 1, 1, 1, 1, 0],
-          [0, 1, 0, 0, 0, 1, 0],
-          [0, 1, 0, 1, 0, 1, 0],
-          [0, 0, 0, 0, 0, 1, 0],
-          [0, 1, 1, 1, 1, 1, 0],
-          [2, 0, 0, 0, 0, 0, 0]
-        ],
-        letters: [
-          { r: 0, c: 3, char: 'A', order: 0 },
-          { r: 2, c: 2, char: 'N', order: 1 },
-          { r: 3, c: 4, char: 'D', order: 2 },
-          { r: 4, c: 0, char: 'E', order: 3 },
-          { r: 6, c: 3, char: 'S', order: 4 }
-        ]
-      },
-      {
-        id: 4,
-        title: 'Acertijo 4: El Pulmón del Amazonas',
-        hint: 'Ríos caudalosos y la selva más biodiversa del planeta en Leticia',
-        word: 'SELVA',
-        start: { r: 3, c: 3 },
-        layout: [
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 1, 0, 1, 0, 1, 0],
-          [0, 1, 0, 1, 0, 1, 0],
-          [0, 0, 0, 0, 0, 0, 0],
-          [0, 1, 0, 1, 0, 1, 0],
-          [0, 1, 0, 1, 0, 1, 0],
-          [0, 0, 0, 0, 0, 0, 2]
-        ],
-        letters: [
-          { r: 1, c: 2, char: 'S', order: 0 },
-          { r: 0, c: 5, char: 'E', order: 1 },
-          { r: 3, c: 0, char: 'L', order: 2 },
-          { r: 5, c: 2, char: 'V', order: 3 },
-          { r: 5, c: 4, char: 'A', order: 4 }
-        ]
-      },
-      {
-        id: 5,
-        title: 'Acertijo 5: La Magia Colonial del Caribe',
-        hint: 'Murallas de piedra, balcones floridos y atardeceres en Cartagena',
+        title: 'Nivel 3: La Magia del Caribe',
+        hint: 'Murallas coloniales y atardeceres. Recolecta en orden: C - A - R - I - B - E',
         word: 'CARIBE',
+        maxMoves: 34,
         start: { r: 0, c: 0 },
         layout: [
           [0, 0, 0, 0, 0, 0, 0],
@@ -1267,44 +1334,49 @@ document.addEventListener('DOMContentLoaded', () => {
     ];
 
     let currentRiddleIndex = 0;
-    let completedRiddles = [false, false, false, false, false];
+    let completedRiddles = [false, false, false];
     let currentLetterIndex = 0;
     let playerPos = { r: 0, c: 0 };
     let letterSpawns = [];
+    let movesLeft = 0;
     let isTransitioning = false;
 
     interactiveArena.innerHTML = `
       <div class="dalulu-maze-ui">
         <div class="dalulu-levels-bar">
           <span style="font-size:0.75rem; font-weight:700; color:#ffffff;">
-            <i class="fa-solid fa-map-location-dot" style="color:var(--blue-accent);"></i> Acertijo <strong id="dalulu-riddle-num">1 / 5</strong>
+            <i class="fa-solid fa-map-location-dot" style="color:var(--blue-accent);"></i> Nivel <strong id="dalulu-riddle-num">1 / 3</strong>
           </span>
           <div class="dalulu-lvl-chips" id="dalulu-chips-row">
             ${MAZE_RIDDLES.map((r, i) => `
-              <button class="dalulu-lvl-chip ${i === 0 ? 'active' : ''}" data-idx="${i}">A${i + 1}</button>
+              <button class="dalulu-lvl-chip ${i === 0 ? 'active' : ''}" data-idx="${i}">Nivel ${i + 1}</button>
             `).join('')}
           </div>
+          <span style="font-size:0.75rem; font-weight:800; color:#f59e0b;">
+            <i class="fa-solid fa-shoe-prints"></i> Pasos: <strong id="dalulu-moves-txt">0</strong>
+          </span>
         </div>
 
         <div class="dalulu-riddle-box" id="dalulu-riddle-desc"></div>
 
         <div class="maze-word-tracker" id="maze-word-tracker"></div>
 
-        <div id="dalulu-order-hint" style="font-size:0.74rem; color:var(--gold-accent); text-align:center; font-weight:700;"></div>
+        <div id="dalulu-order-hint" style="font-size:0.74rem; color:var(--gold-accent); text-align:center; font-weight:700; min-height:18px;"></div>
 
         <div class="dalulu-maze-board" id="maze-board" style="grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(7, 1fr);"></div>
 
         <div class="mobile-touch-dpad">
-          <button class="dpad-btn up" id="dpad-up"><i class="fa-solid fa-arrow-up"></i></button>
-          <button class="dpad-btn left" id="dpad-left"><i class="fa-solid fa-arrow-left"></i></button>
-          <button class="dpad-btn right" id="dpad-right"><i class="fa-solid fa-arrow-right"></i></button>
-          <button class="dpad-btn down" id="dpad-down"><i class="fa-solid fa-arrow-down"></i></button>
+          <button class="dpad-btn up" id="dpad-up" title="Mover Arriba"><i class="fa-solid fa-arrow-up"></i></button>
+          <button class="dpad-btn left" id="dpad-left" title="Mover Izquierda"><i class="fa-solid fa-arrow-left"></i></button>
+          <button class="dpad-btn right" id="dpad-right" title="Mover Derecha"><i class="fa-solid fa-arrow-right"></i></button>
+          <button class="dpad-btn down" id="dpad-down" title="Mover Abajo"><i class="fa-solid fa-arrow-down"></i></button>
         </div>
       </div>
     `;
 
     const board = document.getElementById('maze-board');
     const hintEl = document.getElementById('dalulu-order-hint');
+    const movesTxt = document.getElementById('dalulu-moves-txt');
     const riddleNumEl = document.getElementById('dalulu-riddle-num');
     const riddleDescEl = document.getElementById('dalulu-riddle-desc');
     const wordTracker = document.getElementById('maze-word-tracker');
@@ -1316,7 +1388,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const isActive = i === currentRiddleIndex;
         return `
           <button class="dalulu-lvl-chip ${isActive ? 'active' : ''} ${isDone ? 'completed' : ''}" data-idx="${i}" title="${r.title}">
-            A${i + 1}${isDone ? ' ✓' : ''}
+            N${i + 1}${isDone ? ' ✓' : ''}
           </button>
         `;
       }).join('');
@@ -1373,7 +1445,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const letter = letterSpawns.find(l => l.r === r && l.c === c && !l.collected);
             if (letter) {
               const isCurrentTarget = letter.order === currentLetterIndex;
-              cell.innerHTML = `<span class="maze-letter-pickup" style="${isCurrentTarget ? 'color:#38bdf8; font-size:0.95rem; text-shadow:0 0 8px #38bdf8;' : 'opacity:0.4;'}">${letter.char}</span>`;
+              cell.innerHTML = `<span class="maze-letter-pickup" style="${isCurrentTarget ? 'color:#38bdf8; font-size:0.95rem; text-shadow:0 0 8px #38bdf8;' : 'opacity:0.5; color:#cbd5e1;'}">${letter.char}</span>`;
             } else if (cellType === 2) {
               cell.innerHTML = '<span style="font-size:0.85rem;">🏁</span>';
             }
@@ -1391,12 +1463,15 @@ document.addEventListener('DOMContentLoaded', () => {
       playerPos = { ...riddle.start };
       letterSpawns = riddle.letters.map(l => ({ ...l, collected: false }));
       currentLetterIndex = 0;
+      movesLeft = riddle.maxMoves;
       isTransitioning = false;
 
-      riddleNumEl.textContent = `${index + 1} / 5`;
+      movesTxt.textContent = movesLeft;
+      movesTxt.style.color = '#f59e0b';
+      riddleNumEl.textContent = `${index + 1} / 3`;
       riddleDescEl.innerHTML = `
         <span><i class="fa-solid fa-puzzle-piece"></i> <strong>${riddle.title}</strong></span><br>
-        <span style="color:#cbd5e1; font-weight:500;">${riddle.hint}</span>
+        <span style="color:#cbd5e1; font-weight:500;">${riddle.hint} • Límite: ${riddle.maxMoves} pasos</span>
       `;
 
       wordTracker.innerHTML = riddle.word.split('').map((char, i) => `
@@ -1420,7 +1495,15 @@ document.addEventListener('DOMContentLoaded', () => {
       playerPos.c = nc;
       sound.playStep();
 
-      // Recolección en orden
+      // Consumir un movimiento
+      movesLeft--;
+      movesTxt.textContent = movesLeft;
+      if (movesLeft <= 5) {
+        movesTxt.style.color = '#ef4444';
+      }
+
+      // Verificación estricta de letras:
+      // Si pisa cualquier casilla con una letra que NO es la siguiente en orden, el nivel se repite de inmediato
       const letter = letterSpawns.find(l => l.r === nr && l.c === nc && !l.collected);
       if (letter) {
         if (letter.order === currentLetterIndex) {
@@ -1429,9 +1512,30 @@ document.addEventListener('DOMContentLoaded', () => {
           sound.playSnap();
           updateSlotsUI();
         } else {
-          sound.playClick();
-          hintEl.textContent = `¡Orden estricto! Primero debes recoger "${riddle.word[currentLetterIndex]}"`;
+          // Letra equivocada: penalización estricta de reinicio
+          sound.playHurt();
+          isTransitioning = true;
+          hintEl.style.color = '#ef4444';
+          hintEl.textContent = `💥 ¡Letra "${letter.char}" incorrecta! Debías tomar "${riddle.word[currentLetterIndex]}". Nivel reiniciado.`;
+          renderMaze();
+          setTimeout(() => {
+            loadRiddle(currentRiddleIndex);
+          }, 850);
+          return;
         }
+      }
+
+      // Comprobar si se agotaron los movimientos disponibles
+      if (movesLeft <= 0 && currentLetterIndex < riddle.word.length) {
+        sound.playHurt();
+        isTransitioning = true;
+        hintEl.style.color = '#ef4444';
+        hintEl.textContent = '❌ ¡Agotaste tus movimientos disponibles! Nivel reiniciado.';
+        renderMaze();
+        setTimeout(() => {
+          loadRiddle(currentRiddleIndex);
+        }, 850);
+        return;
       }
 
       // Comprobar salida 🏁
@@ -1444,13 +1548,13 @@ document.addEventListener('DOMContentLoaded', () => {
             isTransitioning = true;
             sound.playSuccess();
             hintEl.style.color = 'var(--green-accent)';
-            hintEl.textContent = `🎉 ¡Acertijo ${currentRiddleIndex + 1} superado! Cargando siguiente laberinto...`;
+            hintEl.textContent = `🎉 ¡Nivel ${currentRiddleIndex + 1} superado! Cargando siguiente laberinto...`;
             setTimeout(() => {
               loadRiddle(currentRiddleIndex + 1);
             }, 850);
           } else {
             sound.playSuccess();
-            completeCurrentChallenge('¡Superaste con éxito los 5 acertijos de laberinto en DaLulú Travel!');
+            completeCurrentChallenge('¡Superaste con éxito los 3 niveles con orden estricto y límite de movimientos en DaLulú Travel!');
           }
         } else {
           sound.playClick();
@@ -1488,8 +1592,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3. GLOWSMEC: ATENCIÓN A CLIENTES • ESTILO COCINA / SALON DASH (10 CLIENTES • 20s)
   // =========================================================================
   function buildGlowsmecSalon() {
-    const TOTAL_CLIENTS_GOAL = 10;
-    const PATIENCE_TIME = 20.0; // 20 segundos exactos por cliente
+    const TOTAL_CLIENTS_GOAL = 15;
+    const PATIENCE_TIME = 10.0; // 10 segundos exactos por cliente
 
     const COSMETICS = [
       { id: 'shampoo', name: 'Shampoo', faIcon: 'fa-pump-soap', color: '#0284c7', bgColor: 'rgba(2, 132, 199, 0.22)', borderColor: '#38bdf8' },
@@ -1512,7 +1616,12 @@ document.addEventListener('DOMContentLoaded', () => {
       { id: 7, name: 'Isabella', avatar: '👩‍🦱', order: ['tinte', 'laca'], msg: '¡Tinte de noche y fijación!' },
       { id: 8, name: 'Daniel', avatar: '🧔', order: ['shampoo', 'serum'], msg: '¡Lavado relajante con sérum!' },
       { id: 9, name: 'Mariana', avatar: '👩', order: ['mascarilla', 'secador'], msg: '¡Mascarilla de keratina y calor!' },
-      { id: 10, name: 'Andrés', avatar: '🧑‍🦱', order: ['cera', 'laca'], msg: '¡Look de gala con cera y fijador!' }
+      { id: 10, name: 'Andrés', avatar: '🧑‍🦱', order: ['cera', 'laca'], msg: '¡Look de gala con cera y fijador!' },
+      { id: 11, name: 'Lucía', avatar: '👧', order: ['mascarilla', 'tijeras'], msg: '¡Puntas abiertas y nutrición!' },
+      { id: 12, name: 'Carlos', avatar: '👨‍🦲', order: ['shampoo', 'laca'], msg: '¡Brillo y fijación extrema!' },
+      { id: 13, name: 'Elena', avatar: '👩‍🦱', order: ['tinte', 'secador'], msg: '¡Reflejos dorados con calor!' },
+      { id: 14, name: 'Gabriel', avatar: '🧔‍♂️', order: ['cera', 'serum'], msg: '¡Barba y cabello sedoso!' },
+      { id: 15, name: 'Patricia', avatar: '👵', order: ['mascarilla', 'laca'], msg: '¡Tratamiento rejuvenecedor!' }
     ];
 
     let servedCount = 0;
@@ -1531,9 +1640,9 @@ document.addEventListener('DOMContentLoaded', () => {
     interactiveArena.innerHTML = `
       <div class="glowsmec-salon-ui">
         <div class="salon-hud-bar">
-          <span><i class="fa-solid fa-users"></i> Clientes Atendidos: <strong id="salon-served-txt" style="color:#ffffff;">0 / 10</strong></span>
+          <span><i class="fa-solid fa-users"></i> Clientes Atendidos: <strong id="salon-served-txt" style="color:#ffffff;">0 / 15</strong></span>
           <span style="color:#fbbf24;"><i class="fa-solid fa-coins"></i> Propinas: <strong id="salon-tips-txt">$0</strong></span>
-          <span><i class="fa-solid fa-stopwatch"></i> Paciencia: <strong id="salon-global-timer">20.0s</strong></span>
+          <span><i class="fa-solid fa-stopwatch"></i> Paciencia: <strong id="salon-global-timer">10.0s</strong></span>
         </div>
 
         <div class="cooking-salon-scene">
@@ -1544,7 +1653,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div id="salon-feedback-hint" style="width:100%; text-align:center; font-size:0.72rem; color:var(--text-muted); min-height:18px;">
-          Toca el cosmético que pide el cliente para servírselo antes de que se agote su barra vertical (20s)
+          Toca el cosmético que pide el cliente para servírselo antes de que se agote su barra vertical (10s)
         </div>
 
         <div class="cosmetics-shelf-grid" id="cosmetics-shelf">
@@ -1576,8 +1685,8 @@ document.addEventListener('DOMContentLoaded', () => {
           spotEl.className = 'customer-counter-spot';
           const cust = spot.customer;
           const pct = Math.max(0, (spot.timeLeft / PATIENCE_TIME) * 100);
-          const isWarning = spot.timeLeft <= 10 && spot.timeLeft > 5;
-          const isUrgent = spot.timeLeft <= 5;
+          const isWarning = spot.timeLeft <= 5.0 && spot.timeLeft > 2.5;
+          const isUrgent = spot.timeLeft <= 2.5;
 
           spotEl.innerHTML = `
             <div class="customer-avatar-box">
@@ -1607,7 +1716,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }).join('')}
               </div>
 
-              <!-- Barra Vertical de Paciencia estilo Cooking Game (20s) -->
+              <!-- Barra Vertical de Paciencia estilo Cooking Game (10s) -->
               <div class="order-timer-vertical" title="Paciencia restante: ${spot.timeLeft.toFixed(1)}s">
                 <div class="vertical-timer-fill ${isUrgent ? 'urgent' : (isWarning ? 'warning' : '')}" style="height:${pct}%;"></div>
               </div>
@@ -1647,16 +1756,16 @@ document.addEventListener('DOMContentLoaded', () => {
           spot.timeLeft -= 0.1;
           needsRender = true;
 
-          // Se agotaron los 20 segundos
+          // Se agotaron los 10 segundos
           if (spot.timeLeft <= 0) {
             spot.active = false;
             sound.playHurt();
             if (feedbackHint) {
-              feedbackHint.textContent = `😤 ¡${spot.customer.name} se fue enojada porque se agotaron sus 20s!`;
+              feedbackHint.textContent = `😤 ¡${spot.customer.name} se fue porque se agotaron sus 10s!`;
               feedbackHint.style.color = '#ef4444';
               setTimeout(() => {
                 if (feedbackHint) {
-                  feedbackHint.textContent = 'Toca el cosmético que pide el cliente para servírselo antes de que se agote su barra vertical (20s)';
+                  feedbackHint.textContent = 'Toca el cosmético que pide el cliente para servírselo antes de que se agote su barra vertical (10s)';
                   feedbackHint.style.color = 'var(--text-muted)';
                 }
               }, 1800);
@@ -1725,11 +1834,11 @@ document.addEventListener('DOMContentLoaded', () => {
             targetSpot.active = false;
             renderSpots();
 
-            // Verificar si se completaron los 10 clientes
+            // Verificar si se completaron los 15 clientes
             if (servedCount >= TOTAL_CLIENTS_GOAL) {
               gameWon = true;
               clearInterval(tickInterval);
-              completeCurrentChallenge('¡Atendiste con éxito a los 10 clientes de peluquería en GlowSmec estilo Cooking Salon!');
+              completeCurrentChallenge('¡Atendiste con éxito a los 15 clientes de peluquería en GlowSmec estilo Cooking Salon!');
               return;
             }
 
@@ -1779,14 +1888,14 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div id="snake-hazard-hint" class="snake-hazard-hint">
-          ⚡ ¡Cuidado! Chocar contra las paredes o morder tu cola reinicia el minijuego a 0.
+          ⚡ ¡Cuidado! Chocar contra las paredes o morder tu cuerpo reinicia el huerto a 0.
         </div>
 
         <div class="mobile-touch-dpad">
-          <button class="dpad-btn up" id="snake-up"><i class="fa-solid fa-arrow-up"></i></button>
-          <button class="dpad-btn left" id="snake-left"><i class="fa-solid fa-arrow-left"></i></button>
-          <button class="dpad-btn right" id="snake-right"><i class="fa-solid fa-arrow-right"></i></button>
-          <button class="dpad-btn down" id="snake-down"><i class="fa-solid fa-arrow-down"></i></button>
+          <button class="dpad-btn up" id="snake-up" title="Mover Arriba"><i class="fa-solid fa-arrow-up"></i></button>
+          <button class="dpad-btn left" id="snake-left" title="Mover Izquierda"><i class="fa-solid fa-arrow-left"></i></button>
+          <button class="dpad-btn right" id="snake-right" title="Mover Derecha"><i class="fa-solid fa-arrow-right"></i></button>
+          <button class="dpad-btn down" id="snake-down" title="Mover Abajo"><i class="fa-solid fa-arrow-down"></i></button>
         </div>
       </div>
     `;
@@ -1804,16 +1913,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const tileH = Math.floor(canvas.height / GRID_SIZE);
 
     let snake = [
-      { x: 5, y: 5 },
-      { x: 4, y: 5 },
-      { x: 3, y: 5 }
+      { x: 5, y: 5, prevX: 4, prevY: 5 },
+      { x: 4, y: 5, prevX: 3, prevY: 5 },
+      { x: 3, y: 5, prevX: 2, prevY: 5 }
     ];
     let dir = { x: 1, y: 0 };
     let nextDir = { x: 1, y: 0 };
     let apple = { x: 9, y: 5 };
     let applesEaten = 0;
     let gameWon = false;
-    let snakeInterval = null;
+    let animId = null;
+    let particles = [];
+
+    const STEP_TIME = 210; // ms por paso lógico (ritmo pausado y controlable)
+    let lastStepTime = performance.now();
 
     function spawnApple() {
       let valid = false;
@@ -1826,11 +1939,16 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    function tick() {
+    function step() {
       if (gameWon) return;
 
       dir = nextDir;
-      const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
+      const head = {
+        x: snake[0].x + dir.x,
+        y: snake[0].y + dir.y,
+        prevX: snake[0].x,
+        prevY: snake[0].y
+      };
 
       // 1. Pérdida automática al tocar una pared exterior
       const hitWall = head.x < 0 || head.x >= GRID_SIZE || head.y < 0 || head.y >= GRID_SIZE;
@@ -1846,11 +1964,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         if (hazardHint) {
-          hazardHint.textContent = hitWall ? '💥 ¡Chocaste contra la pared! Reiniciando a 0 manzanas...' : '💥 ¡Te mordiste la cola! Reiniciando a 0 manzanas...';
+          hazardHint.textContent = hitWall ? '💥 ¡Chocaste contra la pared! Reiniciando a 0 manzanas...' : '💥 ¡Te mordiste el cuerpo! Reiniciando a 0 manzanas...';
           hazardHint.style.color = '#ef4444';
           setTimeout(() => {
             if (hazardHint) {
-              hazardHint.textContent = '⚡ ¡Cuidado! Chocar contra las paredes o morder tu cola reinicia el minijuego a 0.';
+              hazardHint.textContent = '⚡ ¡Cuidado! Chocar contra las paredes o morder tu cuerpo reinicia el huerto a 0.';
               hazardHint.style.color = '#f87171';
             }
           }, 1600);
@@ -1860,9 +1978,9 @@ document.addEventListener('DOMContentLoaded', () => {
         applesEaten = 0;
         appleTxt.textContent = '0 / 10';
         snake = [
-          { x: 5, y: 5 },
-          { x: 4, y: 5 },
-          { x: 3, y: 5 }
+          { x: 5, y: 5, prevX: 4, prevY: 5 },
+          { x: 4, y: 5, prevX: 3, prevY: 5 },
+          { x: 3, y: 5, prevX: 2, prevY: 5 }
         ];
         dir = { x: 1, y: 0 };
         nextDir = { x: 1, y: 0 };
@@ -1870,61 +1988,191 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
 
+      // Preparar prevX y prevY en todos los segmentos para interpolación fluida
+      for (let i = snake.length - 1; i > 0; i--) {
+        snake[i].prevX = snake[i].x;
+        snake[i].prevY = snake[i].y;
+        snake[i].x = snake[i - 1].x;
+        snake[i].y = snake[i - 1].y;
+      }
+      snake[0].prevX = snake[0].x;
+      snake[0].prevY = snake[0].y;
+      snake[0].x = head.x;
+      snake[0].y = head.y;
+
       if (head.x === apple.x && head.y === apple.y) {
         sound.playEat();
         applesEaten++;
         appleTxt.textContent = `${applesEaten} / 10`;
+
+        // Chispas de comer manzana
+        for (let p = 0; p < 8; p++) {
+          particles.push({
+            x: (apple.x + 0.5) * tileW,
+            y: (apple.y + 0.5) * tileH,
+            vx: (Math.random() - 0.5) * 4,
+            vy: (Math.random() - 0.5) * 4,
+            alpha: 1,
+            color: '#10b981'
+          });
+        }
+
+        // Crecer: añadir nuevo segmento en la cola
+        const tail = snake[snake.length - 1];
+        snake.push({ x: tail.prevX, y: tail.prevY, prevX: tail.prevX, prevY: tail.prevY });
+
         spawnApple();
         if (applesEaten >= TARGET_APPLES) {
           gameWon = true;
-          clearInterval(snakeInterval);
-          completeCurrentChallenge('¡Gusano ecológico creció con las 10 manzanas sin chocar las paredes mortales en GreenTask!');
+          completeCurrentChallenge('¡Gusano ecológico creció con las 10 manzanas con movimientos fluidos en GreenTask!');
           return;
         }
-      } else {
-        snake.pop();
+      }
+    }
+
+    function render(now) {
+      if (gameWon) return;
+
+      if (now - lastStepTime >= STEP_TIME) {
+        step();
+        lastStepTime = now;
       }
 
-      snake.unshift(head);
+      const progress = Math.min(1, Math.max(0, (now - lastStepTime) / STEP_TIME));
 
       ctx.fillStyle = '#020617';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Dibujar perímetro de advertencia de pared mortal
-      ctx.strokeStyle = 'rgba(239, 68, 68, 0.4)';
+      // Cuadrícula sutil de fondo
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.03)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x <= canvas.width; x += tileW) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+      }
+      for (let y = 0; y <= canvas.height; y += tileH) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+      }
+
+      // Perímetro de advertencia de pared mortal
+      ctx.strokeStyle = 'rgba(239, 68, 68, 0.45)';
       ctx.lineWidth = 3;
       ctx.strokeRect(1.5, 1.5, canvas.width - 3, canvas.height - 3);
 
-      // Manzana
+      // Manzana con respiración fluida
+      const applePulse = Math.sin(now * 0.007) * 1.5;
+      const appleRadius = tileW * 0.38 + applePulse;
       ctx.fillStyle = '#ef4444';
       ctx.shadowColor = '#ef4444';
-      ctx.shadowBlur = 8;
+      ctx.shadowBlur = 10;
       ctx.beginPath();
-      ctx.arc((apple.x + 0.5) * tileW, (apple.y + 0.5) * tileH, tileW * 0.4, 0, Math.PI * 2);
+      ctx.arc((apple.x + 0.5) * tileW, (apple.y + 0.5) * tileH, appleRadius, 0, Math.PI * 2);
       ctx.fill();
       ctx.shadowBlur = 0;
 
+      // Hoja de la manzana
       ctx.fillStyle = '#10b981';
-      ctx.fillRect((apple.x + 0.45) * tileW, apple.y * tileH, tileW * 0.15, tileH * 0.25);
+      ctx.beginPath();
+      ctx.ellipse((apple.x + 0.5) * tileW + 2, (apple.y + 0.5) * tileH - appleRadius - 2, 4, 2, Math.PI / 4, 0, Math.PI * 2);
+      ctx.fill();
 
-      // Gusano
-      snake.forEach((seg, idx) => {
-        ctx.fillStyle = idx === 0 ? '#34d399' : '#059669';
-        ctx.beginPath();
-        ctx.roundRect(seg.x * tileW + 1, seg.y * tileH + 1, tileW - 2, tileH - 2, 4);
-        ctx.fill();
-        if (idx === 0) {
-          ctx.fillStyle = '#030712';
-          ctx.beginPath();
-          ctx.arc((seg.x + 0.3) * tileW, (seg.y + 0.35) * tileH, 2, 0, Math.PI * 2);
-          ctx.arc((seg.x + 0.7) * tileW, (seg.y + 0.35) * tileH, 2, 0, Math.PI * 2);
-          ctx.fill();
+      // Partículas
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= 0.04;
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.fillRect(p.x - 2, p.y - 2, 4, 4);
+        ctx.globalAlpha = 1.0;
+        if (p.alpha <= 0) particles.splice(i, 1);
+      }
+
+      // Dibujar gusano orgánico fluido con interpolación continua
+      for (let i = snake.length - 1; i >= 0; i--) {
+        const seg = snake[i];
+        const curX = seg.prevX + (seg.x - seg.prevX) * progress;
+        const curY = seg.prevY + (seg.y - seg.prevY) * progress;
+        const px = (curX + 0.5) * tileW;
+        const py = (curY + 0.5) * tileH;
+
+        // Ondulación viva de oruga
+        const undulation = Math.sin(now * 0.009 + i * 0.65) * 1.2;
+        const drawPx = px + (-dir.y * undulation);
+        const drawPy = py + (dir.x * undulation);
+
+        const radius = i === 0 ? tileW * 0.44 : Math.max(tileW * 0.28, tileW * 0.38 - (i * 0.4));
+
+        ctx.save();
+        ctx.translate(drawPx, drawPy);
+
+        // Degradado vivo de oruga ecológica
+        const grad = ctx.createRadialGradient(-radius * 0.3, -radius * 0.3, 1, 0, 0, radius);
+        if (i === 0) {
+          grad.addColorStop(0, '#6ee7b7');
+          grad.addColorStop(1, '#059669');
+        } else {
+          grad.addColorStop(0, '#34d399');
+          grad.addColorStop(1, '#047857');
         }
-      });
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(0, 0, radius, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Anillos decorativos de la oruga
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.25)';
+        ctx.lineWidth = 1.4;
+        ctx.beginPath();
+        ctx.arc(0, 0, radius * 0.65, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Ojos y antenas en la cabeza
+        if (i === 0) {
+          const eyeOffX = dir.x * (radius * 0.42);
+          const eyeOffY = dir.y * (radius * 0.42);
+          const perpX = -dir.y * (radius * 0.36);
+          const perpY = dir.x * (radius * 0.36);
+
+          // Ojo 1
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.arc(eyeOffX + perpX, eyeOffY + perpY, 3.2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#0f172a';
+          ctx.beginPath();
+          ctx.arc(eyeOffX + perpX + dir.x, eyeOffY + perpY + dir.y, 1.8, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Ojo 2
+          ctx.fillStyle = '#ffffff';
+          ctx.beginPath();
+          ctx.arc(eyeOffX - perpX, eyeOffY - perpY, 3.2, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = '#0f172a';
+          ctx.beginPath();
+          ctx.arc(eyeOffX - perpX + dir.x, eyeOffY - perpY + dir.y, 1.8, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Antenas suaves oscilantes
+          const antSwing = Math.sin(now * 0.015) * 2;
+          ctx.strokeStyle = '#34d399';
+          ctx.lineWidth = 1.8;
+          ctx.beginPath();
+          ctx.moveTo(perpX, perpY);
+          ctx.lineTo(perpX + dir.x * 6 + antSwing, perpY + dir.y * 6 - 4);
+          ctx.moveTo(-perpX, -perpY);
+          ctx.lineTo(-perpX + dir.x * 6 - antSwing, -perpY + dir.y * 6 - 4);
+          ctx.stroke();
+        }
+
+        ctx.restore();
+      }
+
+      animId = requestAnimationFrame(render);
     }
 
-    // Ritmo pausado tranquilo (230ms por tick)
-    snakeInterval = setInterval(tick, 230);
+    animId = requestAnimationFrame(render);
 
     function changeDir(dx, dy) {
       if ((dx !== 0 && dir.x === -dx) || (dy !== 0 && dir.y === -dy)) return;
@@ -1946,7 +2194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('keydown', onKeyDown);
 
     activeGameCleanup = () => {
-      clearInterval(snakeInterval);
+      if (animId) cancelAnimationFrame(animId);
       window.removeEventListener('keydown', onKeyDown);
     };
   }
@@ -1955,21 +2203,31 @@ document.addEventListener('DOMContentLoaded', () => {
   // 5. PATITAS AL RESCATE: RUNNER CON PERRO REALISTA (PATAS ANDANDO) & 3 VIDAS
   // =========================================================================
   function buildPatitasRunner() {
+    let attemptCount = 1;
+
     interactiveArena.innerHTML = `
       <div class="patitas-runner-ui">
         <div class="runner-hud-bar">
-          <span><i class="fa-solid fa-flag-checkered"></i> Refugio: <strong id="runner-dist-txt">0%</strong></span>
+          <span><i class="fa-solid fa-flag-checkered"></i> Progreso: <strong id="runner-dist-txt">0%</strong></span>
+          <span class="runner-speed-badge" id="runner-attempt-txt" style="background:rgba(244,63,94,0.18); border-color:#f43f5e; color:#fb7185;">
+            <i class="fa-solid fa-rotate-left"></i> INTENTO 1
+          </span>
           <span class="runner-speed-badge" id="runner-speed-txt"><i class="fa-solid fa-bolt"></i> 1.0x</span>
-          <span><i class="fa-solid fa-heart"></i> Vidas: <strong id="runner-lives-txt">❤️❤️❤️</strong></span>
+          <span><i class="fa-solid fa-heart"></i> <strong id="runner-lives-txt">❤️❤️❤️</strong></span>
         </div>
 
         <div class="runner-canvas-wrap" id="runner-canvas-wrap">
           <canvas id="patitas-canvas"></canvas>
         </div>
 
-        <button id="runner-jump-btn" class="runner-jump-touch-btn">
-          <i class="fa-solid fa-paw"></i> ¡SALTAR OBSTÁCULO! (ESPACIO / TOQUE)
-        </button>
+        <div class="runner-dual-controls">
+          <button id="runner-down-btn" class="runner-btn runner-btn-down" title="Bajar rápido en aire o deslizarse en suelo">
+            <i class="fa-solid fa-angles-down"></i> BAJAR / DESLIZAR (S / ↓)
+          </button>
+          <button id="runner-jump-btn" class="runner-btn runner-btn-jump" title="Saltar obstáculos">
+            <i class="fa-solid fa-angles-up"></i> SALTAR (ESPACIO / W / ↑)
+          </button>
+        </div>
       </div>
     `;
 
@@ -1977,17 +2235,31 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrap = document.getElementById('runner-canvas-wrap');
     const ctx = canvas.getContext('2d');
     const distTxt = document.getElementById('runner-dist-txt');
+    const attemptTxt = document.getElementById('runner-attempt-txt');
     const speedTxt = document.getElementById('runner-speed-txt');
     const livesTxt = document.getElementById('runner-lives-txt');
     const jumpBtn = document.getElementById('runner-jump-btn');
+    const downBtn = document.getElementById('runner-down-btn');
 
     canvas.width = wrap.clientWidth || 320;
     canvas.height = wrap.clientHeight || 200;
 
     let animId = null;
     let groundY = canvas.height - 35;
-    let dog = { x: 42, y: groundY - 28, vy: 0, gravity: 0.65, isJumping: false, frame: 0 };
+    let dog = {
+      x: 48,
+      y: groundY - 26,
+      vy: 0,
+      gravity: 0.68,
+      isJumping: false,
+      isSliding: false,
+      slideTimer: 0,
+      rotation: 0,
+      frame: 0
+    };
     let obstacles = [];
+    let particles = [];
+    let bgGridOffset = 0;
     let distance = 0;
     let lives = 3;
     let spawnCounter = 0;
@@ -1998,24 +2270,85 @@ document.addEventListener('DOMContentLoaded', () => {
       if (gameWon) return;
       if (!dog.isJumping) {
         dog.isJumping = true;
-        dog.vy = -10.5;
+        dog.isSliding = false;
+        dog.slideTimer = 0;
+        dog.vy = -10.8;
         sound.playJump();
+
+        // Chispas neón al saltar
+        for (let p = 0; p < 8; p++) {
+          particles.push({
+            x: dog.x - 6 + (Math.random() - 0.5) * 12,
+            y: groundY - 2,
+            vx: (Math.random() - 0.5) * 3,
+            vy: -Math.random() * 3,
+            size: 4,
+            alpha: 1,
+            color: '#38bdf8'
+          });
+        }
       }
     }
 
-    jumpBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      jump();
-    });
+    function fastDown() {
+      if (gameWon) return;
+      if (dog.isJumping) {
+        // En el aire: caída rápida (fast fall slam) hacia el suelo
+        dog.vy = Math.max(dog.vy + 7, 13);
+        sound.playSnap();
+
+        for (let p = 0; p < 6; p++) {
+          particles.push({
+            x: dog.x + (Math.random() - 0.5) * 10,
+            y: dog.y - 10,
+            vx: (Math.random() - 0.5) * 2,
+            vy: -2,
+            size: 3,
+            alpha: 1,
+            color: '#fb923c'
+          });
+        }
+      } else {
+        // En el suelo: deslizamiento rasante para pasar bajo obstáculos elevados
+        dog.isSliding = true;
+        dog.slideTimer = 34; // duración del deslizamiento
+        sound.playSnap();
+
+        for (let p = 0; p < 6; p++) {
+          particles.push({
+            x: dog.x - 12,
+            y: groundY - 3,
+            vx: -2 - Math.random() * 3,
+            vy: -Math.random() * 2,
+            size: 3.5,
+            alpha: 1,
+            color: '#f97316'
+          });
+        }
+      }
+    }
+
+    jumpBtn.addEventListener('click', (e) => { e.preventDefault(); jump(); });
+    downBtn.addEventListener('click', (e) => { e.preventDefault(); fastDown(); });
+
     canvas.addEventListener('pointerdown', (e) => {
       e.preventDefault();
-      jump();
+      const rect = canvas.getBoundingClientRect();
+      const clientX = e.clientX - rect.left;
+      if (clientX < canvas.width * 0.45) {
+        fastDown();
+      } else {
+        jump();
+      }
     });
 
     function onKeyDown(e) {
-      if (e.key === ' ' || e.key === 'ArrowUp') {
+      if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
         e.preventDefault();
         jump();
+      } else if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') {
+        e.preventDefault();
+        fastDown();
       }
     }
     window.addEventListener('keydown', onKeyDown);
@@ -2025,23 +2358,80 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function resetRun() {
+      attemptCount++;
+      attemptTxt.innerHTML = `<i class="fa-solid fa-rotate-left"></i> INTENTO ${attemptCount}`;
       distance = 0;
       lives = 3;
       obstacles = [];
+      dog.y = groundY - 26;
+      dog.vy = 0;
+      dog.isJumping = false;
+      dog.isSliding = false;
+      dog.rotation = 0;
       updateLivesUI();
       distTxt.textContent = '0%';
       if (speedTxt) speedTxt.innerHTML = '<i class="fa-solid fa-bolt"></i> 1.0x';
     }
 
-    function drawDog(x, y, frame, jumping) {
+    // Dibujado del perro con soporte de salto con giro Geometry Dash y deslizamiento rasante
+    function drawDog(x, y, frame, jumping, sliding, rotation) {
       ctx.save();
       ctx.translate(x, y);
 
-      // Color base del perro (caramelo dorado)
+      if (jumping) {
+        ctx.rotate(rotation);
+      }
+
       const dogColor = hurtFlash > 0 ? '#ef4444' : '#d97706';
       const earColor = hurtFlash > 0 ? '#b91c1c' : '#b45309';
 
-      // Cola alegre batiendo
+      if (sliding) {
+        // Postura aerodinámica de deslizamiento rasante (bajo el obstáculo aéreo)
+        ctx.fillStyle = dogColor;
+        ctx.beginPath();
+        ctx.roundRect(-18, -4, 36, 12, 5);
+        ctx.fill();
+
+        // Cabeza agachada hacia adelante
+        ctx.beginPath();
+        ctx.roundRect(14, -8, 14, 12, 4);
+        ctx.fill();
+
+        // Hocico y nariz
+        ctx.fillStyle = '#030712';
+        ctx.beginPath();
+        ctx.arc(28, -2, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Ojo concentrado
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(21, -4, 2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#030712';
+        ctx.beginPath();
+        ctx.arc(22, -4, 1, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Oreja pegada hacia atrás por el viento
+        ctx.fillStyle = earColor;
+        ctx.beginPath();
+        ctx.roundRect(4, -9, 12, 4, 2);
+        ctx.fill();
+
+        // Chispas de fricción al deslizarse
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.moveTo(-16, 8);
+        ctx.lineTo(-24, 7);
+        ctx.stroke();
+
+        ctx.restore();
+        return;
+      }
+
+      // Animación normal / trotando / saltando
       const tailWag = Math.sin(frame * 0.4) * 0.4;
       ctx.save();
       ctx.translate(-14, -6);
@@ -2052,7 +2442,6 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.fill();
       ctx.restore();
 
-      // Patas traseras (animación trotando)
       const legPhase1 = jumping ? 0.3 : Math.sin(frame * 0.35);
       const legPhase2 = jumping ? -0.3 : -Math.sin(frame * 0.35);
 
@@ -2060,19 +2449,17 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.lineWidth = 3.5;
       ctx.lineCap = 'round';
 
-      // Pata trasera izquierda
       ctx.beginPath();
       ctx.moveTo(-8, 6);
       ctx.lineTo(-8 + legPhase2 * 7, 18);
       ctx.stroke();
 
-      // Pata delantera izquierda
       ctx.beginPath();
       ctx.moveTo(8, 6);
       ctx.lineTo(8 + legPhase1 * 7, 18);
       ctx.stroke();
 
-      // Cuerpo del perro
+      // Cuerpo
       ctx.fillStyle = dogColor;
       ctx.beginPath();
       ctx.roundRect(-14, -8, 28, 16, 6);
@@ -2083,12 +2470,10 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.roundRect(8, -18, 16, 14, 5);
       ctx.fill();
 
-      // Hocico
+      // Hocico y nariz
       ctx.beginPath();
       ctx.roundRect(18, -13, 8, 8, 3);
       ctx.fill();
-
-      // Nariz
       ctx.fillStyle = '#030712';
       ctx.beginPath();
       ctx.arc(24, -10, 2, 0, Math.PI * 2);
@@ -2104,7 +2489,7 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.arc(14.5, -13.5, 0.7, 0, Math.PI * 2);
       ctx.fill();
 
-      // Oreja que ondea con el trote
+      // Oreja
       const earFlap = jumping ? -0.5 : Math.sin(frame * 0.3) * 0.25;
       ctx.save();
       ctx.translate(11, -16);
@@ -2115,17 +2500,15 @@ document.addEventListener('DOMContentLoaded', () => {
       ctx.fill();
       ctx.restore();
 
-      // Patas derechas (primer plano)
+      // Patas delanteras
       ctx.strokeStyle = dogColor;
       ctx.lineWidth = 3.5;
 
-      // Pata trasera derecha
       ctx.beginPath();
       ctx.moveTo(-6, 6);
       ctx.lineTo(-6 + legPhase1 * 7, 18);
       ctx.stroke();
 
-      // Pata delantera derecha
       ctx.beginPath();
       ctx.moveTo(10, 6);
       ctx.lineTo(10 + legPhase2 * 7, 18);
@@ -2137,21 +2520,47 @@ document.addEventListener('DOMContentLoaded', () => {
     function loop() {
       if (gameWon) return;
 
-      // Cálculo de aceleración progresiva con la distancia
-      const speedMultiplier = 1 + (distance / 100) * 1.6; // 1.0x hasta 2.6x
-      const scrollSpeed = 2.4 + (distance / 100) * 4.4;  // de 2.4px a 6.8px/frame
+      const speedMultiplier = 1 + (distance / 100) * 1.5;
+      const scrollSpeed = 2.6 + (distance / 100) * 4.4;
 
-      dog.y += dog.vy;
-      dog.vy += dog.gravity;
-      if (dog.y >= groundY - 26) {
-        dog.y = groundY - 26;
-        dog.vy = 0;
-        dog.isJumping = false;
+      // Físicas del salto
+      if (dog.isJumping) {
+        dog.y += dog.vy;
+        dog.vy += dog.gravity;
+        dog.rotation += 0.09;
+
+        if (dog.y >= groundY - 26) {
+          dog.y = groundY - 26;
+          dog.vy = 0;
+          dog.isJumping = false;
+          dog.rotation = 0;
+        }
+      } else {
+        dog.rotation = 0;
+        if (dog.isSliding) {
+          dog.slideTimer--;
+          if (dog.slideTimer <= 0) {
+            dog.isSliding = false;
+          }
+        }
       }
+
       dog.frame += 0.8 * speedMultiplier;
       if (hurtFlash > 0) hurtFlash--;
 
-      // Trayecto significativamente más largo (0.038 por frame)
+      // Estela neón estilo Geometry Dash detrás del perrito
+      if (Math.random() > 0.35) {
+        particles.push({
+          x: dog.x - 14,
+          y: dog.isSliding ? groundY - 4 : dog.y + (Math.random() - 0.5) * 12,
+          vx: -scrollSpeed * 0.4,
+          vy: (Math.random() - 0.5) * 1.5,
+          size: dog.isSliding ? 4 : 5,
+          alpha: 0.9,
+          color: dog.isSliding ? '#f97316' : (dog.isJumping ? '#38bdf8' : '#a855f7')
+        });
+      }
+
       distance += 0.038;
       distTxt.textContent = `${Math.min(100, Math.floor(distance))}%`;
       if (speedTxt) {
@@ -2161,71 +2570,212 @@ document.addEventListener('DOMContentLoaded', () => {
       if (distance >= 100) {
         distance = 100;
         gameWon = true;
-        completeCurrentChallenge('¡El perrito superó la carrera acelerada y llegó a salvo al refugio de Patitas al Rescate!');
+        completeCurrentChallenge('¡Superaste la pista Geometry Dash en Patitas al Rescate con saltos y deslizamientos perfectos!');
         return;
       }
 
-      // Spawn dinámico adaptado a la velocidad
+      // Generación de obstáculos variados (Picos simples, picos dobles y obstáculos elevados)
       spawnCounter++;
-      const spawnLimit = Math.max(34, Math.floor(62 - (distance / 100) * 26));
+      const spawnLimit = Math.max(36, Math.floor(64 - (distance / 100) * 26));
       if (spawnCounter > spawnLimit) {
         spawnCounter = 0;
-        obstacles.push({
-          x: canvas.width + 10,
-          y: groundY - 22,
-          w: 18,
-          h: 22,
-          type: Math.random() > 0.5 ? 'cone' : 'fence'
-        });
+        const rand = Math.random();
+        if (rand < 0.45) {
+          // Pico simple neón Geometry Dash en suelo
+          obstacles.push({
+            x: canvas.width + 10,
+            y: groundY - 22,
+            w: 20,
+            h: 22,
+            type: 'spike'
+          });
+        } else if (rand < 0.72) {
+          // Pico doble neón en suelo
+          obstacles.push({
+            x: canvas.width + 10,
+            y: groundY - 22,
+            w: 38,
+            h: 22,
+            type: 'double-spike'
+          });
+        } else {
+          // Obstáculo aéreo suspendido (Requiere BAJAR / deslizarse por debajo)
+          obstacles.push({
+            x: canvas.width + 10,
+            y: groundY - 44,
+            w: 36,
+            h: 20,
+            type: 'overhead'
+          });
+        }
       }
 
-      ctx.fillStyle = '#071020';
+      // Fondo cibernético Geometry Dash
+      ctx.fillStyle = '#030712';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // Suelo
-      ctx.strokeStyle = '#38bdf8';
-      ctx.lineWidth = 2;
+      // Cuadrícula neón pulsante de fondo
+      bgGridOffset = (bgGridOffset + scrollSpeed * 0.5) % 24;
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.07)';
+      ctx.lineWidth = 1;
+      for (let x = -bgGridOffset; x < canvas.width; x += 24) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, groundY); ctx.stroke();
+      }
+      for (let y = 0; y < groundY; y += 24) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+      }
+
+      // Suelo neón con cuadrícula electroluminiscente
+      ctx.fillStyle = '#050c1e';
+      ctx.fillRect(0, groundY, canvas.width, canvas.height - groundY);
+
+      // Línea brillante del suelo neón
+      ctx.strokeStyle = '#00f0ff';
+      ctx.lineWidth = 2.5;
+      ctx.shadowColor = '#00f0ff';
+      ctx.shadowBlur = 10;
       ctx.beginPath();
       ctx.moveTo(0, groundY);
       ctx.lineTo(canvas.width, groundY);
       ctx.stroke();
+      ctx.shadowBlur = 0;
 
-      // Obstáculos que se desplazan a velocidad progresiva creciente
+      // Partículas neón de la estela
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.alpha -= 0.04;
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+        ctx.globalAlpha = 1.0;
+        if (p.alpha <= 0) particles.splice(i, 1);
+      }
+
+      // Dibujar y gestionar obstáculos
       for (let i = obstacles.length - 1; i >= 0; i--) {
         const obs = obstacles[i];
         obs.x -= scrollSpeed;
 
-        if (obs.type === 'cone') {
-          ctx.fillStyle = '#f97316';
+        if (obs.type === 'spike') {
+          // Pico triangular Neón Geometry Dash
+          ctx.save();
+          ctx.shadowColor = '#f43f5e';
+          ctx.shadowBlur = 12;
+          ctx.fillStyle = '#0f172a';
+          ctx.strokeStyle = '#f43f5e';
+          ctx.lineWidth = 2;
           ctx.beginPath();
-          ctx.moveTo(obs.x + obs.w / 2, obs.y);
+          ctx.moveTo(obs.x, obs.y + obs.h);
+          ctx.lineTo(obs.x + obs.w / 2, obs.y);
           ctx.lineTo(obs.x + obs.w, obs.y + obs.h);
-          ctx.lineTo(obs.x, obs.y + obs.h);
           ctx.closePath();
           ctx.fill();
-        } else {
-          ctx.fillStyle = '#a855f7';
-          ctx.fillRect(obs.x, obs.y + 4, obs.w, obs.h - 4);
+          ctx.stroke();
+
+          // Detalle geométrico interior del pico
+          ctx.strokeStyle = '#fb7185';
+          ctx.lineWidth = 1;
+          ctx.beginPath();
+          ctx.moveTo(obs.x + 4, obs.y + obs.h);
+          ctx.lineTo(obs.x + obs.w / 2, obs.y + 6);
+          ctx.lineTo(obs.x + obs.w - 4, obs.y + obs.h);
+          ctx.stroke();
+          ctx.restore();
+        } else if (obs.type === 'double-spike') {
+          // Pico doble
+          ctx.save();
+          ctx.shadowColor = '#a855f7';
+          ctx.shadowBlur = 12;
+          for (let k = 0; k < 2; k++) {
+            const sx = obs.x + k * 18;
+            ctx.fillStyle = '#0f172a';
+            ctx.strokeStyle = '#c084fc';
+            ctx.lineWidth = 2;
+            ctx.beginPath();
+            ctx.moveTo(sx, obs.y + obs.h);
+            ctx.lineTo(sx + 9, obs.y);
+            ctx.lineTo(sx + 18, obs.y + obs.h);
+            ctx.closePath();
+            ctx.fill();
+            ctx.stroke();
+          }
+          ctx.restore();
+        } else if (obs.type === 'overhead') {
+          // Obstáculo aéreo suspendido (bloque neón con advertencia de deslizamiento)
+          ctx.save();
+          ctx.shadowColor = '#f59e0b';
+          ctx.shadowBlur = 14;
+          ctx.fillStyle = '#1e293b';
+          ctx.strokeStyle = '#fbbf24';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.roundRect(obs.x, obs.y, obs.w, obs.h, 4);
+          ctx.fill();
+          ctx.stroke();
+
+          // Franjas de advertencia en el obstáculo aéreo
+          ctx.fillStyle = '#f59e0b';
+          ctx.font = 'bold 9px "JetBrains Mono", monospace';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('⚡ BAJAR', obs.x + obs.w / 2, obs.y + obs.h / 2);
+          ctx.restore();
         }
 
-        // Colisión: Quita 1 vida. Si llega a 0, reinicia la carrera completa
-        if (Math.hypot(dog.x - obs.x, dog.y - obs.y) < 22) {
+        // Detección de colisiones precisa
+        let collided = false;
+        if (obs.type === 'overhead') {
+          // El obstáculo aéreo se esquiva SI Y SOLO SI el perro se desliza por el suelo
+          if (!dog.isSliding) {
+            // Si está de pie o saltando hacia él
+            if (dog.x + 14 > obs.x && dog.x - 14 < obs.x + obs.w) {
+              const dogTop = dog.isJumping ? dog.y - 20 : groundY - 26;
+              if (dogTop < obs.y + obs.h) {
+                collided = true;
+              }
+            }
+          }
+        } else {
+          // Picos en el suelo: requieren SALTAR
+          const inXRange = (dog.x + 12 > obs.x && dog.x - 12 < obs.x + obs.w);
+          const inYRange = (dog.y + 12 >= obs.y);
+          if (inXRange && inYRange) {
+            collided = true;
+          }
+        }
+
+        if (collided) {
           lives--;
           sound.playHurt();
-          hurtFlash = 15;
+          hurtFlash = 16;
           obstacles.splice(i, 1);
           updateLivesUI();
+
+          // Explosión de chispas en impacto
+          for (let p = 0; p < 12; p++) {
+            particles.push({
+              x: dog.x,
+              y: dog.y,
+              vx: (Math.random() - 0.5) * 6,
+              vy: (Math.random() - 0.5) * 6,
+              size: 4,
+              alpha: 1,
+              color: '#ef4444'
+            });
+          }
 
           if (lives <= 0) {
             resetRun();
           }
-        } else if (obs.x < -20) {
+        } else if (obs.x < -40) {
           obstacles.splice(i, 1);
         }
       }
 
-      // Dibujar perro animado realista
-      drawDog(dog.x, dog.y, dog.frame, dog.isJumping);
+      // Dibujar perro
+      drawDog(dog.x, dog.y, dog.frame, dog.isJumping, dog.isSliding, dog.rotation);
 
       animId = requestAnimationFrame(loop);
     }
