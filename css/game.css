@@ -2387,7 +2387,7 @@ body {
 }
 
 /* ==========================================================================
-   MODAL SALA VIP & CERTIFICADO FINAL
+   MODAL DETRÁS DEL CÓDIGO
    ========================================================================== */
 
 .vip-reward-banner {
@@ -2480,12 +2480,6 @@ body {
   gap: 0.75rem;
   justify-content: center;
   flex-wrap: wrap;
-}
-
-.btn-print-cert {
-  background: linear-gradient(135deg, var(--gold-accent), #f59e0b) !important;
-  color: #030712 !important;
-  touch-action: manipulation;
 }
 
 /* ==========================================================================

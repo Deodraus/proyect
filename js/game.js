@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const btnPrevDest = document.getElementById('btn-prev-dest');
   const btnNextDest = document.getElementById('btn-next-dest');
 
-  // Modales Pasaporte y Sala VIP
+  // Modales Pasaporte y Detrás del Código
   const openPassportBtn = document.getElementById('open-passport-btn');
   const closePassportBtn = document.getElementById('close-passport-btn');
   const closePassportBannerBtn = document.getElementById('close-passport-banner-btn');
@@ -554,7 +554,7 @@ document.addEventListener('DOMContentLoaded', () => {
           <i class="fa-solid ${dest.icon}"></i>
         </div>
         <div class="stamp-slot-title">${dest.id}. ${dest.name}</div>
-        <div class="stamp-status-text">${isStamped ? '✓ ACREDITADO 11-4' : 'Pendiente'}</div>
+        <div class="stamp-status-text">${isStamped ? '✓ Completado' : 'Pendiente'}</div>
       `;
       stampsSlotsGrid.appendChild(slot);
     });
@@ -586,15 +586,18 @@ document.addEventListener('DOMContentLoaded', () => {
     updatePassportStats();
 
     destStatusBadge.className = 'dest-status-badge stamped';
-    destStatusBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Acreditado 11-4</span>';
+    destStatusBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Completado</span>';
     stampAwardAlert.classList.add('active');
-    stampAwardAlert.innerHTML = `<i class="fa-solid fa-certificate"></i> <span>${successMsg || '¡Desafío completado con éxito!'}</span>`;
+    stampAwardAlert.innerHTML = `<i class="fa-solid fa-circle-check"></i> <span>${successMsg || '¡Desafío completado!'}</span>`;
 
     claimStampBtn.disabled = true;
-    claimStampText.textContent = '¡Sello Oficial Estampado!';
+    claimStampText.textContent = '¡Sello Obtenido!';
 
-    victoryTitle.textContent = `¡DESAFÍO ${dest.name.toUpperCase()} COMPLETADO!`;
-    victoryDesc.textContent = successMsg || 'Has acreditado este proyecto exitosamente en tu pasaporte.';
+    const allCompleted = Object.values(appState.stamps).filter(Boolean).length >= destinations.length;
+    const isLastDestination = allCompleted || appState.currentIndex >= destinations.length - 1;
+
+    victoryTitle.textContent = allCompleted ? '¡MISIÓN COMPLETADA!' : `¡${dest.name.toUpperCase()} COMPLETADO!`;
+    victoryDesc.textContent = allCompleted ? 'Has completado los 7 desafíos de software.' : (successMsg || 'Desafío superado con éxito.');
     victoryStampShowcase.innerHTML = `<i class="fa-solid ${dest.icon}"></i>`;
     gameVictoryOverlay.classList.add('active');
 
@@ -604,14 +607,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (victoryCountdownTimer) clearInterval(victoryCountdownTimer);
 
-    const allCompleted = Object.values(appState.stamps).filter(Boolean).length >= destinations.length;
-    const isLastDestination = allCompleted || appState.currentIndex >= destinations.length - 1;
-
     if (allCompleted) {
-      victoryCountdownTxt.textContent = '¡Misión 11-4 Completa! Abriendo Pasaporte VIP en 3s...';
-      btnNextDestNow.innerHTML = '<i class="fa-solid fa-trophy"></i> Ver Pasaporte y Sala VIP';
+      victoryCountdownTxt.textContent = '¡Misión Completa! Abriendo Pasaporte en 3s...';
+      btnNextDestNow.innerHTML = '<i class="fa-solid fa-passport"></i> Ver Pasaporte';
     } else if (isLastDestination) {
-      victoryCountdownTxt.textContent = '¡Destino completado! Abriendo Pasaporte en 3s...';
+      victoryCountdownTxt.textContent = 'Abriendo Pasaporte en 3s...';
       btnNextDestNow.innerHTML = '<i class="fa-solid fa-passport"></i> Ver Pasaporte';
     } else {
       btnNextDestNow.innerHTML = `<i class="fa-solid fa-forward-step"></i> Siguiente: ${destinations[appState.currentIndex + 1].name}`;
@@ -643,7 +643,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!allCompleted && appState.currentIndex < destinations.length - 1) {
       switchDestination(appState.currentIndex + 1);
     } else {
-      // Todos los minijuegos concluidos: salir de pantalla completa para ver Pasaporte y Sala VIP
+      // Todos los minijuegos concluidos: salir de pantalla completa para ver Pasaporte y Detrás del Código
       toggleFullscreen(false);
       renderPassportModal();
       passportModal.classList.add('active');
@@ -682,10 +682,10 @@ document.addEventListener('DOMContentLoaded', () => {
       claimStampBtn.disabled = true;
       claimStampText.textContent = 'Sello Ya Obtenido';
       stampAwardAlert.classList.add('active');
-      stampAwardAlert.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>¡Destino ya acreditado! Puedes volver a jugar.</span>';
+      stampAwardAlert.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>¡Sello ya obtenido! Puedes volver a jugar.</span>';
     } else {
       claimStampBtn.disabled = true;
-      claimStampText.textContent = 'Estampar Sello';
+      claimStampText.textContent = 'Pendiente de Sello';
     }
 
     switch (dest.key) {
@@ -3189,7 +3189,7 @@ document.addEventListener('DOMContentLoaded', () => {
             clearInterval(fpsInterval);
             sound.playSuccess();
             benchmarkBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Benchmark Superado: 240 FPS Ultra';
-            completeCurrentChallenge('¡PC Gamer completamente ensamblado y servicio técnico TecnoFix certificado a 240 FPS!');
+            completeCurrentChallenge('¡PC Gamer ensamblado con éxito a 240 FPS!');
           }
         }, 180);
       });
@@ -3210,10 +3210,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const isStamped = !!appState.stamps[dest.id];
     if (isStamped) {
       destStatusBadge.className = 'dest-status-badge stamped';
-      destStatusBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Acreditado 11-4</span>';
+      destStatusBadge.innerHTML = '<i class="fa-solid fa-circle-check"></i> <span>Completado</span>';
     } else {
       destStatusBadge.className = 'dest-status-badge';
-      destStatusBadge.innerHTML = '<i class="fa-regular fa-circle-dot"></i> <span>Pendiente de Sello</span>';
+      destStatusBadge.innerHTML = '<i class="fa-regular fa-circle-dot"></i> <span>Pendiente</span>';
     }
 
     if (gameVideo.getAttribute('src') !== dest.videoSrc) {
