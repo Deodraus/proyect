@@ -54,7 +54,7 @@
           <span id="passport-stamp-count" class="passport-stamp-badge">0 / 7</span>
         </button>
 
-        <a href="proyects.html" class="btn-header" title="Volver a la Muestra Técnica">
+        <a href="proyects.html?skipIntro=1" class="btn-header" title="Volver a la Muestra Técnica">
           <i class="fa-solid fa-arrow-left"></i>
           <span>Catálogo Técnico</span>
         </a>
@@ -67,7 +67,11 @@
       <!-- Panel Izquierdo: Video Demostrativo y Misión -->
       <section class="mission-video-card" aria-label="Demostración y Misión">
         <div class="mission-header-bar">
-          <span id="mission-dest-pill" class="mission-dest-pill">DESTINO 01 • VITLINE</span>
+          <div class="mission-pill-nav">
+            <button id="btn-prev-dest" class="btn-dest-nav" title="Destino anterior" aria-label="Destino anterior"><i class="fa-solid fa-chevron-left"></i></button>
+            <span id="mission-dest-pill" class="mission-dest-pill">DESTINO 01 • VITLINE</span>
+            <button id="btn-next-dest" class="btn-dest-nav" title="Destino siguiente" aria-label="Destino siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
           <span id="dest-status-badge" class="dest-status-badge">
             <i class="fa-regular fa-circle-dot"></i> <span>Pendiente de Sello</span>
           </span>
@@ -140,6 +144,9 @@
               <button id="btn-next-dest-now" class="btn-stamp-action">
                 <i class="fa-solid fa-forward-step"></i> Siguiente Destino
               </button>
+              <button id="btn-stay-and-explore" class="btn-stamp-action btn-secondary-victory">
+                <i class="fa-solid fa-gamepad"></i> Explorar Minijuegos
+              </button>
             </div>
           </div>
         </div>
@@ -197,7 +204,10 @@
       <div id="vip-reward-banner" class="vip-reward-banner">
         <h3><i class="fa-solid fa-trophy"></i> ¡FELICITACIONES! HAS COMPLETADO LA MISIÓN 11-4</h3>
         <p style="font-size: 0.84rem; color: #fef08a;">Has verificado y aprobado los 7 proyectos de software de la media técnica.</p>
-        <button id="open-vip-btn" class="btn-open-vip"><i class="fa-solid fa-door-open"></i> Entrar a la Sala VIP (Detrás del Código)</button>
+        <div class="vip-reward-buttons">
+          <button id="open-vip-btn" class="btn-open-vip"><i class="fa-solid fa-door-open"></i> Entrar a la Sala VIP (Detrás del Código)</button>
+          <button id="close-passport-banner-btn" class="btn-stamp-action btn-secondary-modal"><i class="fa-solid fa-gamepad"></i> Volver a los Minijuegos</button>
+        </div>
       </div>
     </div>
   </div>
@@ -222,30 +232,33 @@
       </p>
 
       <!-- Galería de Fotos del Laboratorio -->
-      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; margin-top: 0.5rem;">
-        <div style="height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-          <img src="assets/images/tecnologia.jpeg" style="width: 100%; height: 100%; object-fit: cover;" alt="Clase de software">
+      <div class="vip-photo-gallery">
+        <div class="vip-photo-item">
+          <img src="assets/images/tecnologia.jpeg" alt="Clase de software">
         </div>
-        <div style="height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-          <img src="assets/images/aprender.jpeg" style="width: 100%; height: 100%; object-fit: cover;" alt="Estudiantes programando">
+        <div class="vip-photo-item">
+          <img src="assets/images/aprender.jpeg" alt="Estudiantes programando">
         </div>
-        <div style="height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-          <img src="assets/images/juntos.jpeg" style="width: 100%; height: 100%; object-fit: cover;" alt="Trabajo en equipo">
+        <div class="vip-photo-item">
+          <img src="assets/images/juntos.jpeg" alt="Trabajo en equipo">
         </div>
-        <div style="height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-          <img src="assets/images/oportunidades.jpeg" style="width: 100%; height: 100%; object-fit: cover;" alt="Innovación">
+        <div class="vip-photo-item">
+          <img src="assets/images/oportunidades.jpeg" alt="Innovación">
         </div>
-        <div style="height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-          <img src="assets/images/quehacemos.jpeg" style="width: 100%; height: 100%; object-fit: cover;" alt="Desarrollo">
+        <div class="vip-photo-item">
+          <img src="assets/images/quehacemos.jpeg" alt="Desarrollo">
         </div>
-        <div style="height: 120px; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1);">
-          <img src="assets/images/catalina.jpeg" style="width: 100%; height: 100%; object-fit: cover;" alt="Laboratorio">
+        <div class="vip-photo-item">
+          <img src="assets/images/catalina.jpeg" alt="Laboratorio">
         </div>
       </div>
 
-      <div style="text-align: center; margin-top: 1rem;">
-        <button onclick="window.print()" class="btn-stamp-action" style="background: linear-gradient(135deg, var(--gold-accent), #f59e0b); color: #030712;">
+      <div class="vip-modal-footer">
+        <button onclick="window.print()" class="btn-stamp-action btn-print-cert">
           <i class="fa-solid fa-print"></i> Imprimir o Guardar mi Certificado 11-4
+        </button>
+        <button id="close-vip-btn-2" class="btn-stamp-action btn-secondary-modal">
+          <i class="fa-solid fa-arrow-left"></i> Volver al Pasaporte
         </button>
       </div>
     </div>

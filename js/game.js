@@ -421,10 +421,14 @@ document.addEventListener('DOMContentLoaded', () => {
   const victoryCountdownTxt = document.getElementById('victory-countdown-txt');
   const countdownProgressBar = document.getElementById('countdown-progress-bar');
   const btnNextDestNow = document.getElementById('btn-next-dest-now');
+  const btnStayAndExplore = document.getElementById('btn-stay-and-explore');
+  const btnPrevDest = document.getElementById('btn-prev-dest');
+  const btnNextDest = document.getElementById('btn-next-dest');
 
   // Modales Pasaporte y Sala VIP
   const openPassportBtn = document.getElementById('open-passport-btn');
   const closePassportBtn = document.getElementById('close-passport-btn');
+  const closePassportBannerBtn = document.getElementById('close-passport-banner-btn');
   const passportModal = document.getElementById('passport-modal');
   const passengerNameInput = document.getElementById('passenger-name-input');
   const passportProgressPct = document.getElementById('passport-progress-pct');
@@ -433,6 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const openVipBtn = document.getElementById('open-vip-btn');
   const closeVipBtn = document.getElementById('close-vip-btn');
+  const closeVipBtn2 = document.getElementById('close-vip-btn-2');
   const vipModal = document.getElementById('vip-modal');
 
   const bgSlide1 = document.getElementById('game-bg-slide-1');
@@ -599,10 +604,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (victoryCountdownTimer) clearInterval(victoryCountdownTimer);
 
-    const isLastDestination = appState.currentIndex >= destinations.length - 1;
-    if (isLastDestination) {
+    const allCompleted = Object.values(appState.stamps).filter(Boolean).length >= destinations.length;
+    const isLastDestination = allCompleted || appState.currentIndex >= destinations.length - 1;
+
+    if (allCompleted) {
       victoryCountdownTxt.textContent = '¡Misión 11-4 Completa! Abriendo Pasaporte VIP en 3s...';
       btnNextDestNow.innerHTML = '<i class="fa-solid fa-trophy"></i> Ver Pasaporte y Sala VIP';
+    } else if (isLastDestination) {
+      victoryCountdownTxt.textContent = '¡Destino completado! Abriendo Pasaporte en 3s...';
+      btnNextDestNow.innerHTML = '<i class="fa-solid fa-passport"></i> Ver Pasaporte';
     } else {
       btnNextDestNow.innerHTML = `<i class="fa-solid fa-forward-step"></i> Siguiente: ${destinations[appState.currentIndex + 1].name}`;
     }
@@ -617,7 +627,7 @@ document.addEventListener('DOMContentLoaded', () => {
         clearInterval(victoryCountdownTimer);
         advanceToNextDestination();
       } else {
-        if (!isLastDestination) {
+        if (!allCompleted && !isLastDestination) {
           victoryCountdownTxt.textContent = `Avanzando al siguiente destino en ${timeLeft.toFixed(1)}s...`;
         }
       }
@@ -628,7 +638,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (victoryCountdownTimer) clearInterval(victoryCountdownTimer);
     gameVictoryOverlay.classList.remove('active');
 
-    if (appState.currentIndex < destinations.length - 1) {
+    const allCompleted = Object.values(appState.stamps).filter(Boolean).length >= destinations.length;
+
+    if (!allCompleted && appState.currentIndex < destinations.length - 1) {
       switchDestination(appState.currentIndex + 1);
     } else {
       // Todos los minijuegos concluidos: salir de pantalla completa para ver Pasaporte y Sala VIP
@@ -642,6 +654,15 @@ document.addEventListener('DOMContentLoaded', () => {
     sound.playClick();
     advanceToNextDestination();
   });
+
+  if (btnStayAndExplore) {
+    btnStayAndExplore.addEventListener('click', () => {
+      sound.playClick();
+      if (victoryCountdownTimer) clearInterval(victoryCountdownTimer);
+      gameVictoryOverlay.classList.remove('active');
+      toggleFullscreen(false);
+    });
+  }
 
   // -------------------------------------------------------------
   // CARGADOR Y LIMPIEZA DE MINIJUEGOS
@@ -3212,9 +3233,19 @@ document.addEventListener('DOMContentLoaded', () => {
     loadMinigame(dest);
     renderDock();
     updatePassportStats();
+
+    setTimeout(() => {
+      if (dockItemsRow && dockItemsRow.children[appState.currentIndex]) {
+        dockItemsRow.children[appState.currentIndex].scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+      }
+    }, 50);
   }
 
-  // 12. GESTIÓN DE MODALES
+  // 12. GESTIÓN DE MODALES Y NAVEGACIÓN
   openPassportBtn.addEventListener('click', () => {
     sound.playClick();
     renderPassportModal();
@@ -3225,6 +3256,13 @@ document.addEventListener('DOMContentLoaded', () => {
     sound.playClick();
     passportModal.classList.remove('active');
   });
+
+  if (closePassportBannerBtn) {
+    closePassportBannerBtn.addEventListener('click', () => {
+      sound.playClick();
+      passportModal.classList.remove('active');
+    });
+  }
 
   openVipBtn.addEventListener('click', () => {
     sound.playClick();
@@ -3237,11 +3275,36 @@ document.addEventListener('DOMContentLoaded', () => {
     vipModal.classList.remove('active');
   });
 
+  if (closeVipBtn2) {
+    closeVipBtn2.addEventListener('click', () => {
+      sound.playClick();
+      vipModal.classList.remove('active');
+      renderPassportModal();
+      passportModal.classList.add('active');
+    });
+  }
+
   [passportModal, vipModal].forEach(modal => {
     modal.addEventListener('click', (e) => {
       if (e.target === modal) modal.classList.remove('active');
     });
   });
+
+  if (btnPrevDest) {
+    btnPrevDest.addEventListener('click', () => {
+      sound.playClick();
+      const prevIdx = (appState.currentIndex - 1 + destinations.length) % destinations.length;
+      switchDestination(prevIdx);
+    });
+  }
+
+  if (btnNextDest) {
+    btnNextDest.addEventListener('click', () => {
+      sound.playClick();
+      const nextIdx = (appState.currentIndex + 1) % destinations.length;
+      switchDestination(nextIdx);
+    });
+  }
 
   window.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT') return;
