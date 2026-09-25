@@ -235,13 +235,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-compass',
       briefing: {
         title: 'DaLulú Travel Agency',
-        desc: 'Agencia de turismo por Colombia. Supera 3 niveles de alta dificultad recolectando las letras en orden estricto y con límite de movimientos. ¡Si pisas una letra incorrecta el nivel se reinicia!',
-        req: 'Supera los 3 niveles recolectando las letras en orden estricto antes de agotar tus movimientos.'
+        desc: 'Agencia de turismo por Colombia. Supera los 3 niveles recolectando las letras del destino en el laberinto para desbloquear la salida hacia la meta turística.',
+        req: 'Supera los 3 niveles recolectando todas las letras del laberinto para desbloquear la salida.'
       },
       game: {
         title: 'Laberintos Turísticos (3 Niveles)',
-        subtitle: '3 Niveles • Movimientos Limitados • Orden Estricto',
-        badge: '3 Niveles • Pasos Limitados'
+        subtitle: '3 Niveles • Recolecta las Letras',
+        badge: '3 Niveles'
       }
     },
     {
@@ -298,13 +298,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-dog',
       briefing: {
         title: 'Patitas al Rescate (Geometry Dash Style)',
-        desc: 'Refugio de rescate animal. Carrera neón estilo Geometry Dash: salta picos y baja/deslízate rápidamente bajo obstáculos aéreos con controles dedicados de SALTAR y BAJAR.',
-        req: 'Supera la pista neón esquivando picos y barreras usando SALTAR y BAJAR sin perder tus 3 vidas.'
+        desc: 'Refugio de rescate animal. Carrera neón estilo Geometry Dash: salta con precisión sobre los picos con el control de SALTO hasta completar la pista.',
+        req: 'Supera la pista neón esquivando los picos con saltos precisos sin perder tus 3 vidas.'
       },
       game: {
         title: 'Carrera Neón Geometry Dash',
-        subtitle: 'Controles: SALTAR y BAJAR • Picos Neón y Deslizamiento',
-        badge: 'Estilo Geometry Dash'
+        subtitle: 'Saltos de Precisión • Picos Neón',
+        badge: 'Carrera de Saltos'
       }
     },
     {
@@ -319,13 +319,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-robot',
       briefing: {
         title: 'SoftPlay Academy',
-        desc: 'Academia de lógica computacional. Resuelve la serie de 10 acertijos algorítmicos programando los movimientos del robot con botones para esquivar obstáculos y alcanzar la meta.',
-        req: 'Programa y resuelve con éxito los 10 acertijos de ruta para graduarte en SoftPlay.'
+        desc: 'Academia de lógica computacional. Resuelve la serie de 5 acertijos algorítmicos programando los movimientos del robot con botones para esquivar obstáculos y alcanzar la meta.',
+        req: 'Programa y resuelve con éxito los 5 acertijos de ruta para graduarte en SoftPlay.'
       },
       game: {
-        title: 'Programador de Robots (10 Acertijos)',
-        subtitle: 'Serie Completa de 10 Niveles Algorítmicos',
-        badge: '10 Acertijos'
+        title: 'Programador de Robots (5 Acertijos)',
+        subtitle: 'Serie Completa de 5 Niveles Algorítmicos',
+        badge: '5 Acertijos'
       }
     },
     {
@@ -340,13 +340,13 @@ document.addEventListener('DOMContentLoaded', () => {
       icon: 'fa-microchip',
       briefing: {
         title: 'TecnoFix Computadores',
-        desc: 'Taller de hardware y ensamble especializado. Agarra con precisión los 5 componentes principales (CPU, RAM, GPU, SSD y Fuente) y móntalos en el PC Gamer para encenderlo.',
-        req: 'Ensambla cada componente en su ranura correcta del chasis y enciende el equipo a 240 FPS.'
+        desc: 'Taller interactivo de hardware y ensamble gamer. Arrastra y monta los componentes en la placa madre, aplica pasta térmica, asegura tornillos y pestillos, y ejecuta el encendido con benchmark a 240 FPS.',
+        req: 'Ensambla interactivamente los 5 componentes, asegura su montaje y enciende el equipo con prueba de rendimiento.'
       },
       game: {
-        title: 'Simulador de Ensamble de PC',
-        subtitle: 'Taller de Precisión en Hardware TecnoFix',
-        badge: 'Ensamble de PC'
+        title: 'Simulador Interactivo de Ensamble PC',
+        subtitle: 'Taller de Hardware • Ensamble y Diagnóstico',
+        badge: 'Taller Interactivo'
       }
     }
   ];
@@ -707,24 +707,11 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="vitline-canvas-wrap" id="vitline-canvas-wrap">
           <canvas id="vitline-canvas"></canvas>
 
-          <!-- Pantalla de Inicio con Botón Play y Pantalla Completa Automática -->
+          <!-- Pantalla de Inicio: Recuadro exclusivo para el Botón Play -->
           <div class="vitline-start-overlay" id="vitline-start-overlay">
             <div class="vitline-start-modal">
-              <div class="vitline-start-badge">
-                <i class="fa-solid fa-plane-departure"></i> Destino 01 • VitLine
-              </div>
-              <h3 class="vitline-start-title">Misión Aérea VitLine</h3>
-              <p class="vitline-start-desc">
-                Despega en la plataforma de reservas comerciales. Elimina los drones enemigos con disparo automático continuo y esquiva los obstáculos hasta llegar al destino.
-              </p>
-              <div class="vitline-start-features">
-                <div class="feature-tag"><i class="fa-solid fa-expand"></i> Pantalla Completa Automática</div>
-                <div class="feature-tag"><i class="fa-solid fa-bolt"></i> Disparo Infinito Activo</div>
-                <div class="feature-tag"><i class="fa-solid fa-shield-heart"></i> 3 Vidas de Escudo</div>
-                <div class="feature-tag"><i class="fa-solid fa-cubes-stacked"></i> Muros Blindados (50 HP)</div>
-              </div>
-              <button id="vitline-start-btn" class="btn-play-vitline">
-                <i class="fa-solid fa-play"></i> JUGAR (PLAY)
+              <button id="vitline-start-btn" class="btn-play-vitline" aria-label="Iniciar Misión Aérea VitLine">
+                <i class="fa-solid fa-play"></i> PLAY
               </button>
             </div>
           </div>
@@ -1253,16 +1240,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 2. DALULÚ TRAVEL: LABERINTO EN ORDEN ESTRICTO (D - A - L - U - L - U)
+  // 2. DALULÚ TRAVEL: LABERINTO TURÍSTICO (3 NIVELES • ORDEN LIBRE)
   // =========================================================================
   function buildDaluluMaze() {
     const MAZE_RIDDLES = [
       {
         id: 1,
         title: 'Nivel 1: El Nombre de la Aventura',
-        hint: 'Sigue el sendero recolectando las letras en orden exacto: D - A - L - U - L - U',
+        hint: 'Sigue el sendero recolectando todas las letras: D - A - L - U - L - U',
         word: 'DALULU',
-        maxMoves: 28,
         start: { r: 0, c: 0 },
         layout: [
           [0, 0, 1, 0, 0, 0, 0],
@@ -1285,9 +1271,8 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         id: 2,
         title: 'Nivel 2: El Paraíso de la Costa',
-        hint: 'Aguas turquesas y arrecifes. Recolecta en orden: P - L - A - Y - A',
+        hint: 'Aguas turquesas y arrecifes. Recolecta las letras: P - L - A - Y - A',
         word: 'PLAYA',
-        maxMoves: 30,
         start: { r: 6, c: 0 },
         layout: [
           [0, 0, 0, 0, 0, 0, 2],
@@ -1309,9 +1294,8 @@ document.addEventListener('DOMContentLoaded', () => {
       {
         id: 3,
         title: 'Nivel 3: La Magia del Caribe',
-        hint: 'Murallas coloniales y atardeceres. Recolecta en orden: C - A - R - I - B - E',
+        hint: 'Murallas coloniales y atardeceres. Recolecta las letras: C - A - R - I - B - E',
         word: 'CARIBE',
-        maxMoves: 34,
         start: { r: 0, c: 0 },
         layout: [
           [0, 0, 0, 0, 0, 0, 0],
@@ -1335,10 +1319,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentRiddleIndex = 0;
     let completedRiddles = [false, false, false];
-    let currentLetterIndex = 0;
     let playerPos = { r: 0, c: 0 };
     let letterSpawns = [];
-    let movesLeft = 0;
+    let movesCount = 0;
     let isTransitioning = false;
 
     interactiveArena.innerHTML = `
@@ -1352,7 +1335,7 @@ document.addEventListener('DOMContentLoaded', () => {
               <button class="dalulu-lvl-chip ${i === 0 ? 'active' : ''}" data-idx="${i}">Nivel ${i + 1}</button>
             `).join('')}
           </div>
-          <span style="font-size:0.75rem; font-weight:800; color:#f59e0b;">
+          <span style="font-size:0.75rem; font-weight:800; color:#38bdf8;">
             <i class="fa-solid fa-shoe-prints"></i> Pasos: <strong id="dalulu-moves-txt">0</strong>
           </span>
         </div>
@@ -1404,26 +1387,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function updateSlotsUI() {
       const riddle = MAZE_RIDDLES[currentRiddleIndex];
-      for (let i = 0; i < riddle.word.length; i++) {
+      let collectedCount = 0;
+      riddle.letters.forEach((l, i) => {
         const slot = document.getElementById(`slot-letter-${i}`);
+        const spawn = letterSpawns.find(s => s.order === l.order);
         if (slot) {
-          slot.classList.remove('target-active');
-          if (i < currentLetterIndex) {
-            slot.textContent = riddle.word[i];
+          if (spawn && spawn.collected) {
+            slot.textContent = l.char;
             slot.classList.add('collected');
-          } else if (i === currentLetterIndex) {
-            slot.textContent = '_';
-            slot.classList.add('target-active');
+            slot.classList.remove('target-active');
+            collectedCount++;
           } else {
             slot.textContent = '_';
             slot.classList.remove('collected');
+            slot.classList.remove('target-active');
           }
         }
-      }
+      });
 
-      if (currentLetterIndex < riddle.word.length) {
+      if (collectedCount < riddle.letters.length) {
         hintEl.style.color = 'var(--gold-accent)';
-        hintEl.textContent = `Próxima letra a recoger en orden: "${riddle.word[currentLetterIndex]}" (${currentLetterIndex + 1}/${riddle.word.length})`;
+        hintEl.textContent = `Letras recolectadas: ${collectedCount} / ${riddle.letters.length} • ¡Recorre el sendero en el orden que desees!`;
       } else {
         hintEl.style.color = 'var(--green-accent)';
         hintEl.textContent = `¡Palabra ${riddle.word} completa! Cruza la meta turística 🏁`;
@@ -1444,8 +1428,7 @@ document.addEventListener('DOMContentLoaded', () => {
           } else {
             const letter = letterSpawns.find(l => l.r === r && l.c === c && !l.collected);
             if (letter) {
-              const isCurrentTarget = letter.order === currentLetterIndex;
-              cell.innerHTML = `<span class="maze-letter-pickup" style="${isCurrentTarget ? 'color:#38bdf8; font-size:0.95rem; text-shadow:0 0 8px #38bdf8;' : 'opacity:0.5; color:#cbd5e1;'}">${letter.char}</span>`;
+              cell.innerHTML = `<span class="maze-letter-pickup" style="color:#38bdf8; font-size:1rem; font-weight:800; text-shadow:0 0 10px #38bdf8;">${letter.char}</span>`;
             } else if (cellType === 2) {
               cell.innerHTML = '<span style="font-size:0.85rem;">🏁</span>';
             }
@@ -1462,20 +1445,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
       playerPos = { ...riddle.start };
       letterSpawns = riddle.letters.map(l => ({ ...l, collected: false }));
-      currentLetterIndex = 0;
-      movesLeft = riddle.maxMoves;
+      movesCount = 0;
       isTransitioning = false;
 
-      movesTxt.textContent = movesLeft;
-      movesTxt.style.color = '#f59e0b';
+      movesTxt.textContent = movesCount;
+      movesTxt.style.color = '#38bdf8';
       riddleNumEl.textContent = `${index + 1} / 3`;
       riddleDescEl.innerHTML = `
         <span><i class="fa-solid fa-puzzle-piece"></i> <strong>${riddle.title}</strong></span><br>
-        <span style="color:#cbd5e1; font-weight:500;">${riddle.hint} • Límite: ${riddle.maxMoves} pasos</span>
+        <span style="color:#cbd5e1; font-weight:500;">${riddle.hint}</span>
       `;
 
       wordTracker.innerHTML = riddle.word.split('').map((char, i) => `
-        <div class="letter-tile-slot ${i === 0 ? 'target-active' : ''}" id="slot-letter-${i}">_</div>
+        <div class="letter-tile-slot" id="slot-letter-${i}">_</div>
       `).join('');
 
       renderChips();
@@ -1495,52 +1477,21 @@ document.addEventListener('DOMContentLoaded', () => {
       playerPos.c = nc;
       sound.playStep();
 
-      // Consumir un movimiento
-      movesLeft--;
-      movesTxt.textContent = movesLeft;
-      if (movesLeft <= 5) {
-        movesTxt.style.color = '#ef4444';
-      }
+      movesCount++;
+      movesTxt.textContent = movesCount;
 
-      // Verificación estricta de letras:
-      // Si pisa cualquier casilla con una letra que NO es la siguiente en orden, el nivel se repite de inmediato
+      // Recolección libre de cualquier letra no recogida al pisarla
       const letter = letterSpawns.find(l => l.r === nr && l.c === nc && !l.collected);
       if (letter) {
-        if (letter.order === currentLetterIndex) {
-          letter.collected = true;
-          currentLetterIndex++;
-          sound.playSnap();
-          updateSlotsUI();
-        } else {
-          // Letra equivocada: penalización estricta de reinicio
-          sound.playHurt();
-          isTransitioning = true;
-          hintEl.style.color = '#ef4444';
-          hintEl.textContent = `💥 ¡Letra "${letter.char}" incorrecta! Debías tomar "${riddle.word[currentLetterIndex]}". Nivel reiniciado.`;
-          renderMaze();
-          setTimeout(() => {
-            loadRiddle(currentRiddleIndex);
-          }, 850);
-          return;
-        }
+        letter.collected = true;
+        sound.playSnap();
+        updateSlotsUI();
       }
 
-      // Comprobar si se agotaron los movimientos disponibles
-      if (movesLeft <= 0 && currentLetterIndex < riddle.word.length) {
-        sound.playHurt();
-        isTransitioning = true;
-        hintEl.style.color = '#ef4444';
-        hintEl.textContent = '❌ ¡Agotaste tus movimientos disponibles! Nivel reiniciado.';
-        renderMaze();
-        setTimeout(() => {
-          loadRiddle(currentRiddleIndex);
-        }, 850);
-        return;
-      }
-
-      // Comprobar salida 🏁
+      // Comprobar llegada a la salida 🏁
       if (riddle.layout[nr][nc] === 2) {
-        if (currentLetterIndex >= riddle.word.length) {
+        const allCollected = letterSpawns.every(l => l.collected);
+        if (allCollected) {
           completedRiddles[currentRiddleIndex] = true;
           renderChips();
 
@@ -1551,13 +1502,14 @@ document.addEventListener('DOMContentLoaded', () => {
             hintEl.textContent = `🎉 ¡Nivel ${currentRiddleIndex + 1} superado! Cargando siguiente laberinto...`;
             setTimeout(() => {
               loadRiddle(currentRiddleIndex + 1);
-            }, 850);
+            }, 750);
           } else {
             sound.playSuccess();
-            completeCurrentChallenge('¡Superaste con éxito los 3 niveles con orden estricto y límite de movimientos en DaLulú Travel!');
+            completeCurrentChallenge('¡Superaste con éxito los 3 niveles de laberintos turísticos en DaLulú Travel!');
           }
         } else {
           sound.playClick();
+          hintEl.style.color = '#f59e0b';
           hintEl.textContent = '¡Aún te faltan letras para desbloquear la salida!';
         }
       }
@@ -2096,10 +2048,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const px = (curX + 0.5) * tileW;
         const py = (curY + 0.5) * tileH;
 
-        // Ondulación viva de oruga
-        const undulation = Math.sin(now * 0.009 + i * 0.65) * 1.2;
-        const drawPx = px + (-dir.y * undulation);
-        const drawPy = py + (dir.x * undulation);
+        // Movimiento rectilíneo y estable (sin tambaleo)
+        const drawPx = px;
+        const drawPy = py;
 
         const radius = i === 0 ? tileW * 0.44 : Math.max(tileW * 0.28, tileW * 0.38 - (i * 0.4));
 
@@ -2154,8 +2105,8 @@ document.addEventListener('DOMContentLoaded', () => {
           ctx.arc(eyeOffX - perpX + dir.x, eyeOffY - perpY + dir.y, 1.8, 0, Math.PI * 2);
           ctx.fill();
 
-          // Antenas suaves oscilantes
-          const antSwing = Math.sin(now * 0.015) * 2;
+          // Antenas rectas y estables (sin oscilación de tambaleo)
+          const antSwing = 0;
           ctx.strokeStyle = '#34d399';
           ctx.lineWidth = 1.8;
           ctx.beginPath();
@@ -2220,12 +2171,9 @@ document.addEventListener('DOMContentLoaded', () => {
           <canvas id="patitas-canvas"></canvas>
         </div>
 
-        <div class="runner-dual-controls">
-          <button id="runner-down-btn" class="runner-btn runner-btn-down" title="Bajar rápido en aire o deslizarse en suelo">
-            <i class="fa-solid fa-angles-down"></i> BAJAR / DESLIZAR (S / ↓)
-          </button>
-          <button id="runner-jump-btn" class="runner-btn runner-btn-jump" title="Saltar obstáculos">
-            <i class="fa-solid fa-angles-up"></i> SALTAR (ESPACIO / W / ↑)
+        <div class="runner-dual-controls" style="grid-template-columns: 1fr;">
+          <button id="runner-jump-btn" class="runner-btn runner-btn-jump" title="Saltar obstáculos" style="width:100%; font-size:1rem; padding:0.85rem 1rem;">
+            <i class="fa-solid fa-angles-up"></i> SALTAR (ESPACIO / W / ↑ / TOQUE)
           </button>
         </div>
       </div>
@@ -2239,7 +2187,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const speedTxt = document.getElementById('runner-speed-txt');
     const livesTxt = document.getElementById('runner-lives-txt');
     const jumpBtn = document.getElementById('runner-jump-btn');
-    const downBtn = document.getElementById('runner-down-btn');
 
     canvas.width = wrap.clientWidth || 320;
     canvas.height = wrap.clientHeight || 200;
@@ -2252,8 +2199,6 @@ document.addEventListener('DOMContentLoaded', () => {
       vy: 0,
       gravity: 0.68,
       isJumping: false,
-      isSliding: false,
-      slideTimer: 0,
       rotation: 0,
       frame: 0
     };
@@ -2270,8 +2215,6 @@ document.addEventListener('DOMContentLoaded', () => {
       if (gameWon) return;
       if (!dog.isJumping) {
         dog.isJumping = true;
-        dog.isSliding = false;
-        dog.slideTimer = 0;
         dog.vy = -10.8;
         sound.playJump();
 
@@ -2290,65 +2233,17 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
 
-    function fastDown() {
-      if (gameWon) return;
-      if (dog.isJumping) {
-        // En el aire: caída rápida (fast fall slam) hacia el suelo
-        dog.vy = Math.max(dog.vy + 7, 13);
-        sound.playSnap();
-
-        for (let p = 0; p < 6; p++) {
-          particles.push({
-            x: dog.x + (Math.random() - 0.5) * 10,
-            y: dog.y - 10,
-            vx: (Math.random() - 0.5) * 2,
-            vy: -2,
-            size: 3,
-            alpha: 1,
-            color: '#fb923c'
-          });
-        }
-      } else {
-        // En el suelo: deslizamiento rasante para pasar bajo obstáculos elevados
-        dog.isSliding = true;
-        dog.slideTimer = 34; // duración del deslizamiento
-        sound.playSnap();
-
-        for (let p = 0; p < 6; p++) {
-          particles.push({
-            x: dog.x - 12,
-            y: groundY - 3,
-            vx: -2 - Math.random() * 3,
-            vy: -Math.random() * 2,
-            size: 3.5,
-            alpha: 1,
-            color: '#f97316'
-          });
-        }
-      }
-    }
-
     jumpBtn.addEventListener('click', (e) => { e.preventDefault(); jump(); });
-    downBtn.addEventListener('click', (e) => { e.preventDefault(); fastDown(); });
 
     canvas.addEventListener('pointerdown', (e) => {
       e.preventDefault();
-      const rect = canvas.getBoundingClientRect();
-      const clientX = e.clientX - rect.left;
-      if (clientX < canvas.width * 0.45) {
-        fastDown();
-      } else {
-        jump();
-      }
+      jump();
     });
 
     function onKeyDown(e) {
       if (e.key === ' ' || e.key === 'ArrowUp' || e.key === 'w' || e.key === 'W') {
         e.preventDefault();
         jump();
-      } else if (e.key === 'ArrowDown' || e.key === 's' || e.key === 'S') {
-        e.preventDefault();
-        fastDown();
       }
     }
     window.addEventListener('keydown', onKeyDown);
@@ -2366,15 +2261,14 @@ document.addEventListener('DOMContentLoaded', () => {
       dog.y = groundY - 26;
       dog.vy = 0;
       dog.isJumping = false;
-      dog.isSliding = false;
       dog.rotation = 0;
       updateLivesUI();
       distTxt.textContent = '0%';
       if (speedTxt) speedTxt.innerHTML = '<i class="fa-solid fa-bolt"></i> 1.0x';
     }
 
-    // Dibujado del perro con soporte de salto con giro Geometry Dash y deslizamiento rasante
-    function drawDog(x, y, frame, jumping, sliding, rotation) {
+    // Dibujado del perro trotando y saltando con giro Geometry Dash
+    function drawDog(x, y, frame, jumping, rotation) {
       ctx.save();
       ctx.translate(x, y);
 
@@ -2384,52 +2278,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const dogColor = hurtFlash > 0 ? '#ef4444' : '#d97706';
       const earColor = hurtFlash > 0 ? '#b91c1c' : '#b45309';
-
-      if (sliding) {
-        // Postura aerodinámica de deslizamiento rasante (bajo el obstáculo aéreo)
-        ctx.fillStyle = dogColor;
-        ctx.beginPath();
-        ctx.roundRect(-18, -4, 36, 12, 5);
-        ctx.fill();
-
-        // Cabeza agachada hacia adelante
-        ctx.beginPath();
-        ctx.roundRect(14, -8, 14, 12, 4);
-        ctx.fill();
-
-        // Hocico y nariz
-        ctx.fillStyle = '#030712';
-        ctx.beginPath();
-        ctx.arc(28, -2, 2.2, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Ojo concentrado
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(21, -4, 2, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#030712';
-        ctx.beginPath();
-        ctx.arc(22, -4, 1, 0, Math.PI * 2);
-        ctx.fill();
-
-        // Oreja pegada hacia atrás por el viento
-        ctx.fillStyle = earColor;
-        ctx.beginPath();
-        ctx.roundRect(4, -9, 12, 4, 2);
-        ctx.fill();
-
-        // Chispas de fricción al deslizarse
-        ctx.strokeStyle = '#f59e0b';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        ctx.moveTo(-16, 8);
-        ctx.lineTo(-24, 7);
-        ctx.stroke();
-
-        ctx.restore();
-        return;
-      }
 
       // Animación normal / trotando / saltando
       const tailWag = Math.sin(frame * 0.4) * 0.4;
@@ -2537,12 +2385,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       } else {
         dog.rotation = 0;
-        if (dog.isSliding) {
-          dog.slideTimer--;
-          if (dog.slideTimer <= 0) {
-            dog.isSliding = false;
-          }
-        }
       }
 
       dog.frame += 0.8 * speedMultiplier;
@@ -2552,12 +2394,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (Math.random() > 0.35) {
         particles.push({
           x: dog.x - 14,
-          y: dog.isSliding ? groundY - 4 : dog.y + (Math.random() - 0.5) * 12,
+          y: dog.y + (Math.random() - 0.5) * 12,
           vx: -scrollSpeed * 0.4,
           vy: (Math.random() - 0.5) * 1.5,
-          size: dog.isSliding ? 4 : 5,
+          size: 5,
           alpha: 0.9,
-          color: dog.isSliding ? '#f97316' : (dog.isJumping ? '#38bdf8' : '#a855f7')
+          color: dog.isJumping ? '#38bdf8' : '#a855f7'
         });
       }
 
@@ -2570,17 +2412,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (distance >= 100) {
         distance = 100;
         gameWon = true;
-        completeCurrentChallenge('¡Superaste la pista Geometry Dash en Patitas al Rescate con saltos y deslizamientos perfectos!');
+        completeCurrentChallenge('¡Superaste la pista Geometry Dash en Patitas al Rescate con saltos precisos!');
         return;
       }
 
-      // Generación de obstáculos variados (Picos simples, picos dobles y obstáculos elevados)
+      // Generación exclusiva de obstáculos en el suelo (Picos simples y picos dobles para saltar)
       spawnCounter++;
       const spawnLimit = Math.max(36, Math.floor(64 - (distance / 100) * 26));
       if (spawnCounter > spawnLimit) {
         spawnCounter = 0;
         const rand = Math.random();
-        if (rand < 0.45) {
+        if (rand < 0.55) {
           // Pico simple neón Geometry Dash en suelo
           obstacles.push({
             x: canvas.width + 10,
@@ -2589,7 +2431,7 @@ document.addEventListener('DOMContentLoaded', () => {
             h: 22,
             type: 'spike'
           });
-        } else if (rand < 0.72) {
+        } else {
           // Pico doble neón en suelo
           obstacles.push({
             x: canvas.width + 10,
@@ -2597,15 +2439,6 @@ document.addEventListener('DOMContentLoaded', () => {
             w: 38,
             h: 22,
             type: 'double-spike'
-          });
-        } else {
-          // Obstáculo aéreo suspendido (Requiere BAJAR / deslizarse por debajo)
-          obstacles.push({
-            x: canvas.width + 10,
-            y: groundY - 44,
-            w: 36,
-            h: 20,
-            type: 'overhead'
           });
         }
       }
@@ -2653,7 +2486,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (p.alpha <= 0) particles.splice(i, 1);
       }
 
-      // Dibujar y gestionar obstáculos
+      // Dibujar y gestionar obstáculos (solo picos en suelo)
       for (let i = obstacles.length - 1; i >= 0; i--) {
         const obs = obstacles[i];
         obs.x -= scrollSpeed;
@@ -2702,49 +2535,12 @@ document.addEventListener('DOMContentLoaded', () => {
             ctx.stroke();
           }
           ctx.restore();
-        } else if (obs.type === 'overhead') {
-          // Obstáculo aéreo suspendido (bloque neón con advertencia de deslizamiento)
-          ctx.save();
-          ctx.shadowColor = '#f59e0b';
-          ctx.shadowBlur = 14;
-          ctx.fillStyle = '#1e293b';
-          ctx.strokeStyle = '#fbbf24';
-          ctx.lineWidth = 2;
-          ctx.beginPath();
-          ctx.roundRect(obs.x, obs.y, obs.w, obs.h, 4);
-          ctx.fill();
-          ctx.stroke();
-
-          // Franjas de advertencia en el obstáculo aéreo
-          ctx.fillStyle = '#f59e0b';
-          ctx.font = 'bold 9px "JetBrains Mono", monospace';
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.fillText('⚡ BAJAR', obs.x + obs.w / 2, obs.y + obs.h / 2);
-          ctx.restore();
         }
 
-        // Detección de colisiones precisa
-        let collided = false;
-        if (obs.type === 'overhead') {
-          // El obstáculo aéreo se esquiva SI Y SOLO SI el perro se desliza por el suelo
-          if (!dog.isSliding) {
-            // Si está de pie o saltando hacia él
-            if (dog.x + 14 > obs.x && dog.x - 14 < obs.x + obs.w) {
-              const dogTop = dog.isJumping ? dog.y - 20 : groundY - 26;
-              if (dogTop < obs.y + obs.h) {
-                collided = true;
-              }
-            }
-          }
-        } else {
-          // Picos en el suelo: requieren SALTAR
-          const inXRange = (dog.x + 12 > obs.x && dog.x - 12 < obs.x + obs.w);
-          const inYRange = (dog.y + 12 >= obs.y);
-          if (inXRange && inYRange) {
-            collided = true;
-          }
-        }
+        // Detección de colisiones precisa sobre picos en el suelo
+        const inXRange = (dog.x + 12 > obs.x && dog.x - 12 < obs.x + obs.w);
+        const inYRange = (dog.y + 12 >= obs.y);
+        let collided = inXRange && inYRange;
 
         if (collided) {
           lives--;
@@ -2775,7 +2571,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       // Dibujar perro
-      drawDog(dog.x, dog.y, dog.frame, dog.isJumping, dog.isSliding, dog.rotation);
+      drawDog(dog.x, dog.y, dog.frame, dog.isJumping, dog.rotation);
 
       animId = requestAnimationFrame(loop);
     }
@@ -2837,51 +2633,6 @@ document.addEventListener('DOMContentLoaded', () => {
         start: { r: 4, c: 0 },
         target: { r: 0, c: 4 },
         obstacles: [{ r: 2, c: 0 }, { r: 2, c: 1 }, { r: 2, c: 3 }, { r: 2, c: 4 }]
-      },
-      {
-        id: 6,
-        title: 'Nivel 6: Circuito Cuadrado',
-        desc: 'Bordea el núcleo impenetrable por el anillo exterior.',
-        size: 5,
-        start: { r: 0, c: 0 },
-        target: { r: 4, c: 2 },
-        obstacles: [{ r: 1, c: 1 }, { r: 1, c: 2 }, { r: 1, c: 3 }, { r: 2, c: 1 }, { r: 2, c: 2 }, { r: 2, c: 3 }, { r: 3, c: 1 }, { r: 3, c: 2 }, { r: 3, c: 3 }]
-      },
-      {
-        id: 7,
-        title: 'Nivel 7: Intersección en Cruz',
-        desc: 'El centro tiene un bloqueo en cruz; navega por los flancos.',
-        size: 5,
-        start: { r: 0, c: 2 },
-        target: { r: 4, c: 2 },
-        obstacles: [{ r: 2, c: 1 }, { r: 2, c: 2 }, { r: 2, c: 3 }, { r: 1, c: 2 }, { r: 3, c: 2 }]
-      },
-      {
-        id: 8,
-        title: 'Nivel 8: Puente de Datos',
-        desc: 'Cruza entre los dos cuadrantes a través del puente único.',
-        size: 5,
-        start: { r: 4, c: 4 },
-        target: { r: 0, c: 0 },
-        obstacles: [{ r: 0, c: 2 }, { r: 1, c: 2 }, { r: 3, c: 2 }, { r: 4, c: 2 }, { r: 2, c: 0 }, { r: 2, c: 4 }]
-      },
-      {
-        id: 9,
-        title: 'Nivel 9: Campo Minado',
-        desc: 'Programa con precisión milimétrica entre obstáculos dispersos.',
-        size: 5,
-        start: { r: 0, c: 0 },
-        target: { r: 4, c: 4 },
-        obstacles: [{ r: 0, c: 3 }, { r: 1, c: 1 }, { r: 2, c: 3 }, { r: 3, c: 1 }, { r: 3, c: 2 }, { r: 4, c: 1 }]
-      },
-      {
-        id: 10,
-        title: 'Nivel 10: El Gran Algoritmo',
-        desc: 'Desafío final: laberinto espiral con curva cerrada.',
-        size: 5,
-        start: { r: 4, c: 0 },
-        target: { r: 0, c: 4 },
-        obstacles: [{ r: 4, c: 1 }, { r: 3, c: 1 }, { r: 2, c: 1 }, { r: 1, c: 1 }, { r: 1, c: 3 }, { r: 2, c: 3 }, { r: 3, c: 3 }, { r: 4, c: 3 }]
       }
     ];
 
@@ -3053,7 +2804,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentPill) currentPill.classList.add('completed');
 
             if (currentPuzzleIdx >= PUZZLES.length - 1) {
-              completeCurrentChallenge('¡Completaste con éxito los 10 acertijos algorítmicos de programación en SoftPlay!');
+              completeCurrentChallenge('¡Completaste con éxito los 5 acertijos algorítmicos de programación en SoftPlay!');
             } else {
               titleTxt.textContent = `✅ ¡Acertijo ${currentPuzzleIdx + 1} Resuelto! Cargando el siguiente...`;
               setTimeout(() => {
@@ -3107,53 +2858,61 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // =========================================================================
-  // 7. TECNOFIX: SIMULADOR DE ENSAMBLAJE DE PC CON PRECISIÓN
+  // 7. TECNOFIX: SIMULADOR INTERACTIVO DE ENSAMBLAJE & DIAGNÓSTICO DE PC
   // =========================================================================
   function buildTecnoFixAssembly() {
     const components = [
-      { id: 'cpu', name: 'CPU Intel i9', icon: 'fa-microchip', slotName: 'Socket CPU' },
-      { id: 'ram', name: 'RAM 32GB RGB', icon: 'fa-memory', slotName: 'Ranuras RAM' },
-      { id: 'gpu', name: 'RTX 4080 GPU', icon: 'fa-tv', slotName: 'Ranura PCIe' },
-      { id: 'ssd', name: 'SSD M.2 2TB', icon: 'fa-hard-drive', slotName: 'Slot M.2' },
-      { id: 'psu', name: 'Fuente 850W', icon: 'fa-plug', slotName: 'Bahía PSU' }
+      { id: 'cpu', name: 'CPU Intel i9', icon: 'fa-microchip', slotName: 'Socket CPU', action: '🧪 Aplicar Pasta Térmica', actionDone: '✓ Pasta Térmica & Seguro OK' },
+      { id: 'ram', name: 'RAM 32GB RGB', icon: 'fa-memory', slotName: 'Ranuras RAM', action: '🔒 Cerrar Pestillos', actionDone: '✓ Dual-Channel Fijado' },
+      { id: 'gpu', name: 'RTX 4080 GPU', icon: 'fa-tv', slotName: 'Ranura PCIe', action: '🔩 Atornillar Soporte', actionDone: '✓ Soporte PCIe Asegurado' },
+      { id: 'ssd', name: 'SSD M.2 2TB', icon: 'fa-hard-drive', slotName: 'Slot M.2', action: '🛡️ Fijar Disipador', actionDone: '✓ Disipador Atornillado' },
+      { id: 'psu', name: 'Fuente 850W', icon: 'fa-plug', slotName: 'Bahía PSU', action: '⚡ Conectar 24-Pin', actionDone: '✓ Cable ATX Conectado' }
     ];
 
     let selectedComp = null;
-    let installedParts = {};
+    let placedParts = {};
+    let securedParts = {};
+    let isPowered = false;
+    let turboFanActive = false;
 
     interactiveArena.innerHTML = `
       <div class="tecnofix-assembly-ui">
         <div class="assembly-hud-bar">
           <span><i class="fa-solid fa-wrench"></i> Ensamble: <strong id="pc-count-txt">0 / 5</strong></span>
-          <span id="pc-status-msg" style="color:var(--text-muted);">Toca una pieza y luego su ranura</span>
+          <span id="pc-status-msg" style="color:var(--text-muted);">Arrastra o toca una pieza y móntala en su ranura</span>
         </div>
 
-        <div class="pc-chassis-stage">
-          <div class="pc-slot-zone" data-slot="cpu">
+        <div class="pc-chassis-stage rgb-cyan" id="pc-chassis">
+          <div class="pc-slot-zone" data-slot="cpu" id="slot-zone-cpu">
             <i class="fa-solid fa-microchip slot-icon" style="font-size:1.3rem;"></i>
-            <span style="font-size:0.7rem; font-weight:700;">Socket CPU</span>
+            <span class="slot-label" style="font-size:0.7rem; font-weight:700;">Socket CPU</span>
+            <div class="slot-action-area" id="slot-act-cpu"></div>
           </div>
-          <div class="pc-slot-zone" data-slot="ram">
+          <div class="pc-slot-zone" data-slot="ram" id="slot-zone-ram">
             <i class="fa-solid fa-memory slot-icon" style="font-size:1.3rem;"></i>
-            <span style="font-size:0.7rem; font-weight:700;">Ranuras RAM</span>
+            <span class="slot-label" style="font-size:0.7rem; font-weight:700;">Ranuras RAM</span>
+            <div class="slot-action-area" id="slot-act-ram"></div>
           </div>
-          <div class="pc-slot-zone" data-slot="gpu">
+          <div class="pc-slot-zone" data-slot="gpu" id="slot-zone-gpu">
             <i class="fa-solid fa-tv slot-icon" style="font-size:1.3rem;"></i>
-            <span style="font-size:0.7rem; font-weight:700;">Puerto PCIe</span>
+            <span class="slot-label" style="font-size:0.7rem; font-weight:700;">Puerto PCIe</span>
+            <div class="slot-action-area" id="slot-act-gpu"></div>
           </div>
-          <div class="pc-slot-zone" data-slot="ssd">
+          <div class="pc-slot-zone" data-slot="ssd" id="slot-zone-ssd">
             <i class="fa-solid fa-hard-drive slot-icon" style="font-size:1.3rem;"></i>
-            <span style="font-size:0.7rem; font-weight:700;">Slot M.2</span>
+            <span class="slot-label" style="font-size:0.7rem; font-weight:700;">Slot M.2</span>
+            <div class="slot-action-area" id="slot-act-ssd"></div>
           </div>
-          <div class="pc-slot-zone" data-slot="psu" style="grid-column: span 2;">
+          <div class="pc-slot-zone" data-slot="psu" id="slot-zone-psu" style="grid-column: span 2;">
             <i class="fa-solid fa-plug slot-icon" style="font-size:1.3rem;"></i>
-            <span style="font-size:0.7rem; font-weight:700;">Bahía Fuente PSU</span>
+            <span class="slot-label" style="font-size:0.7rem; font-weight:700;">Bahía Fuente PSU</span>
+            <div class="slot-action-area" id="slot-act-psu"></div>
           </div>
         </div>
 
         <div class="pc-parts-tray" id="pc-tray">
           ${components.map(c => `
-            <div class="pc-part-card" data-comp="${c.id}">
+            <div class="pc-part-card" data-comp="${c.id}" draggable="true" title="Arrastra o toca para instalar">
               <i class="fa-solid ${c.icon}"></i>
               <span>${c.name}</span>
             </div>
@@ -3163,19 +2922,135 @@ document.addEventListener('DOMContentLoaded', () => {
         <button id="btn-power-pc" class="btn-power-pc" disabled>
           <i class="fa-solid fa-power-off"></i> ⚡ ENCENDER COMPUTADOR GAMER
         </button>
+
+        <div id="pc-interactive-console" style="display:none; width:100%; max-width:380px;">
+          <div class="pc-console-box">
+            <div class="console-tools-bar">
+              <div class="rgb-tool-group">
+                <span style="font-size:0.7rem; font-weight:700; color:#94a3b8;">Luces RGB:</span>
+                <button class="btn-rgb-chip active" data-rgb="cyan" title="Azul Cyan" style="background:#06b6d4;"></button>
+                <button class="btn-rgb-chip" data-rgb="green" title="Verde Matrix" style="background:#10b981;"></button>
+                <button class="btn-rgb-chip" data-rgb="purple" title="Púrpura Cyber" style="background:#a855f7;"></button>
+                <button class="btn-rgb-chip" data-rgb="rainbow" title="RGB Rainbow" style="background:linear-gradient(90deg, #ef4444, #10b981, #38bdf8);"></button>
+              </div>
+              <button id="btn-turbo-fan" class="btn-console-fan">
+                <i class="fa-solid fa-fan" id="fan-icon"></i> Fans: <strong id="fan-status-txt">Normal (48°C)</strong>
+              </button>
+            </div>
+
+            <button id="btn-start-benchmark" class="btn-benchmark-run">
+              <i class="fa-solid fa-gauge-high"></i> EJECUTAR TEST DE RENDIMIENTO (240 FPS)
+            </button>
+
+            <div id="benchmark-results-box" class="benchmark-results-grid" style="display:none;">
+              <span><i class="fa-solid fa-microchip" style="color:#38bdf8;"></i> CPU: <strong id="bm-cpu-txt">5.4 GHz • 36°C</strong></span>
+              <span><i class="fa-solid fa-memory" style="color:#10b981;"></i> RAM: <strong>32GB Dual Channel</strong></span>
+              <span><i class="fa-solid fa-tv" style="color:#a855f7;"></i> GPU: <strong>RTX 4080 (99%)</strong></span>
+              <span><i class="fa-solid fa-bolt" style="color:#f59e0b;"></i> FPS: <strong id="bm-fps-txt" style="color:#10b981; font-weight:800;">60 FPS</strong></span>
+            </div>
+          </div>
+        </div>
       </div>
     `;
 
     const countTxt = document.getElementById('pc-count-txt');
     const statusMsg = document.getElementById('pc-status-msg');
     const powerBtn = document.getElementById('btn-power-pc');
+    const chassis = document.getElementById('pc-chassis');
     const partCards = document.querySelectorAll('.pc-part-card');
     const slotZones = document.querySelectorAll('.pc-slot-zone');
+    const consoleBox = document.getElementById('pc-interactive-console');
+    const turboFanBtn = document.getElementById('btn-turbo-fan');
+    const fanIcon = document.getElementById('fan-icon');
+    const fanStatusTxt = document.getElementById('fan-status-txt');
+    const benchmarkBtn = document.getElementById('btn-start-benchmark');
+    const benchmarkResults = document.getElementById('benchmark-results-box');
+    const bmFpsTxt = document.getElementById('bm-fps-txt');
+    const bmCpuTxt = document.getElementById('bm-cpu-txt');
 
+    function checkAllSecured() {
+      const securedCount = Object.keys(securedParts).length;
+      countTxt.textContent = `${securedCount} / 5`;
+      if (securedCount >= 5) {
+        powerBtn.disabled = false;
+        statusMsg.style.color = 'var(--green-accent)';
+        statusMsg.textContent = '¡Todos los componentes asegurados con éxito! Pulsa Encender Computador Gamer.';
+      }
+    }
+
+    function installComponent(compId) {
+      if (placedParts[compId]) return;
+      const comp = components.find(c => c.id === compId);
+      if (!comp) return;
+
+      placedParts[compId] = true;
+      sound.playSnap();
+
+      const card = document.querySelector(`.pc-part-card[data-comp="${compId}"]`);
+      if (card) {
+        card.classList.remove('selected');
+        card.classList.add('installed');
+      }
+
+      const slot = document.getElementById(`slot-zone-${compId}`);
+      const actArea = document.getElementById(`slot-act-${compId}`);
+      const label = slot ? slot.querySelector('.slot-label') : null;
+
+      if (slot && actArea) {
+        slot.classList.remove('highlight');
+        slot.classList.add('drag-over');
+
+        if (label) label.textContent = comp.name;
+
+        actArea.innerHTML = `
+          <button class="btn-slot-action" id="act-btn-${compId}">
+            <i class="fa-solid fa-wrench"></i> ${comp.action}
+          </button>
+        `;
+
+        statusMsg.style.color = 'var(--gold-accent)';
+        statusMsg.textContent = `¡${comp.name} colocado! Pulsa "${comp.action}" para asegurar el montaje.`;
+
+        const actBtn = document.getElementById(`act-btn-${compId}`);
+        if (actBtn) {
+          actBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sound.playSnap();
+            securedParts[compId] = true;
+            slot.classList.remove('drag-over');
+            slot.classList.add('installed');
+            actArea.innerHTML = `<span style="font-size:0.62rem; color:#10b981; font-weight:800;">${comp.actionDone}</span>`;
+            statusMsg.style.color = 'var(--green-accent)';
+            statusMsg.textContent = `¡${comp.name} 100% asegurado!`;
+            checkAllSecured();
+          });
+        }
+      }
+
+      selectedComp = null;
+    }
+
+    // Drag & Drop
     partCards.forEach(card => {
+      card.addEventListener('dragstart', (e) => {
+        const compId = card.getAttribute('data-comp');
+        if (placedParts[compId]) {
+          e.preventDefault();
+          return;
+        }
+        card.classList.add('dragging');
+        e.dataTransfer.setData('text/plain', compId);
+        selectedComp = compId;
+      });
+
+      card.addEventListener('dragend', () => {
+        card.classList.remove('dragging');
+      });
+
+      // Click to select
       card.addEventListener('click', () => {
         const compId = card.getAttribute('data-comp');
-        if (installedParts[compId]) return;
+        if (placedParts[compId]) return;
 
         sound.playClick();
         partCards.forEach(c => c.classList.remove('selected'));
@@ -3190,33 +3065,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     slotZones.forEach(slot => {
+      slot.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        const slotType = slot.getAttribute('data-slot');
+        if (selectedComp === slotType && !placedParts[slotType]) {
+          slot.classList.add('drag-over');
+        }
+      });
+
+      slot.addEventListener('dragleave', () => {
+        slot.classList.remove('drag-over');
+      });
+
+      slot.addEventListener('drop', (e) => {
+        e.preventDefault();
+        slot.classList.remove('drag-over');
+        const compId = e.dataTransfer.getData('text/plain') || selectedComp;
+        const slotType = slot.getAttribute('data-slot');
+
+        if (compId === slotType) {
+          installComponent(compId);
+        } else if (compId) {
+          sound.playHurt();
+          statusMsg.style.color = '#f87171';
+          statusMsg.textContent = 'Esta ranura no corresponde a esa pieza.';
+        }
+      });
+
       slot.addEventListener('click', () => {
         const slotType = slot.getAttribute('data-slot');
-        if (installedParts[slotType]) return;
+        if (placedParts[slotType]) return;
 
         if (selectedComp === slotType) {
-          sound.playSnap();
-          installedParts[slotType] = true;
-          slot.classList.remove('highlight');
-          slot.classList.add('installed');
-          slot.querySelector('span').textContent = '✓ Instalado';
-
-          const card = document.querySelector(`.pc-part-card[data-comp="${slotType}"]`);
-          if (card) {
-            card.classList.remove('selected');
-            card.classList.add('installed');
-          }
-          selectedComp = null;
-
-          const totalInstalled = Object.keys(installedParts).length;
-          countTxt.textContent = `${totalInstalled} / 5`;
-          statusMsg.style.color = 'var(--green-accent)';
-          statusMsg.textContent = '¡Componente ensamblado con precisión!';
-
-          if (totalInstalled >= 5) {
-            powerBtn.disabled = false;
-            statusMsg.textContent = '¡Todos los componentes listos para encender!';
-          }
+          installComponent(selectedComp);
         } else if (selectedComp) {
           sound.playHurt();
           statusMsg.style.color = '#f87171';
@@ -3225,17 +3106,73 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
+    // Encendido
     powerBtn.addEventListener('click', () => {
       sound.playSuccess();
+      isPowered = true;
       powerBtn.disabled = true;
       powerBtn.classList.add('powered');
       powerBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Arrancando BIOS y RGB...';
 
       setTimeout(() => {
-        powerBtn.innerHTML = '<i class="fa-solid fa-check"></i> ¡PC Operativo a 240 FPS!';
-        completeCurrentChallenge('¡PC Gamer completamente ensamblado y servicio técnico TecnoFix certificado!');
-      }, 1400);
+        powerBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> COMPUTADOR GAMER INICIADO';
+        if (consoleBox) consoleBox.style.display = 'block';
+        statusMsg.style.color = 'var(--blue-accent)';
+        statusMsg.textContent = '¡PC Operativo! Personaliza las luces RGB o ejecuta el Test de Rendimiento.';
+      }, 900);
     });
+
+    // Control de Luces RGB
+    document.querySelectorAll('.btn-rgb-chip').forEach(btn => {
+      btn.addEventListener('click', () => {
+        sound.playClick();
+        document.querySelectorAll('.btn-rgb-chip').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const color = btn.getAttribute('data-rgb');
+        chassis.className = 'pc-chassis-stage powered rgb-' + color;
+      });
+    });
+
+    // Turbo Fans
+    if (turboFanBtn) {
+      turboFanBtn.addEventListener('click', () => {
+        sound.playClick();
+        turboFanActive = !turboFanActive;
+        if (turboFanActive) {
+          turboFanBtn.classList.add('turbo');
+          fanIcon.classList.add('fa-spin');
+          fanStatusTxt.textContent = 'Turbo (34°C)';
+          if (bmCpuTxt) bmCpuTxt.textContent = '5.4 GHz • 34°C';
+        } else {
+          turboFanBtn.classList.remove('turbo');
+          fanIcon.classList.remove('fa-spin');
+          fanStatusTxt.textContent = 'Normal (48°C)';
+          if (bmCpuTxt) bmCpuTxt.textContent = '5.4 GHz • 48°C';
+        }
+      });
+    }
+
+    // Benchmark Interactivo
+    if (benchmarkBtn) {
+      benchmarkBtn.addEventListener('click', () => {
+        sound.playClick();
+        benchmarkBtn.disabled = true;
+        benchmarkBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Ejecutando Test de Estrés...';
+        benchmarkResults.style.display = 'grid';
+
+        let curFps = 60;
+        const fpsInterval = setInterval(() => {
+          curFps += 30;
+          if (bmFpsTxt) bmFpsTxt.textContent = `${curFps} FPS`;
+          if (curFps >= 240) {
+            clearInterval(fpsInterval);
+            sound.playSuccess();
+            benchmarkBtn.innerHTML = '<i class="fa-solid fa-circle-check"></i> Benchmark Superado: 240 FPS Ultra';
+            completeCurrentChallenge('¡PC Gamer completamente ensamblado y servicio técnico TecnoFix certificado a 240 FPS!');
+          }
+        }, 180);
+      });
+    }
 
     activeGameCleanup = () => {};
   }

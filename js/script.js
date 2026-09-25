@@ -132,6 +132,21 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentIndex = 0;
 
   // 2. REFERENCIAS AL DOM
+  // Elementos del Escenario de Introducción
+  const introStage = document.getElementById('intro-stage');
+  const introVideo = document.getElementById('intro-video');
+  const exitIntroBtn = document.getElementById('exit-intro-btn');
+  const reopenIntroBtn = document.getElementById('reopen-intro-btn');
+  const introAudioBtn = document.getElementById('intro-audio-btn');
+  const introAudioIcon = introAudioBtn ? introAudioBtn.querySelector('i') : null;
+  const introAudioText = document.getElementById('intro-audio-text');
+  const introPlayPauseBtn = document.getElementById('intro-playpause-btn');
+  const introPlayPauseIcon = introPlayPauseBtn ? introPlayPauseBtn.querySelector('i') : null;
+  const introPlayPauseText = document.getElementById('intro-playpause-text');
+  const introFsBtn = document.getElementById('intro-fs-btn');
+  let introIdleTimeout = null;
+
+  // Elementos de la Plataforma de Proyectos
   const projectVideo = document.getElementById('project-video');
   const videoPlaceholder = document.getElementById('video-placeholder');
   const placeholderTitle = document.getElementById('placeholder-title');
@@ -252,13 +267,18 @@ document.addEventListener('DOMContentLoaded', () => {
         projectVideo.currentTime = 0;
       }
       
-      // Pausar o reproducir con control seguro
-      projectVideo.play().then(() => {
-        playPauseIcon.className = 'fa-solid fa-pause';
-      }).catch(() => {
-        // En caso de bloqueo de autoplay del navegador
+      // Pausar o reproducir con control seguro (solo si no está activo el video de intro)
+      if (!isIntroCurrentlyActive()) {
+        projectVideo.play().then(() => {
+          playPauseIcon.className = 'fa-solid fa-pause';
+        }).catch(() => {
+          // En caso de bloqueo de autoplay del navegador
+          playPauseIcon.className = 'fa-solid fa-play';
+        });
+      } else {
+        projectVideo.pause();
         playPauseIcon.className = 'fa-solid fa-play';
-      });
+      }
     } else {
       // Estado cuando no hay video aún
       projectVideo.pause();
@@ -370,10 +390,178 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Atajos de teclado: Flechas para navegar, Espacio para pausar video
+  // ==========================================================================
+  // 8. CONTROLADOR DEL ESCENARIO DE INTRODUCCIÓN (FONDO EN BUCLE PARA EXPOSITORES)
+  // ==========================================================================
+  function isIntroCurrentlyActive() {
+    return introStage && introStage.classList.contains('active');
+  }
+
+  function startIntroIdleTimer() {
+    clearTimeout(introIdleTimeout);
+    if (!introStage || !introStage.classList.contains('active')) return;
+    introStage.classList.remove('user-idle');
+    introIdleTimeout = setTimeout(() => {
+      if (introStage && introStage.classList.contains('active')) {
+        introStage.classList.add('user-idle');
+      }
+    }, 3800);
+  }
+
+  function exitIntro() {
+    if (!introStage) return;
+    clearTimeout(introIdleTimeout);
+    introStage.classList.remove('active');
+    introStage.classList.remove('user-idle');
+
+    // Pausar el video de introducción para liberar recursos de CPU/GPU y silenciarlo
+    if (introVideo) {
+      introVideo.pause();
+    }
+
+    // Iniciar la reproducción del primer proyecto si está listo
+    const currentProj = projectsData[currentIndex];
+    if (currentProj && currentProj.isReady && projectVideo && projectVideo.src) {
+      projectVideo.play().then(() => {
+        playPauseIcon.className = 'fa-solid fa-pause';
+      }).catch(() => {
+        playPauseIcon.className = 'fa-solid fa-play';
+      });
+    }
+  }
+
+  function reopenIntro() {
+    if (!introStage) return;
+
+    // Pausar el video del proyecto activo
+    if (projectVideo) {
+      projectVideo.pause();
+      playPauseIcon.className = 'fa-solid fa-play';
+    }
+
+    introStage.classList.add('active');
+    introStage.classList.remove('user-idle');
+
+    if (introVideo) {
+      introVideo.play().then(() => {
+        if (introPlayPauseIcon) introPlayPauseIcon.className = 'fa-solid fa-pause';
+        if (introPlayPauseText) introPlayPauseText.textContent = 'Pausar';
+      }).catch(err => {
+        console.warn('Reanudación diferida de intro:', err);
+      });
+    }
+    startIntroIdleTimer();
+  }
+
+  function toggleIntroAudio() {
+    if (!introVideo) return;
+    introVideo.muted = !introVideo.muted;
+    if (introVideo.muted) {
+      if (introAudioIcon) introAudioIcon.className = 'fa-solid fa-volume-xmark';
+      if (introAudioText) introAudioText.textContent = 'Activar Sonido';
+      if (introAudioBtn) introAudioBtn.classList.remove('active');
+    } else {
+      if (introAudioIcon) introAudioIcon.className = 'fa-solid fa-volume-high';
+      if (introAudioText) introAudioText.textContent = 'Silenciar';
+      if (introAudioBtn) introAudioBtn.classList.add('active');
+    }
+  }
+
+  function toggleIntroPlay() {
+    if (!introVideo) return;
+    if (introVideo.paused || introVideo.ended) {
+      introVideo.play();
+      if (introPlayPauseIcon) introPlayPauseIcon.className = 'fa-solid fa-pause';
+      if (introPlayPauseText) introPlayPauseText.textContent = 'Pausar';
+    } else {
+      introVideo.pause();
+      if (introPlayPauseIcon) introPlayPauseIcon.className = 'fa-solid fa-play';
+      if (introPlayPauseText) introPlayPauseText.textContent = 'Reanudar';
+    }
+  }
+
+  function toggleIntroFullscreen() {
+    if (!document.fullscreenElement) {
+      const targetElem = introStage || document.documentElement;
+      if (targetElem.requestFullscreen) {
+        targetElem.requestFullscreen().catch(err => console.warn(err));
+      } else if (targetElem.webkitRequestFullscreen) {
+        targetElem.webkitRequestFullscreen();
+      }
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  // Inicializar listeners del Intro
+  if (exitIntroBtn) {
+    exitIntroBtn.addEventListener('click', exitIntro);
+  }
+  if (reopenIntroBtn) {
+    reopenIntroBtn.addEventListener('click', reopenIntro);
+  }
+  if (introAudioBtn) {
+    introAudioBtn.addEventListener('click', toggleIntroAudio);
+  }
+  if (introPlayPauseBtn) {
+    introPlayPauseBtn.addEventListener('click', toggleIntroPlay);
+  }
+  if (introFsBtn) {
+    introFsBtn.addEventListener('click', toggleIntroFullscreen);
+  }
+
+  // Comportamiento del video en bucle
+  if (introVideo) {
+    introVideo.loop = true;
+    introVideo.addEventListener('ended', () => {
+      introVideo.currentTime = 0;
+      introVideo.play().catch(() => {});
+    });
+
+    // Intentar reproducción automática (inicia silenciado para cumplir con políticas del navegador)
+    introVideo.play().catch(err => {
+      console.log('Autoplay silenciado en espera:', err);
+    });
+  }
+
+  // Control de inactividad de cursor en modo intro (para pantalla limpia a expositores)
+  if (introStage) {
+    ['mousemove', 'click', 'keydown', 'touchstart'].forEach(evt => {
+      introStage.addEventListener(evt, startIntroIdleTimer, { passive: true });
+    });
+    startIntroIdleTimer();
+  }
+
+  // Atajos de teclado: Flechas para navegar, Espacio para pausar video o salir de intro
   window.addEventListener('keydown', (e) => {
     if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
+    // Si el video de introducción está en pantalla
+    if (isIntroCurrentlyActive()) {
+      if (e.key === 'Enter' || e.key === 'Escape' || e.code === 'Space') {
+        e.preventDefault();
+        exitIntro();
+        return;
+      }
+      if (e.key === 'm' || e.key === 'M') {
+        e.preventDefault();
+        toggleIntroAudio();
+        return;
+      }
+      if (e.key === 'p' || e.key === 'P') {
+        e.preventDefault();
+        toggleIntroPlay();
+        return;
+      }
+      if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleIntroFullscreen();
+        return;
+      }
+      return;
+    }
+
+    // Navegación en la plataforma de proyectos
     if (e.key === 'ArrowRight') {
       e.preventDefault();
       switchProject(currentIndex + 1);
@@ -388,7 +576,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // 8. INICIALIZACIÓN
+  // 9. INICIALIZACIÓN
   renderDock();
+
+  // Si se solicita omitir la intro (por ejemplo al volver desde el Pasaporte de Minijuegos)
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('skipIntro') === '1') {
+    exitIntro();
+  }
+
   loadProject(0);
 });
